@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Http\Controllers\BaseController;
-use App\Models\User;
 
 class TeamController extends BaseController
 {
@@ -17,18 +16,11 @@ class TeamController extends BaseController
     public function index()
     {
         $teams = Team::get();
-        return view('admin.team.index', compact('teams'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $users = User::get();
-        return view('admin.team.add', compact('users'));
+        return response()->json([
+            "status" => 200,
+            "data" => $teams,
+            "message" => "Team List",
+        ]);
     }
 
     /**
@@ -54,9 +46,11 @@ class TeamController extends BaseController
         $team->phone = $request->phone;
         $team->save();
 
-        // dd('done');
-
-        return $this->responseRedirect('admin.team.index', 'team has been created successfully', 'success', false, false);
+        return response()->json([
+            "status" => 200,
+            "data" => $team,
+            "message" => "Team Create",
+        ]);
     }
 
     /**
@@ -79,11 +73,9 @@ class TeamController extends BaseController
 
         $teamId = $request->id;
 
-        Team::where('id', $teamId)->update([
+        $team = Team::where('id', $teamId)->update([
             'status' => $request->status,
         ]);
-
-        return response()->json(array('message' => 'Team status has been successfully updated'));
     }
 
     /**
@@ -94,9 +86,8 @@ class TeamController extends BaseController
      */
     public function edit($id)
     {
-        $users = User::get();
         $team = Team::find($id);
-        return view('admin.team.edit', compact('team', 'users'));
+        return view('admin.team.edit', compact('team'));
     }
 
     /**
@@ -115,15 +106,19 @@ class TeamController extends BaseController
         ]);
 
         // dd($request->all());
+        $team = Team::find($id);
 
-
-        Team::where('id', $id)->update([
+        $team->update([
             'userId' => $request->userId,
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone
         ]);
-        return $this->responseRedirectBack('Team has been updated successfully', 'success', false, false);
+        return response()->json([
+            "status" => 200,
+            "data" => $team,
+            "message" => "Team Update Successfull",
+        ]);
     }
 
     /**
@@ -135,6 +130,10 @@ class TeamController extends BaseController
     public function destroy($id)
     {
         Team::where('id', $id)->delete();
-        return $this->responseRedirect('admin.team.index', 'Team has been deleted successfully', 'success', false, false);
+
+        return response()->json([
+            "status" => 200,
+            "message" => "Team Delete Successfull",
+        ]);
     }
 }

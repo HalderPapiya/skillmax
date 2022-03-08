@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         $this->HasMany('App/Models/Forum', 'userId', 'id');
     }
+
+    public function team()
+    {
+        $this->HasMany('App/Models/Team', 'userId', 'id');
+    }
 }

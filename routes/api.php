@@ -50,3 +50,11 @@ Route::post('/forum/comment/store', [App\Http\Controllers\Api\ForumCommentContro
 Route::post('/forum/comment/details/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'show']);
 Route::post('/forum/comment/update/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'update']);
 Route::post('/forum/comment/delete/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'destroy']);
+
+// ------------------Team-------------------------
+
+Route::get('/team/list', [App\Http\Controllers\Api\TeamController::class, 'index']);
+Route::post('/team/store', [App\Http\Controllers\Api\TeamController::class, 'store']);
+// Route::post('/team/details/{id}', [App\Http\Controllers\Api\ForumController::class, 'show']);
+Route::post('/team/update/{id}', [App\Http\Controllers\Api\TeamController::class, 'update']);
+Route::post('/team/delete/{id}', [App\Http\Controllers\Api\TeamController::class, 'destroy']);

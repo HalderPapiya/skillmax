@@ -19,7 +19,48 @@
     </div>
 </div>
     <div class="row section-mg row-md-body no-nav">
-       
+        <div class="col-md-3 dash-card-col">
+            <a href="{{route('admin.user.index')}}">
+                <div class="card card-body mb-0">
+                    <h5 class="mb-2">User ({{count($data->users)}})</h5>
+                    <p class="small mb-0">
+                        @foreach ($data->users as $key=> $user)
+                            {{($loop->first ? '' : ', ').($user->fName) . ' ' .($user->lName)}}
+                            @php if ($key == 2) {echo '...';break;} @endphp
+                        @endforeach
+                    </p>
+                    {{-- <i class="fas fa-list-alt app-menu__icon fa fa-group"></i> --}}
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 dash-card-col">
+            <a href="{{route('admin.user.index')}}">
+                <div class="card card-body mb-0">
+                    <h5 class="mb-2">Interest ({{count($data->interests)}})</h5>
+                    <p class="small mb-0">
+                        @foreach ($data->interests as $key=> $interest)
+                            {{($loop->first ? '' : ', ').($interest->name) }}
+                            @php if ($key == 2) {echo '...';break;} @endphp
+                        @endforeach
+                    </p>
+                    {{-- <i class="fas fa-list-alt app-menu__icon fa fa-group"></i> --}}
+                </div>
+            </a>
+        </div>
+         <div class="col-md-3 dash-card-col">
+            <a href="{{route('admin.user.index')}}">
+                <div class="card card-body mb-0">
+                    <h5 class="mb-2">Team ({{count($data->teams)}})</h5>
+                    <p class="small mb-0">
+                        @foreach ($data->teams as $key=> $team)
+                            {{($loop->first ? '' : ', ').($team->name) }}
+                            @php if ($key == 2) {echo '...';break;} @endphp
+                        @endforeach
+                    </p>
+                    {{-- <i class="fas fa-list-alt app-menu__icon fa fa-group"></i> --}}
+                </div>
+            </a>
+        </div>
         {{-- <div class="col-md-6 col-lg-3">
             <div class="widget-small info coloured-icon">
             <i class="icon fa fa-files-o fa-3x"></i>

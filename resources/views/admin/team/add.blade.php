@@ -25,6 +25,23 @@ Team
                     @csrf
                     <div class="tile-body">
                         <div class="form-group">
+                            <label class="control-label" for="name_in_bengali">User Name <span class="m-l-5 text-danger"> *</span></label>
+                            <select class="form-control @error('userId') is-invalid @enderror"
+                                name="userId" id="userId" value="{{ old('userId') }}">
+                                <option selected disabled>Select one</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->fName . ' ' . $user->lName }}</option>
+                                @endforeach
+                            </select>
+                            @error('userId')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message ?? '' }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="tile-body">
+                        <div class="form-group">
                             <label class="control-label" for="name">Name <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{ old('name') }}"/>
                             @error('name') {{ $message ?? '' }} @enderror
