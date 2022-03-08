@@ -50,6 +50,9 @@ class UserController extends BaseController
             'lName' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
+            'phone' => 'required|digits:10|integer',
+            'college' => 'required',
+            'subject' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -60,8 +63,10 @@ class UserController extends BaseController
         $fName = $request->fName;
         $lName = $request->lName;
         $email    = $request->email;
-        // $mobile    = $request->mobile;
+        $phone    = $request->phone;
         $password = $request->password;
+        $college = $request->college;
+        $subject = $request->subject;
         // $address = $request->address;
         // $landmark = $request->landmark;
         // $city = $request->city;
@@ -73,7 +78,9 @@ class UserController extends BaseController
             'password' => Hash::make($password),
             // 'address' => $address,
             // 'landmark' => $landmark,
-            // 'mobile' => $mobile,
+            'phone' => $phone,
+            'college' => $college,
+            'subject' => $subject,
             // 'city' => $city,
             // 'pin' => $pin,
 
@@ -158,14 +165,9 @@ class UserController extends BaseController
             'fName' => $request->fName,
             'lName' => $request->lName,
             // 'email' => $request->email,
-            'address' => $request->address,
-            'landmark' => $request->landmark,
-            'city' => $request->city,
-            'pin' => $request->pin,
-            'mobile' => $request->mobile,
-            'lName' => $request->lName,
-            'lName' => $request->lName,
-            'lName' => $request->lName,
+            'phone' => 'required|digits:10|integer',
+            'college' => $request->college,
+            'subject' => $request->subject,
         ]);
 
         return response()->json([
@@ -210,7 +212,7 @@ class UserController extends BaseController
                     return response()->json([
                         "status" => 400,
                         "data" => array(),
-                        "message" => "Please enter a password which is not similar then current password."
+                        "message" => "Please enter right password."
                     ]);
                 } else if ((Hash::check(request('new_password'), $user->password)) == true) {
                     return response()->json([
