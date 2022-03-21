@@ -67,6 +67,8 @@ class UserController extends BaseController
         $password = $request->password;
         $college = $request->college;
         $subject = $request->subject;
+        $passingYear = $request->passing_year;
+
         // $address = $request->address;
         // $landmark = $request->landmark;
         // $city = $request->city;
@@ -81,7 +83,7 @@ class UserController extends BaseController
             'phone' => $phone,
             'college' => $college,
             'subject' => $subject,
-            // 'city' => $city,
+            'passing_year' => $passingYear,
             // 'pin' => $pin,
 
         ]);
@@ -103,11 +105,15 @@ class UserController extends BaseController
             $user = Auth::user();
             $success['name'] =  $user->name;
             return response()->json([
+                "data" => $user,
                 "status" => 200,
                 "message" => "Login Succesfully",
             ]);
         }
-        return $this->sendError('Unauthorised.', ['error' => 'Unauthorised']);
+        return response()->json([
+            "status" => 400,
+            "message" => "Unauthorised",
+        ]);
     }
 
     /**
