@@ -44,7 +44,7 @@ class TeamController extends BaseController
             'userId' => 'required',
             'name' => 'required',
             'email' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|digits:10|integer',
         ]);
 
         $team = new Team();
@@ -111,7 +111,7 @@ class TeamController extends BaseController
             'userId' => 'required',
             'name' => 'required',
             'email' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|digits:10|integer',
         ]);
 
         // dd($request->all());

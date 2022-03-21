@@ -47,7 +47,7 @@ class UserController extends BaseController
             'fName' => 'required',
             'lName' => 'required',
             'email' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|digits:10|integer',
             'password' => 'required',
             'college' => 'required',
             'subject' => 'required',
@@ -119,7 +119,7 @@ class UserController extends BaseController
             'fName' => 'required',
             'lName' => 'required',
             'email' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|digits:10|integer',
             'college' => 'required',
             'subject' => 'required',
         ]);

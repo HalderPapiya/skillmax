@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Route;
 | API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
@@ -26,6 +23,10 @@ Route::post('/user/social/login', [App\Http\Controllers\Api\UserController::clas
 Route::get('/user/details/{id}', [App\Http\Controllers\Api\UserController::class, 'show']);
 Route::post('/user/update', [App\Http\Controllers\Api\UserController::class, 'update']);
 Route::post('/user/change-password', [App\Http\Controllers\Api\UserController::class, 'changePassword']);
+
+// ----------------Banner--------------------
+
+Route::get('/banner', [App\Http\Controllers\Api\BannerController::class, 'index']);
 
 
 // ----------------UserInterest--------------------
