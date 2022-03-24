@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::get('cache', function () {
+
+    \Artisan::call('cache:clear');
+    \Artisan::call('config:cache');
+
+    dd("Cache is cleared");
+});
+
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['guest:admin'])->group(function () {
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
