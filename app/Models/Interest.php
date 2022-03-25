@@ -16,6 +16,6 @@ class Interest extends Model
 	];
 	public function relationUserInterests()
 	{
-		$this->HasMany('App/Models/userInterest', 'userId', 'id');
+		$this->HasMany('App\Models\UserInterest', 'interestId', 'id');
 	}
 }

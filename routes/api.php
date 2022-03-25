@@ -61,7 +61,7 @@ Route::post('/forum/comment/delete/{id}', [App\Http\Controllers\Api\ForumComment
 
 // ------------------Team-------------------------
 
-Route::get('/team/list', [App\Http\Controllers\Api\TeamController::class, 'index']);
+Route::get('/team/list/{userId}', [App\Http\Controllers\Api\TeamController::class, 'index']);
 Route::post('/team/store', [App\Http\Controllers\Api\TeamController::class, 'store']);
 Route::get('/team/details/{id}', [App\Http\Controllers\Api\ForumController::class, 'show']);
 Route::post('/team/update/{id}', [App\Http\Controllers\Api\TeamController::class, 'update']);

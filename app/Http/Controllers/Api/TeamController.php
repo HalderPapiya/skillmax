@@ -13,9 +13,9 @@ class TeamController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $teams = Team::get();
+        $teams = Team::where('userId', $id)->get();
         return response()->json([
             "status" => 200,
             "data" => $teams,
@@ -35,8 +35,8 @@ class TeamController extends BaseController
         $this->validate($request, [
             'userId' => 'required',
             'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required|digits:10|integer',
+            'email' => 'required|unique:teams,email',
+            'phone' => 'required|digits:10|integer|unique:teams,phone',
         ]);
 
         $team = new Team();
@@ -71,6 +71,7 @@ class TeamController extends BaseController
     public function updateStatus(Request $request)
     {
 
+
         $teamId = $request->id;
 
         $team = Team::where('id', $teamId)->update([
@@ -101,8 +102,8 @@ class TeamController extends BaseController
         $this->validate($request, [
             'userId' => 'required',
             'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required|digits:10|integer',
+            'email' => 'required|unique:teams',
+            'phone' => 'required|digits:10|integer|unique:teams',
         ]);
 
         // dd($request->all());

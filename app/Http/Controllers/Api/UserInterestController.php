@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Interest;
 
 class UserInterestController extends BaseController
 {
@@ -18,11 +19,11 @@ class UserInterestController extends BaseController
      */
     public function index()
     {
-        $userInterests = UserInterest::get();
+        $data = UserInterest::with('interestDetails')->get();
 
         return response()->json([
             "status" => 200,
-            "data" => $userInterests,
+            "data" => $data,
             "message" => "User Interest List",
         ]);
     }

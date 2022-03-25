@@ -17,8 +17,8 @@ class UserInterest extends Model
     {
         return $this->belongsTo('App/Models/User', 'userId', 'id');
     }
-    public function interest()
+    public function interestDetails()
     {
-        return $this->belongsTo('App/Models/Interest', 'interestId', 'id');
+        return $this->belongsTo('App\Models\Interest', 'interestId', 'id');
     }
 }

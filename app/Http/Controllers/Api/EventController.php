@@ -18,9 +18,34 @@ class EventController extends BaseController
     {
         $events = Event::get();
 
+        $data = [];
+        foreach ($events as $eventKey => $eventValue) {
+            $data[] = [
+                'title' => $eventValue->title,
+                'start_date' => $eventValue->start_date,
+                'pretty_start_date' => date('jS F, Y', strtotime($eventValue->start_date)),
+                'end_date' => $eventValue->end_date,
+                'pretty_end_date' => date('jS F, Y', strtotime($eventValue->end_date)),
+                'image' => $eventValue->image,
+                'description' => $eventValue->description,
+                'email' => $eventValue->email,
+                'phone' => $eventValue->phone,
+                'website' => $eventValue->website,
+                'address' => $eventValue->address,
+                'price' => $eventValue->price,
+                'registration_link' => $eventValue->registration_link,
+                'deleted_at' => $eventValue->deleted_at,
+                'status' => $eventValue->status,
+                'created_at' => $eventValue->created_at,
+                'updated_at' => $eventValue->title,
+            ];
+        }
+
+
+
         return response()->json([
             "status" => 200,
-            "data" => $events,
+            "data" => $data,
             "message" => "Event Comment List",
         ]);
     }
