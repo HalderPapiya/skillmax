@@ -66,3 +66,7 @@ Route::post('/team/store', [App\Http\Controllers\Api\TeamController::class, 'sto
 Route::get('/team/details/{id}', [App\Http\Controllers\Api\ForumController::class, 'show']);
 Route::post('/team/update/{id}', [App\Http\Controllers\Api\TeamController::class, 'update']);
 Route::post('/team/delete/{id}', [App\Http\Controllers\Api\TeamController::class, 'destroy']);
+
+// ------------------Event-------------------------
+
+Route::get('/event/list', [App\Http\Controllers\Api\EventController::class, 'index']);
