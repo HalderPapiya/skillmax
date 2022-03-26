@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
-use App\Models\Event;
+use App\Models\PricingPlan;
 use Illuminate\Support\Facades\Validator;
 
-class EventController extends BaseController
+class PricingPlanController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +16,12 @@ class EventController extends BaseController
      */
     public function index()
     {
-        $events = Event::get();
+        $data = PricingPlan::get();
 
         return response()->json([
             "status" => 200,
-            "data" => $events,
-            "message" => "Event Comment List",
+            "data" => $data,
+            "message" => "Pricing Plan List",
         ]);
     }
 
@@ -57,13 +57,6 @@ class EventController extends BaseController
      */
     public function show($id)
     {
-        $data = Event::where('id', $id)->get();
-
-        return response()->json([
-            "status" => 200,
-            "data" => $data,
-            "message" => "Forum Event Details",
-        ]);
     }
 
     /**

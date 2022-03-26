@@ -70,3 +70,13 @@ Route::post('/team/delete/{id}', [App\Http\Controllers\Api\TeamController::class
 // ------------------Event-------------------------
 
 Route::get('/event/list', [App\Http\Controllers\Api\EventController::class, 'index']);
+Route::get('/event/details/{id}', [App\Http\Controllers\Api\EventController::class, 'show']);
+
+Route::get('/course/list', [App\Http\Controllers\Api\CourseController::class, 'index']);
+Route::get('/pricing-plan/list', [App\Http\Controllers\Api\PricingPlanController::class, 'index']);
+
+Route::get('/notification/list', [App\Http\Controllers\Api\NotificationController::class, 'index']);
+Route::get('/notification/list/{id}', [App\Http\Controllers\Api\NotificationController::class, 'userWiseNotification']);
+
+Route::get('/mentor/list', [App\Http\Controllers\Api\MentorController::class, 'index']);
+Route::get('/mentor/list/{id}', [App\Http\Controllers\Api\MentorController::class, 'courseWiseMentor']);
