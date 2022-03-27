@@ -31,6 +31,7 @@ Route::get('/user/details/{id}', [App\Http\Controllers\Api\UserController::class
 Route::post('/user/update', [App\Http\Controllers\Api\UserController::class, 'update']);
 Route::post('/user/change-password', [App\Http\Controllers\Api\UserController::class, 'changePassword']);
 
+Route::post('/forgot-password', [App\Http\Controllers\Api\UserController::class, 'forgot']);
 // ----------------Banner--------------------
 
 Route::get('/banner', [App\Http\Controllers\Api\BannerController::class, 'index']);
