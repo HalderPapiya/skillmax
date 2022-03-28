@@ -25,6 +25,17 @@ class ForumCommentController extends BaseController
             "message" => "Forum Comment List",
         ]);
     }
+    public function noOfComment($id)
+    {
+        $forums = ForumComment::where('forumId', $id)->count();
+
+        return response()->json([
+            "status" => 200,
+            "data" => $forums,
+            "message" => "Forum Comment List",
+        ]);
+    }
+
 
 
     /**

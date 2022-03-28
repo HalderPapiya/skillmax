@@ -172,7 +172,7 @@ class UserController extends BaseController
             'fName' => $request->fName,
             'lName' => $request->lName,
             // 'email' => $request->email,
-            'phone' => 'required|digits:10|integer',
+            'phone' =>  $request->phone,
             'college' => $request->college,
             'subject' => $request->subject,
         ]);
@@ -253,11 +253,11 @@ class UserController extends BaseController
     // forget password
     public function forgot()
     {
-        $credentials = request()->validate(['email' => 'required|email']);
+        $credentials = request()->validate(['phone' => 'required|digits:10|integer']);
 
         Password::sendResetLink($credentials);
 
-        return response()->json(["msg" => 'Reset password link sent on your email id.']);
+        return response()->json(["msg" => 'Reset password link sent on your phone id.']);
     }
 
     public function socialLogin(Request $request)
