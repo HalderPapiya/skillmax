@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Password; 
 
 class UserController extends BaseController
 {
@@ -248,6 +249,14 @@ class UserController extends BaseController
             }
         }
         // return Response::json($arr);
+    }
+    // forget password
+    public function forgot() {
+        $credentials = request()->validate(['email' => 'required|email']);
+
+        Password::sendResetLink($credentials);
+
+        return response()->json(["msg" => 'Reset password link sent on your email id.']);
     }
 
     public function socialLogin(Request $request)
