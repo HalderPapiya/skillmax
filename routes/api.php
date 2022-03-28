@@ -60,6 +60,10 @@ Route::get('/forum/comment/details/{id}', [App\Http\Controllers\Api\ForumComment
 Route::post('/forum/comment/update/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'update']);
 Route::get('/forum/comment/delete/{userId}/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'destroy']);
 
+
+
+Route::get('/forum/like/{id}', [App\Http\Controllers\Api\ForumLikeController::class, 'index']);
+Route::post('/forum/like-toggle', [App\Http\Controllers\Api\ForumLikeController::class, 'store']);
 // ------------------Team-------------------------
 
 Route::get('/team/list/{userId}', [App\Http\Controllers\Api\TeamController::class, 'index']);
