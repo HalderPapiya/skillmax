@@ -49,25 +49,37 @@ class UserInterestController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'interestId' => 'required',
             'userId' => 'required',
+            'interestId' => 'required|array',
         ]);
+
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
-        $interestId = $request->interestId;
-        $userId = $request->userId;
 
-        $userInterest     = UserInterest::create([
-            'interestId' => $interestId,
-            'userId' => $userId,
+        foreach ($request->interestId as $interestIdKey => $interestIdValue) {
+            // $userInterestCheck = UserInterest::where([['userId' => $request->userId], ['interestId' => $interestIdValue]])->first();
+            $userInterestCheck = UserInterest::where([['userId', $request->userId], [
+                'interestId',
+                $interestIdValue
+            ]])->first();
 
+            if ($userInterestCheck) {
+                $userInterest = UserInterest::where([['userId', $request->userId], ['interestId', $interestIdValue]])->delete();
 
-        ]);
+                // return response()->json([
+                //     "status" => 200,
+                //     "message" => "Here",
+                // ]);
+            } else {
+                $userInterest = UserInterest::create(['userId' => $request->userId, 'interestId' => $interestIdValue]);
+            }
+        }
+
         return response()->json([
             "status" => 200,
+            "message" => "Interest Added Succesfully",
             "data" => $userInterest,
-            "message" => "Interest Add Succesfull",
         ]);
     }
 

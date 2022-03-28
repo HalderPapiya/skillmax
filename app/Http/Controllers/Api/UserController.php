@@ -169,12 +169,15 @@ class UserController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
         $user = User::where('id', $request->id)->update([
+            'id' => $request->id,
             'fName' => $request->fName,
             'lName' => $request->lName,
             // 'email' => $request->email,
             'phone' =>  $request->phone,
             'college' => $request->college,
             'subject' => $request->subject,
+            'passing_year' => $request->passing_year,
+
         ]);
 
         return response()->json([

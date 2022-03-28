@@ -16,7 +16,7 @@ class MentorController extends BaseController
      */
     public function index()
     {
-        $data = Mentor::get();
+        $data = Mentor::with('course')->get();
 
         return response()->json([
             "status" => 200,
