@@ -19,4 +19,8 @@ class Course extends Model
     {
         return $this->belongsTo('App\Models\PricingPlan', 'pricingPlanId', 'id');
     }
+    public function mentor()
+    {
+        return $this->hasMany('App\Models\Mentor', 'courseId', 'id');
+    }
 }
