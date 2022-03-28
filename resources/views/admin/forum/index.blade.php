@@ -6,7 +6,7 @@
             <h1><i class="fa fa-file"></i> Forum</h1>
             <p>Forum List</p>
         </div>
-        {{-- <a href="{{ route('admin.forum.create')}}" class="btn btn-primary pull-right">Add New</a> --}}
+        <a href="{{ route('admin.forum.create')}}" class="btn btn-primary pull-right">Add New</a>
     </div>
     @include('admin.partials.flash')
     <div class="row">

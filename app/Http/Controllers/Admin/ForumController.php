@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\Forum;
 use App\Http\Controllers\BaseController;
+use App\Models\User;
 
 class ForumController extends BaseController
 {
@@ -26,6 +27,8 @@ class ForumController extends BaseController
      */
     public function create()
     {
+        $users = User::get();
+        return view('admin.forum.add', compact('users'));
     }
 
     /**

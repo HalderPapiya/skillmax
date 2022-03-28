@@ -114,6 +114,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         //-----------------Forum Comment----------------
 
         Route::get('/forum/comment', [App\Http\Controllers\Admin\ForumCommentController::class, 'index'])->name('forum-comment.index');
+        Route::get('/forum/create', [App\Http\Controllers\Admin\ForumController::class, 'create'])->name('forum.create');
+        Route::get('/forum/store', [App\Http\Controllers\Admin\ForumController::class, 'store'])->name('forum.store');
         Route::get('/forum/coment/show/{id}', [App\Http\Controllers\Admin\ForumCommentController::class, 'show'])->name('forum-comment.details');
 
 

@@ -54,7 +54,7 @@ Route::post('/forum/delete/{id}', [App\Http\Controllers\Api\ForumController::cla
 
 // ------------------Forum Comment------------------------
 
-Route::get('/forum/comment/list', [App\Http\Controllers\Api\ForumCommentController::class, 'index']);
+Route::get('/forum/comment/list/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'index']);
 Route::post('/forum/comment/store', [App\Http\Controllers\Api\ForumCommentController::class, 'store']);
 Route::get('/forum/comment/details/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'show']);
 Route::post('/forum/comment/update/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'update']);
@@ -74,6 +74,8 @@ Route::get('/event/list', [App\Http\Controllers\Api\EventController::class, 'ind
 Route::get('/event/details/{id}', [App\Http\Controllers\Api\EventController::class, 'show']);
 
 Route::get('/course/list', [App\Http\Controllers\Api\CourseController::class, 'index']);
+Route::get('/course/details/{id}', [App\Http\Controllers\Api\CourseController::class, 'show']);
+
 Route::get('/pricing-plan/list', [App\Http\Controllers\Api\PricingPlanController::class, 'index']);
 
 Route::get('/notification/list', [App\Http\Controllers\Api\NotificationController::class, 'index']);

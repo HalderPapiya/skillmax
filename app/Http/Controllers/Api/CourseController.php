@@ -57,6 +57,13 @@ class CourseController extends BaseController
      */
     public function show($id)
     {
+        $data = Course::with('pricingPlan')->where('id', $id)->get();
+
+        return response()->json([
+            "status" => 200,
+            "data" => $data,
+            "message" => "Course Details",
+        ]);
     }
 
     /**
@@ -67,7 +74,6 @@ class CourseController extends BaseController
      */
     public function edit($id)
     {
-        //
     }
 
     /**
