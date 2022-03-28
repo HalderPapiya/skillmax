@@ -39,6 +39,36 @@ class ForumController extends BaseController
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'userId' => 'required',
+            'title' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            'content' => 'required',
+        ]);
+        // if ($validator->fails()) {
+        //     return $this->sendError('Validation Error.', $validator->errors());
+        // }
+        // if ($files = $request->file('image')) {
+        //     //store file into document folder
+        //     $image = $request->image->store(public_path('uploads/forum'));
+        // }
+        if ($request->hasFile('image')) {
+            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->image->extension());
+            $request->image->move(public_path('uploads/forum/'), $fileName);
+            $image = 'uploads/forum/' . $fileName;
+        }
+        // $forumComments= ForumComment
+        $forum = Forum::create([
+            'userId' => $request->userId,
+            'title' => $request->title,
+            'registration_link' => $request->registration_link,
+            'image' => $image,
+            'content' => $request->content,
+            // 'no_of_likes' => $request->no_of_likes,
+            // 'no_of_comment' => $request->no_of_comment,
+
+        ]);
+        return $this->responseRedirect('admin.forum.index', 'Forum has been created successfully', 'success', false, false);
     }
 
     /**

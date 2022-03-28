@@ -22,15 +22,15 @@
                     </div> --}}
                      <div class="tile-body">
                         <div class="form-group">
-                            <label class="control-label" for="name_in_bengali">User Name <span class="m-l-5 text-danger"> *</span></label>
-                            <select class="form-control @error('user_name') is-invalid @enderror"
-                                name="user_name" id="user_name" value="{{ old('user_name') }}">
+                            <label class="control-label" for="userId">User Name <span class="m-l-5 text-danger"> *</span></label>
+                            <select class="form-control @error('userId') is-invalid @enderror"
+                                name="userId" id="userId" value="{{ old('userId') }}">
                                 <option selected disabled>Select one</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->fName }}</option>
                                 @endforeach
                             </select>
-                            @error('user_name')
+                            @error('userId')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message ?? '' }} </strong>
                                 </span>

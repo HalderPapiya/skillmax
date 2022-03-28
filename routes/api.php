@@ -58,7 +58,7 @@ Route::get('/forum/comment/list/{id}', [App\Http\Controllers\Api\ForumCommentCon
 Route::post('/forum/comment/store', [App\Http\Controllers\Api\ForumCommentController::class, 'store']);
 Route::get('/forum/comment/details/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'show']);
 Route::post('/forum/comment/update/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'update']);
-Route::post('/forum/comment/delete/{userId}/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'destroy']);
+Route::get('/forum/comment/delete/{userId}/{id}', [App\Http\Controllers\Api\ForumCommentController::class, 'destroy']);
 
 // ------------------Team-------------------------
 

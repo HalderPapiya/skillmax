@@ -17,7 +17,7 @@ class ForumCommentController extends BaseController
      */
     public function index($id)
     {
-        $forums = ForumComment::where('forumId', $id)->get();
+        $forums = ForumComment::with('user')->where('forumId', $id)->get();
 
         return response()->json([
             "status" => 200,
