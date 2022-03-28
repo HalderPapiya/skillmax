@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Models\ForumComment;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ForumCommentController extends BaseController
 {
@@ -129,13 +130,18 @@ class ForumCommentController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($userId, $id)
     {
-        ForumComment::where('id', $id)->delete();
+        try {
+            $data = ForumComment::where([['id', $id], ['userId', $userId]])->delete();
 
-        return response()->json([
-            "status" => 200,
-            "message" => "Forum Comment Delete Succesfull",
-        ]);
+            if ($data) {
+                return response()->json(["status" => 200, "message" => "Forum Comment Deleted Succesfully"]);
+            } else {
+                return response()->json(["status" => 400, "message" => "Something happened"]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(["status" => 400, "message" => $th]);
+        }
     }
 }
