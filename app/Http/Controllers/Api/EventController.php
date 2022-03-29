@@ -21,6 +21,7 @@ class EventController extends BaseController
         $data = [];
         foreach ($events as $eventKey => $eventValue) {
             $data[] = [
+                'id' => $eventValue->id,
                 'title' => $eventValue->title,
                 'start_date' => $eventValue->start_date,
                 'pretty_start_date' => date('jS F, Y', strtotime($eventValue->start_date)),
