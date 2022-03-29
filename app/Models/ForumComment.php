@@ -15,6 +15,7 @@ class ForumComment extends Model
     {
         return $this->belongsTo('App\Models\User', 'userId', 'id');
     }
+
     public function forum()
     {
         return $this->belongsTo('App\Models\Forum', 'forumId', 'id');

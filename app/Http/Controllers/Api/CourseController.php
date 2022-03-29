@@ -57,7 +57,7 @@ class CourseController extends BaseController
      */
     public function show($id)
     {
-        $data = Course::with(['pricingPlan', 'mentor'])->where('id', $id)->get();
+        $data = Course::with(['pricingPlan', 'mentor'])->where('id', $id)->first();
 
         return response()->json([
             "status" => 200,

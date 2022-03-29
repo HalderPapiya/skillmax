@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Models\Forum;
+use App\Models\ForumComment;
 use Illuminate\Support\Facades\Validator;
 
 class ForumController extends BaseController
@@ -14,30 +15,30 @@ class ForumController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $forums = Forum::get();
-
+        $forums = Forum::with('commentDetails', 'likeDetails')->get();
+        // $forumCount = ForumComment::where('forumId', $request->id)->count();
         $data = [];
         foreach ($forums as $eventKey => $forumValue) {
             $data[] = [
                 'id' => $forumValue->id,
-                'userId' => $forumValue->userId,
+                'userId' => $forumValue->user->fName . ' ' . $forumValue->user->lName,
                 'title' => $forumValue->title,
                 'image' => $forumValue->image,
                 'content' => $forumValue->content,
-                'deleted_at' => $forumValue->deleted_at,
                 'status' => $forumValue->status,
+                'likeCount' => $forumValue->likeDetails->count(),
+                'commentCount' => $forumValue->commentDetails->count(),
                 'created_at' => $forumValue->created_at,
-                'updated_at' => $forumValue->title,
+                'updated_at' => $forumValue->updated_at,
             ];
         }
 
-
         return response()->json([
             "status" => 200,
-            "data" => $forums,
             "message" => "Forum List",
+            "data" => $data,
         ]);
     }
 

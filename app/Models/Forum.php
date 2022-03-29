@@ -19,8 +19,14 @@ class Forum extends Model
     {
         return $this->belongsTo('App\Models\User', 'userId', 'id');
     }
-    public function forumComment()
+
+    public function commentDetails()
     {
-        return $this->hasMany('App\Models\User', 'forumId', 'id');
+        return $this->hasMany('App\Models\ForumComment', 'forumId', 'id');
+    }
+
+    public function likeDetails()
+    {
+        return $this->hasMany('App\Models\ForumLike', 'forumId', 'id');
     }
 }

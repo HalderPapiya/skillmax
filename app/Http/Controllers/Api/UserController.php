@@ -51,7 +51,7 @@ class UserController extends BaseController
             'lName' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'phone' => 'required|digits:10|integer',
+            'phone' => 'required|digits:10|integer|unique:users,phone',
             'college' => 'required',
             'subject' => 'required',
         ]);
@@ -161,9 +161,10 @@ class UserController extends BaseController
         // validate response
         $validator = Validator::make($request->all(), [
             'id' => 'required',
-            'fName' => 'required',
-            'lName' => 'required',
-            'phone' => 'nullable|digits:10|integer'
+            // 'fName' => 'required',
+            // 'lName' => 'required',
+            // 'lName' => 'required',
+            'phone' => 'nullable|digits:10|integer|unique:users,phone'
         ]);
 
         // validation check
