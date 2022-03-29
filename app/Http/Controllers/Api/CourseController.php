@@ -57,7 +57,37 @@ class CourseController extends BaseController
      */
     public function show($id)
     {
-        $data = Course::with(['pricingPlan', 'mentor'])->where('id', $id)->first();
+        $course = Course::with('coursePricingPlan', 'courseMentor')->where('id', $id)->first();
+
+        $pricingPlans = $course->coursePricingPlan;
+        $pricingData = [];
+        foreach ($pricingPlans as $pricingPlan) {
+            $pricingData[] = [
+                'name' => $pricingPlan->pricingDetails->name,
+                'short_description' => $pricingPlan->pricingDetails->short_description,
+            ];
+        }
+
+        $mentors = $course->courseMentor;
+        $mentorData = [];
+        foreach ($mentors as $mentor) {
+            $mentorData[] = [
+                'name' => $mentor->name,
+            ];
+        }
+
+        $data = [
+            'id' => $course->id,
+            'name' => $course->name,
+            'start_date' => $course->start_date,
+            'pretty_start_date' => date('jS F, Y', strtotime($course->start_date)),
+            'image' => $course->image,
+            'description' => $course->description,
+            'pricing_plan' => $pricingData,
+            'mentor' => $mentorData,
+
+        ];
+
 
         return response()->json([
             "status" => 200,

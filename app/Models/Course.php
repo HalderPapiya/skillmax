@@ -12,15 +12,25 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
-        'pricingPlanId', 'name', 'image', 'description', 'start_date', 'mentorId'
+        'name', 'image', 'description', 'start_date'
     ];
 
-    public function pricingPlan()
+    // public function pricingPlan()
+    // {
+    //     return $this->belongsTo('App\Models\PricingPlan', 'pricingPlanId', 'id');
+    // }
+    // public function mentor()
+    // {
+    //     return $this->belongsTo('App\Models\Mentor', 'mentorId', 'id');
+    // }
+
+    public function coursePricingPlan()
     {
-        return $this->belongsTo('App\Models\PricingPlan', 'pricingPlanId', 'id');
+        return $this->hasMany('App\Models\CoursePricingPlan', 'courseId', 'id');
     }
-    public function mentor()
+
+    public function courseMentor()
     {
-        return $this->belongsTo('App\Models\Mentor', 'mentorId', 'id');
+        return $this->hasMany('App\Models\CourseMentor', 'courseId', 'id');
     }
 }
