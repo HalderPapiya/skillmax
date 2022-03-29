@@ -61,18 +61,19 @@ class CourseController extends BaseController
 
         $pricingPlans = $course->coursePricingPlan;
         $pricingData = [];
-        foreach ($pricingPlans as $pricingPlan) {
+        foreach ($pricingPlans as $pricingPlanValue) {
             $pricingData[] = [
-                'name' => $pricingPlan->pricingDetails->name,
-                'short_description' => $pricingPlan->pricingDetails->short_description,
+                'name' => $pricingPlanValue->pricingDetails->name,
+                'short_description' => $pricingPlanValue->pricingDetails->short_description,
+                'amount' => $pricingPlanValue->pricingDetails->amount,
             ];
         }
 
         $mentors = $course->courseMentor;
         $mentorData = [];
-        foreach ($mentors as $mentor) {
+        foreach ($mentors as $mentorValue) {
             $mentorData[] = [
-                'name' => $mentor->name,
+                'name' => $mentorValue->mentorDetails->name,
             ];
         }
 

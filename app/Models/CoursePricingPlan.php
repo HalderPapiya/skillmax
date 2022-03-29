@@ -12,6 +12,6 @@ class CoursePricingPlan extends Model
     }
     public function pricingDetails()
     {
-        return $this->belongsTo('App\Models\PricingPlan', 'pricingId', 'id');
+        return $this->belongsTo('App\Models\PricingPlan', 'pricingPlanId', 'id');
     }
 }
