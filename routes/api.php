@@ -48,7 +48,7 @@ Route::post('/user/interest/delete/{id}', [App\Http\Controllers\Api\UserInterest
 
 Route::get('/forum/list', [App\Http\Controllers\Api\ForumController::class, 'index']);
 Route::post('/forum/store', [App\Http\Controllers\Api\ForumController::class, 'store']);
-Route::post('/forum/details/{id}', [App\Http\Controllers\Api\ForumController::class, 'show']);
+Route::get('/forum/details/{id}', [App\Http\Controllers\Api\ForumController::class, 'show']);
 Route::post('/forum/update/{id}', [App\Http\Controllers\Api\ForumController::class, 'update']);
 Route::post('/forum/delete/{id}', [App\Http\Controllers\Api\ForumController::class, 'destroy']);
 

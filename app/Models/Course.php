@@ -12,7 +12,7 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
-        'pricingPlanId', 'name', 'image', 'description', 'start_date'
+        'pricingPlanId', 'name', 'image', 'description', 'start_date', 'mentorId'
     ];
 
     public function pricingPlan()
@@ -21,6 +21,6 @@ class Course extends Model
     }
     public function mentor()
     {
-        return $this->hasMany('App\Models\Mentor', 'courseId', 'id');
+        return $this->belongsTo('App\Models\Mentor', 'mentorId', 'id');
     }
 }

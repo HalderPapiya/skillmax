@@ -9,10 +9,10 @@ class Mentor extends Model
     protected $table = 'mentors';
 
     protected $fillable = [
-        'courseId', 'name', 'status'
+        'name', 'status'
     ];
-    public function course()
-    {
-        return $this->belongsTo('App\Models\Course', 'courseId', 'id');
-    }
+    // public function course()
+    // {
+    //     $this->HasMany('App\Models\Course', 'mentorId', 'id');
+    // }
 }

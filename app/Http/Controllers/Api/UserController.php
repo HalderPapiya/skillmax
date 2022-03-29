@@ -158,33 +158,40 @@ class UserController extends BaseController
      */
     public function update(Request $request)
     {
+        // validate response
         $validator = Validator::make($request->all(), [
             'id' => 'required',
             'fName' => 'required',
             'lName' => 'required',
-            // 'email' => 'required|email',
+            'phone' => 'nullable|digits:10|integer'
         ]);
 
+        // validation check
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+            return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => $validator->errors()->first()]);
+        } else {
+            // error handling
+            try {
+                $data = User::where('id', $request->id)->update([
+                    'id' => $request->id,
+                    'fName' => $request->fName,
+                    'lName' => $request->lName,
+                    'email' => $request->email,
+                    'phone' =>  $request->phone,
+                    'college' => $request->college,
+                    'subject' => $request->subject,
+                    'passing_year' => $request->passing_year,
+                ]);
+
+                if ($data) {
+                    return response()->json(['status' => 200, 'message' => 'Profile updated successfully', 'data' => $request->all()]);
+                } else {
+                    return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => 'Data update failure']);
+                }
+            } catch (\Throwable $error) {
+                return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => $error]);
+            }
         }
-        $user = User::where('id', $request->id)->update([
-            'id' => $request->id,
-            'fName' => $request->fName,
-            'lName' => $request->lName,
-            // 'email' => $request->email,
-            'phone' =>  $request->phone,
-            'college' => $request->college,
-            'subject' => $request->subject,
-            'passing_year' => $request->passing_year,
-
-        ]);
-
-        return response()->json([
-            "status" => 200,
-            "data" => $user,
-            "message" => "Profile Edit Succesfull",
-        ]);
     }
 
     /**

@@ -16,7 +16,7 @@ class CourseController extends BaseController
      */
     public function index()
     {
-        $data = Course::with('pricingPlan')->get();
+        $data = Course::get();
 
         return response()->json([
             "status" => 200,
@@ -57,7 +57,7 @@ class CourseController extends BaseController
      */
     public function show($id)
     {
-        $data = Course::with('pricingPlan')->where('id', $id)->get();
+        $data = Course::with(['pricingPlan', 'mentor'])->where('id', $id)->get();
 
         return response()->json([
             "status" => 200,

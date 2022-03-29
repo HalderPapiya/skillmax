@@ -18,6 +18,22 @@ class ForumController extends BaseController
     {
         $forums = Forum::get();
 
+        $data = [];
+        foreach ($forums as $eventKey => $forumValue) {
+            $data[] = [
+                'id' => $forumValue->id,
+                'userId' => $forumValue->userId,
+                'title' => $forumValue->title,
+                'image' => $forumValue->image,
+                'content' => $forumValue->content,
+                'deleted_at' => $forumValue->deleted_at,
+                'status' => $forumValue->status,
+                'created_at' => $forumValue->created_at,
+                'updated_at' => $forumValue->title,
+            ];
+        }
+
+
         return response()->json([
             "status" => 200,
             "data" => $forums,

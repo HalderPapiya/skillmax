@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class PricingPlan extends Model
 {
-    // use SoftDeletes; 
+	// use SoftDeletes; 
 
-    protected $table = 'pricing_plans';
+	protected $table = 'pricing_plans';
 
 	protected $fillable = [
 		'name', 'short_description', 'amount'
-        // , 'status'
+		// , 'status'
 	];
-	public function course()
-	{
-		$this->HasMany('App\Models\Course', 'pricingPlanId', 'id');
-	}
+	// public function course()
+	// {
+	// 	$this->HasMany('App\Models\Course', 'pricingPlanId', 'id');
+	// }
 }
