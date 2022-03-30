@@ -92,6 +92,12 @@ class UserInterestController extends BaseController
      */
     public function show($id)
     {
+        $data = UserInterest::with('interestDetails')->where('userId', $id)->get();
+        return response()->json([
+            "status" => 200,
+            "message" => "User wise interest list",
+            "data" => $data,
+        ]);
     }
 
     /**

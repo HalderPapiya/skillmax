@@ -40,6 +40,7 @@ Route::get('/banner', [App\Http\Controllers\Api\BannerController::class, 'index'
 // ----------------UserInterest--------------------
 
 Route::get('/user/interest', [App\Http\Controllers\Api\UserInterestController::class, 'index']);
+Route::get('/user/interest/{id}', [App\Http\Controllers\Api\UserInterestController::class, 'show']);
 Route::post('/user/interest/store', [App\Http\Controllers\Api\UserInterestController::class, 'store']);
 // Route::post('/user/interest/update/{id}', [App\Http\Controllers\Api\UserInterestController::class, 'update']);
 Route::post('/user/interest/delete/{id}', [App\Http\Controllers\Api\UserInterestController::class, 'destroy']);
