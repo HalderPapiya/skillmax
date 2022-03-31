@@ -262,13 +262,13 @@ class UserController extends BaseController
         // return Response::json($arr);
     }
     // forget password
-    public function forgot()
+    public function forgot(Request $request)
     {
-        $credentials = request()->validate(['phone' => 'required|digits:10|integer']);
+        // $credentials = request()->validate(['phone' => 'required|digits:10|integer']);
 
-        Password::sendResetLink($credentials);
+        Password::sendResetLink($request->only('email'));
 
-        return response()->json(["msg" => 'Reset password link sent on your phone id.']);
+        return response()->json(["msg" => 'Reset password link sent on your email id.', 'request' => $request->only('email')]);
     }
 
     public function socialLogin(Request $request)
