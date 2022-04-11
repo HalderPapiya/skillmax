@@ -89,3 +89,5 @@ Route::get('/notification/list/{id}', [App\Http\Controllers\Api\NotificationCont
 
 Route::get('/mentor/list', [App\Http\Controllers\Api\MentorController::class, 'index']);
 Route::get('/mentor/list/{id}', [App\Http\Controllers\Api\MentorController::class, 'courseWiseMentor']);
+
+Route::get('/interest', [App\Http\Controllers\Api\InterestController::class, 'index']);

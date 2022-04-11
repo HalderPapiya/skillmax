@@ -93,8 +93,8 @@ class ForumController extends BaseController
         ]);
         return response()->json([
             "status" => 200,
-            "data" => $forum,
             "message" => "Forum Add Succesfull",
+            "data" => $forum,
         ]);
     }
 
@@ -168,8 +168,8 @@ class ForumController extends BaseController
 
         return response()->json([
             "status" => 200,
-            "data" => $forum,
             "message" => "Forum Edit Succesfull",
+            "data" => $forum,
         ]);
     }
 
