@@ -119,6 +119,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/forum/coment/show/{id}', [App\Http\Controllers\Admin\ForumCommentController::class, 'show'])->name('forum-comment.details');
 
 
+          // ---------------------Team---------------------------
+
+          Route::get('/pro-course', [App\Http\Controllers\Admin\ProCourseController::class, 'index'])->name('pro-course.index');
+          Route::get('/pro-course/create', [App\Http\Controllers\Admin\ProCourseController::class, 'create'])->name('pro-course.create');
+          Route::post('/pro-course/store', [App\Http\Controllers\Admin\ProCourseController::class, 'store'])->name('pro-course.store');
+          Route::get('/pro-course/edit/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'edit'])->name('pro-course.edit');
+          Route::post('/pro-course/update/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'update'])->name('pro-course.update');
+          Route::get('/pro-course/delete/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'destroy'])->name('pro-course.delete');
+  
 
 
         //   //---------------------Reword-----------------------------------

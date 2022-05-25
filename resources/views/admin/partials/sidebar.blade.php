@@ -52,6 +52,11 @@
                 <span class="app-menu__label">Forum Comment</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item forum {{ request()->is('admin/pro-course*') ? 'active' : '' }}" href="{{ route('admin.pro-course.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">/Pro-course</span>
+            </a>
+        </li>
         {{-- <li>
             <a class="app-menu__item customer" href=""><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Customer</span>
