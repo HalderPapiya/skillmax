@@ -54,8 +54,8 @@ class ProCourseController extends BaseController
 
         if ($request->hasFile('image')) {
             $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->image->extension());
-            $request->image->move(public_path('uploads/banner/'), $fileName);
-            $image = 'uploads/banner/' . $fileName;
+            $request->image->move(public_path('uploads/pro-course/'), $fileName);
+            $image = 'uploads/pro-course/' . $fileName;
         }
         $data->image =  $image;
         $data->save();
@@ -131,8 +131,8 @@ class ProCourseController extends BaseController
 
         if ($request->hasFile('image')) {
             $fileName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('uploads/banner/'), $fileName);
-            $image = 'uploads/banner/' . $fileName;
+            $request->image->move(public_path('uploads/pro-course/'), $fileName);
+            $image = 'uploads/pro-course/' . $fileName;
             ProCourse::where('id', $id)->update([
                 'image' => $image,
             ]);

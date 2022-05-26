@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProCoursesTable extends Migration
+class CreateModulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateProCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pro_courses', function (Blueprint $table) {
+        Schema::create('modules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('mentor');
+            $table->bigInteger('course_id');
             $table->string('name');
-            $table->string('image');
-            $table->longText('description');
+            $table->string('icon');
             $table->softDeletes();
             $table->tinyInteger('status')->default('1')->comment('1 = Active, 0 = Inactive');
             $table->timestamps();
@@ -32,6 +31,6 @@ class CreateProCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pro_courses');
+        Schema::dropIfExists('modules');
     }
 }

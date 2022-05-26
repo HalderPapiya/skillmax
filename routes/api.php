@@ -91,3 +91,31 @@ Route::get('/mentor/list', [App\Http\Controllers\Api\MentorController::class, 'i
 Route::get('/mentor/list/{id}', [App\Http\Controllers\Api\MentorController::class, 'courseWiseMentor']);
 
 Route::get('/interest', [App\Http\Controllers\Api\InterestController::class, 'index']);
+
+
+
+// ---------------------Pro-Course---------------------------
+
+Route::get('/pro-course', [App\Http\Controllers\Api\ProCourseController::class, 'index']);
+Route::post('/pro-course/store', [App\Http\Controllers\Api\ProCourseController::class, 'store']);
+Route::get('/pro-course/show/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'show']);
+Route::post('/pro-course/update/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'update']);
+Route::get('/pro-course/delete/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'destroy']);
+
+
+// ---------------------Module---------------------------
+
+Route::get('/course/{id}/module', [App\Http\Controllers\Api\ModuleController::class, 'index']);
+Route::post('/module/store', [App\Http\Controllers\Api\ModuleController::class, 'store']);
+Route::get('/module/show/{id}', [App\Http\Controllers\Api\ModuleController::class, 'show']);
+Route::post('/module/update/{id}', [App\Http\Controllers\Api\ModuleController::class, 'update']);
+Route::get('/module/delete/{id}', [App\Http\Controllers\Api\ModuleController::class, 'destroy']);
+
+
+// ---------------------Topic---------------------------
+
+Route::get('/module/{id}/topic', [App\Http\Controllers\Api\TopicController::class, 'index']);
+Route::post('/topic/store', [App\Http\Controllers\Api\TopicController::class, 'store']);
+Route::get('/topic/show/{id}', [App\Http\Controllers\Api\TopicController::class, 'show']);
+Route::post('/topic/update/{id}', [App\Http\Controllers\Api\TopicController::class, 'update']);
+Route::get('/topic/delete/{id}', [App\Http\Controllers\Api\TopicController::class, 'destroy']);

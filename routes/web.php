@@ -119,7 +119,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/forum/coment/show/{id}', [App\Http\Controllers\Admin\ForumCommentController::class, 'show'])->name('forum-comment.details');
 
 
-          // ---------------------Team---------------------------
+          // ---------------------Pro-Course---------------------------
 
           Route::get('/pro-course', [App\Http\Controllers\Admin\ProCourseController::class, 'index'])->name('pro-course.index');
           Route::get('/pro-course/create', [App\Http\Controllers\Admin\ProCourseController::class, 'create'])->name('pro-course.create');

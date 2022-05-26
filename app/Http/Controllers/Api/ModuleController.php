@@ -5,33 +5,37 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Http\Controllers\BaseController;
+use App\Models\Module;
 use App\Models\ProCourse;
 use Carbon\Carbon;
 
-class ProCourseController extends BaseController
+class ModuleController extends BaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $proData = ProCourse::get();
-        if ($proData) {
-            foreach ($proData as $key => $dataValue) {
+        $moduleData = Module::where('course_id', $id)->with('topics')->get();
+        // $moduleData = Module::with('proCourse')->get();
+        if ($moduleData) {
+            foreach ($moduleData as $key => $dataValue) {
+                // $dataValue->proCourse[]=$pro[]
                 $data[] = [
                     'id' => $dataValue->id,
-                    'mentor' => $dataValue->mentor,
+                    'type' => ($key == 0) ? 'free' : 'prime',
+                    'course_id' => $dataValue->course_id,
                     'name' => $dataValue->name,
-                    'description' => $dataValue->description,
-                    'image' => env('APP_URL') . '/' . asset($dataValue->image),
+                    'icon' => env('APP_URL') . '/' . asset($dataValue->icon),
                     'created_at' => Carbon::parse($dataValue->created_at)->format('Y-m-d'),
                     'updated_at' => Carbon::parse($dataValue->updated_at)->format('Y-m-d'),
+                    'topic' => $dataValue->topics
                 ];
             }
             return response()->json([
-                "message" => "Course List",
+                "message" => "Module List",
                 "status" => 200,
                 "data" => $data,
             ]);
@@ -76,8 +80,9 @@ class ProCourseController extends BaseController
 
         return response()->json([
             "status" => 200,
-            "data" => $data,
             "message" => "Pro-course Created",
+
+            "data" => $data,
         ]);
     }
 
@@ -89,21 +94,21 @@ class ProCourseController extends BaseController
      */
     public function show($id)
     {
-        $data = ProCourse::where('id', $id)->where('status', '=', 1)->first();
-        $data = [
-            'id' => $data->id,
-            'mentor' => $data->mentor,
-            'name' => $data->name,
-            'description' => $data->description,
-            'image' => env('APP_URL') . '/' . asset($data->image),
-            'created_at' => Carbon::parse($data->created_at)->format('Y-m-d'),
-            'updated_at' => Carbon::parse($data->updated_at)->format('Y-m-d'),
-        ];
-        return response()->json([
-            "status" => 200,
-            "data" =>   $data,
-            "message" => "Forum Details",
-        ]);
+        $data = Module::where('id', $id)->where('status', '=', 1)->get();
+        // $data=
+        if ($data) {
+            return response()->json([
+                "status" => 200,
+                "message" => "Module Details",
+                // "data" =>   $data[$dataValue->id,],
+
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                'message' => 'Something happened'
+            ]);
+        }
     }
 
     /**

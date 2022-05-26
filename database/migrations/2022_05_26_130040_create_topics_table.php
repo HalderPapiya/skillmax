@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProCoursesTable extends Migration
+class CreateTopicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateProCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pro_courses', function (Blueprint $table) {
+        Schema::create('topics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('mentor');
-            $table->string('name');
+            $table->bigInteger('module_id');
+            $table->string('title');
             $table->string('image');
             $table->longText('description');
             $table->softDeletes();
@@ -32,6 +32,6 @@ class CreateProCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pro_courses');
+        Schema::dropIfExists('topics');
     }
 }
