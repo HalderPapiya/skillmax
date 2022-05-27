@@ -54,7 +54,17 @@
         </li>
         <li>
             <a class="app-menu__item forum {{ request()->is('admin/pro-course*') ? 'active' : '' }}" href="{{ route('admin.pro-course.index') }}"><i class="app-menu__icon fa fa-group"></i>
-                <span class="app-menu__label">/Pro-course</span>
+                <span class="app-menu__label">Pro-course</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item module {{ request()->is('admin/module*') ? 'active' : '' }}" href="{{ route('admin.module.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Module</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item topic {{ request()->is('admin/topic*') ? 'active' : '' }}" href="{{ route('admin.topic.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Topic</span>
             </a>
         </li>
         {{-- <li>

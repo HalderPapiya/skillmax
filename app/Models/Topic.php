@@ -12,7 +12,7 @@ class Topic extends Model
     protected $fillable = [
         'title', 'module_id', 'image', 'description', 'status'
     ];
-    public function proCourse()
+    public function module() 
     {
 
         return $this->belongsTo('App\Models\Module', 'module_id', 'id');

@@ -119,16 +119,34 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/forum/coment/show/{id}', [App\Http\Controllers\Admin\ForumCommentController::class, 'show'])->name('forum-comment.details');
 
 
-          // ---------------------Pro-Course---------------------------
+        // ---------------------Pro-Course---------------------------
 
-          Route::get('/pro-course', [App\Http\Controllers\Admin\ProCourseController::class, 'index'])->name('pro-course.index');
-          Route::get('/pro-course/create', [App\Http\Controllers\Admin\ProCourseController::class, 'create'])->name('pro-course.create');
-          Route::post('/pro-course/store', [App\Http\Controllers\Admin\ProCourseController::class, 'store'])->name('pro-course.store');
-          Route::get('/pro-course/edit/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'edit'])->name('pro-course.edit');
-          Route::post('/pro-course/update/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'update'])->name('pro-course.update');
-          Route::get('/pro-course/delete/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'destroy'])->name('pro-course.delete');
-  
+        Route::get('/pro-course', [App\Http\Controllers\Admin\ProCourseController::class, 'index'])->name('pro-course.index');
+        Route::get('/pro-course/create', [App\Http\Controllers\Admin\ProCourseController::class, 'create'])->name('pro-course.create');
+        Route::post('/pro-course/store', [App\Http\Controllers\Admin\ProCourseController::class, 'store'])->name('pro-course.store');
+        Route::get('/pro-course/edit/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'edit'])->name('pro-course.edit');
+        Route::post('/pro-course/update/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'update'])->name('pro-course.update');
+        Route::get('/pro-course/delete/{id}', [App\Http\Controllers\Admin\ProCourseController::class, 'destroy'])->name('pro-course.delete');
 
+
+        // ---------------------Module---------------------------
+
+        Route::get('/module', [App\Http\Controllers\Admin\ModuleController::class, 'index'])->name('module.index');
+        Route::get('/module/create', [App\Http\Controllers\Admin\ModuleController::class, 'create'])->name('module.create');
+        Route::post('/module/store', [App\Http\Controllers\Admin\ModuleController::class, 'store'])->name('module.store');
+        Route::get('/module/edit/{id}', [App\Http\Controllers\Admin\ModuleController::class, 'edit'])->name('module.edit');
+        Route::post('/module/update/{id}', [App\Http\Controllers\Admin\ModuleController::class, 'update'])->name('module.update');
+        Route::get('/module/delete/{id}', [App\Http\Controllers\Admin\ModuleController::class, 'destroy'])->name('module.delete');
+
+
+        // ---------------------Topic---------------------------
+
+        Route::get('/topic', [App\Http\Controllers\Admin\TopicController::class, 'index'])->name('topic.index');
+        Route::get('/topic/create', [App\Http\Controllers\Admin\TopicController::class, 'create'])->name('topic.create');
+        Route::post('/topic/store', [App\Http\Controllers\Admin\TopicController::class, 'store'])->name('topic.store');
+        Route::get('/topic/edit/{id}', [App\Http\Controllers\Admin\TopicController::class, 'edit'])->name('topic.edit');
+        Route::post('/topic/update/{id}', [App\Http\Controllers\Admin\TopicController::class, 'update'])->name('topic.update');
+        Route::get('/topic/delete/{id}', [App\Http\Controllers\Admin\TopicController::class, 'destroy'])->name('topic.delete');
 
         //   //---------------------Reword-----------------------------------
 

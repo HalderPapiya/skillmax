@@ -18,26 +18,37 @@ class ModuleController extends BaseController
      */
     public function index($id)
     {
-        $moduleData = Module::where('course_id', $id)->with('topics')->get();
+        $moduleData = Module::with('topics')->where('course_id', $id)->get();
+        // return $moduleData;
         // $moduleData = Module::with('proCourse')->get();
         if ($moduleData) {
-            foreach ($moduleData as $key => $dataValue) {
-                // $dataValue->proCourse[]=$pro[]
-                $data[] = [
-                    'id' => $dataValue->id,
-                    'type' => ($key == 0) ? 'free' : 'prime',
-                    'course_id' => $dataValue->course_id,
-                    'name' => $dataValue->name,
-                    'icon' => env('APP_URL') . '/' . asset($dataValue->icon),
-                    'created_at' => Carbon::parse($dataValue->created_at)->format('Y-m-d'),
-                    'updated_at' => Carbon::parse($dataValue->updated_at)->format('Y-m-d'),
-                    'topic' => $dataValue->topics
+            // $resp = [];
+            foreach($moduleData as $moduleKey => $moduleValue) {
+                // $moduleValue->topics[]=[
+                //     'id' => $moduleValue->id,
+                //     // 'type' => ($key == 0)?'free' : 'prime',
+                //     'module_id' => $moduleValue->module_id,
+                //     'title' => $moduleValue->title,
+                //     'description' => $moduleValue->description,
+                //     'image' => env('APP_URL') . '/' . asset($moduleValue->image),
+                //     'created_at' => Carbon::parse($moduleValue->created_at)->format('Y-m-d'),
+                //     'updated_at' => Carbon::parse($moduleValue->updated_at)->format('Y-m-d'), 
+                // ];
+                $resp[] = [
+                    'id' => $moduleValue->id,
+                    'type' => ($moduleKey == 0) ? 'free' : 'prime',
+                    'course_id' => $moduleValue->course_id,
+                    'name' => $moduleValue->name,
+                    'icon' => env('APP_URL') . '/' . asset($moduleValue->icon),
+                    'created_at' => Carbon::parse($moduleValue->created_at)->format('Y-m-d'),
+                    'updated_at' => Carbon::parse($moduleValue->updated_at)->format('Y-m-d'),
+                    'topic' => $moduleValue->topics
                 ];
             }
             return response()->json([
                 "message" => "Module List",
                 "status" => 200,
-                "data" => $data,
+                "data" => $resp,
             ]);
         } else {
             return response()->json([
@@ -45,6 +56,9 @@ class ModuleController extends BaseController
                 'message' => 'Something happened'
             ]);
         }
+
+
+        
     }
 
     /**

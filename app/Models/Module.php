@@ -20,6 +20,6 @@ class Module extends Model
     public function topics()
     {
 
-        return $this->belongsTo('App\Models\Topic', 'module_id', 'id');
+        return $this->hasMany('App\Models\Topic', 'module_id', 'id');
     }
 }

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\Team;
 use App\Http\Controllers\BaseController;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Module;
 use App\Models\ProCourse;
+use App\Models\Topic;
 
-class ProCourseController extends BaseController
+class TopicController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +19,8 @@ class ProCourseController extends BaseController
 
     public function index()
     {
-        $data = ProCourse::get();
-        return view('admin.pro-course.index', compact('data'));
+        $data = Topic::get();
+        return view('admin.topic.index', compact('data'));
     }
     /**
      * Show the form for creating a new resource.
@@ -27,8 +29,9 @@ class ProCourseController extends BaseController
      */
     public function create()
     {
+        $courses = Topic::get();
         // $ = ProCourse::get();
-        return view('admin.pro-course.add');
+        return view('admin.topic.add', compact('courses'));
     }
     /**
      * Store a newly created resource in storage.
@@ -37,30 +40,29 @@ class ProCourseController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         // dd($request->all());
         $this->validate($request, [
-            'name' => 'required',
-            'mentor' => 'required',
-            'image' => 'required|mimes:img,jpeg,jpg,svg',
+            'title' => 'required',
+            'module_id' => 'required',
             'description' => 'required',
+            'image' => 'required|mimes:img,jpeg,jpg,svg',
         ]);
-
-        $data = new ProCourse;
+        $data = new Topic;
         // $team->premium_id = $request->premium_id;
-        $data->mentor = $request->mentor;
-        $data->name = $request->name;
+        $data->module_id = $request->module_id;
+        $data->title = $request->title;
         $data->description = $request->description;
 
         if ($request->hasFile('image')) {
-            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->image->extension());
-            $request->image->move(public_path( env('APP_URL') . '/' .'uploads/pro-course/'), $fileName);
-            $image = env('APP_URL') . '/'  . 'uploads/pro-course/' . $fileName;
+            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->icon->extension());
+            $request->image->move(public_path( env('APP_URL') . '/' .'uploads/topic/'), $fileName);
+            $image = 'uploads/topic/' . $fileName;
         }
         $data->image =  $image;
         $data->save();
 
-        return $this->responseRedirect('admin.pro-course.index', 'Pro-course has been created successfully', 'success', false, false);
+        return $this->responseRedirect('admin.topic.index', 'Topic has been created successfully', 'success', false, false);
     }
 
     /**
@@ -95,9 +97,9 @@ class ProCourseController extends BaseController
     {
 
 
-        $teamId = $request->id;
+        $topicId = $request->id;
 
-        $team = Team::where('id', $teamId)->update([
+        $topic = Topic::where('id', $topicId)->update([
             'status' => $request->status,
         ]);
     }
@@ -110,8 +112,9 @@ class ProCourseController extends BaseController
      */
     public function edit($id)
     {
-        $data = ProCourse::find($id);
-        return view('admin.pro-course.edit', compact('data'));
+        $modules = Module::get();
+        $data = Topic::find($id);
+        return view('admin.topic.edit', compact('data','modules'));
     }
 
     /**
@@ -123,30 +126,28 @@ class ProCourseController extends BaseController
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'mentor' => 'required',
-            'image' => 'mimes:img,jpeg,jpg,svg',
+            'title' => 'required',
+            'module_id' => 'required',
             'description' => 'required',
+            'image' => 'mimes:img,jpeg,jpg,svg',
         ]);
 
         if ($request->hasFile('image')) {
-            $fileName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('uploads/pro-course/'), $fileName);
-            $image = 'APP_URL' . 'uploads/pro-course/' . $fileName;
-            ProCourse::where('id', $id)->update([
+            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->icon->extension());
+            $request->image->move(public_path( env('APP_URL') . '/' .'uploads/topic/'), $fileName);
+            $image = 'uploads/topic/' . $fileName;
+            Topic::where('id', $id)->update([
                 'image' => $image,
             ]);
         }
+        
 
-
-        ProCourse::where('id', $id)->update([
-            'mentor' => $request->mentor,
-            'name' => $request->name,
+        Topic::where('id', $id)->update([
+            'module_id' => $request->module_id,
+            'title' => $request->title,
             'description' => $request->description,
-
-
         ]);
-        return $this->responseRedirectBack('admin.pro-course.index', 'Pro-course has been updated successfully', 'success', false, false);
+        return $this->responseRedirect('admin.topic.index', 'Topic has been updated successfully', 'success', false, false);
     }
 
     /**
@@ -157,7 +158,7 @@ class ProCourseController extends BaseController
      */
     public function destroy($id)
     {
-        ProCourse::where('id', $id)->delete();
-        return $this->responseRedirect('admin.pro-course.index', 'Pro-course has been deleted successfully', 'success', false, false);
+        Module::where('id', $id)->delete();
+        return $this->responseRedirect('admin.topic.index', 'Topic has been deleted successfully', 'success', false, false);
     }
 }
