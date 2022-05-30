@@ -29,9 +29,10 @@ class TopicController extends BaseController
      */
     public function create()
     {
-        $courses = Topic::get();
+        $modules = Module::get();
+        // dd($modules);
         // $ = ProCourse::get();
-        return view('admin.topic.add', compact('courses'));
+        return view('admin.topic.add', compact('modules'));
     }
     /**
      * Store a newly created resource in storage.
@@ -55,11 +56,13 @@ class TopicController extends BaseController
         $data->description = $request->description;
 
         if ($request->hasFile('image')) {
-            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->icon->extension());
-            $request->image->move(public_path( env('APP_URL') . '/' .'uploads/topic/'), $fileName);
+            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->image->extension());
+            $request->image->move(public_path('uploads/topic/'), $fileName);
             $image = 'uploads/topic/' . $fileName;
+            $path = env('APP_URL') . '/'  . 'uploads/topic/' . $fileName;
         }
         $data->image =  $image;
+        $data->path =  $path;
         $data->save();
 
         return $this->responseRedirect('admin.topic.index', 'Topic has been created successfully', 'success', false, false);
@@ -133,11 +136,13 @@ class TopicController extends BaseController
         ]);
 
         if ($request->hasFile('image')) {
-            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->icon->extension());
-            $request->image->move(public_path( env('APP_URL') . '/' .'uploads/topic/'), $fileName);
+            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->image->extension());
+            $request->image->move(public_path('uploads/topic/'), $fileName);
             $image = 'uploads/topic/' . $fileName;
+            $path = env('APP_URL') . '/'  . 'uploads/topic/' . $fileName;
             Topic::where('id', $id)->update([
                 'image' => $image,
+                'path' => $path,
             ]);
         }
         
@@ -158,7 +163,7 @@ class TopicController extends BaseController
      */
     public function destroy($id)
     {
-        Module::where('id', $id)->delete();
+        Topic::where('id', $id)->delete();
         return $this->responseRedirect('admin.topic.index', 'Topic has been deleted successfully', 'success', false, false);
     }
 }

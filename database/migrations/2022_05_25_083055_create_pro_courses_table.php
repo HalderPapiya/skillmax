@@ -18,6 +18,7 @@ class CreateProCoursesTable extends Migration
             $table->string('mentor');
             $table->string('name');
             $table->string('image');
+            $table->string('path')->nullable();
             $table->longText('description');
             $table->softDeletes();
             $table->tinyInteger('status')->default('1')->comment('1 = Active, 0 = Inactive');

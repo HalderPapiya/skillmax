@@ -18,6 +18,7 @@ class CreateModulesTable extends Migration
             $table->bigInteger('course_id');
             $table->string('name');
             $table->string('icon');
+            $table->string('path')->nullable();
             $table->softDeletes();
             $table->tinyInteger('status')->default('1')->comment('1 = Active, 0 = Inactive');
             $table->timestamps();

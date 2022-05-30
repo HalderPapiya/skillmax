@@ -39,7 +39,8 @@ class ModuleController extends BaseController
                     'type' => ($moduleKey == 0) ? 'free' : 'prime',
                     'course_id' => $moduleValue->course_id,
                     'name' => $moduleValue->name,
-                    'icon' => env('APP_URL') . '/' . asset($moduleValue->icon),
+                    'icon' => asset($moduleValue->icon),
+                    'path' => asset($moduleValue->path),
                     'created_at' => Carbon::parse($moduleValue->created_at)->format('Y-m-d'),
                     'updated_at' => Carbon::parse($moduleValue->updated_at)->format('Y-m-d'),
                     'topic' => $moduleValue->topics

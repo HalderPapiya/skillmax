@@ -1,10 +1,10 @@
 @extends('admin.app')
 @section('title')
-Topic @endsection
+Quiz @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-tags"></i> Topic</h1>
+            <h1><i class="fa fa-tags"></i> Quiz</h1>
             {{-- <h1><i class="fa fa-tags"></i> Add Category</h1> --}}
         </div>
     </div>
@@ -13,16 +13,15 @@ Topic @endsection
         <div class="col-md-8 mx-auto">
             <div class="tile">
                 <h3 class="tile-title">
-               Add Topic
+               Add Quiz
                     {{-- <span class="top-form-btn">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Category</button>
                         <a class="btn btn-secondary" href=""><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
                     </span> --}}
                 </h3>
                 <hr>
-                <form action="{{ route('admin.topic.store') }}" method="POST" role="form" enctype="multipart/form-data">
+                <form action="{{ route('admin.quiz.store') }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
-                    
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="module_id">Module <span class="m-l-5 text-danger"> *</span></label>
@@ -42,22 +41,19 @@ Topic @endsection
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
-                            <label class="control-label" for="title">Name <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" id="title" value="{{ old('title') }}"/>
-                            @error('title') {{ $message ?? '' }} @enderror
+                            <label class="control-label" for="question">Question <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('question') is-invalid @enderror" type="text" name="question" id="question" value="{{ old('question') }}"/>
+                            @error('question') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
-                            <label class="control-label " for="description">Description <span class="m-l-5 text-danger"> *</span></label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description"  id="ckeditor" ></textarea>
-                            @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message ?? '' }} </strong>
-                                </span>
-                            @enderror
+                            <label class="control-label" for="hint">Hint <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('hint') is-invalid @enderror" type="text" name="hint" id="hint" value="{{ old('hint') }}"/>
+                            @error('hint') {{ $message ?? '' }} @enderror
                         </div>
-                    </div>
+                    </div> --}}
+                   
                      <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="image">Image <span class="m-l-5 text-danger"> *</span></label>
@@ -65,10 +61,24 @@ Topic @endsection
                             @error('image') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
+                     <div class="tile-body">
+                        <div class="form-group">
+                            <label class="control-label" for="hint">Hint <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('hint') is-invalid @enderror" type="text" name="hint" id="hint" value="{{ old('hint') }}"/>
+                            @error('hint') {{ $message ?? '' }} @enderror
+                        </div>
+                    </div>
+                    <div class="tile-body">
+                        <div class="form-group">
+                            <label class="control-label" for="hint_image">Hint Image <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('hint_image') is-invalid @enderror" type="file" name="hint_image" id="hint_image" value="{{ old('hint_image') }}"/>
+                            @error('hint_image') {{ $message ?? '' }} @enderror
+                        </div>
+                    </div>
                     <div class="tile-footer">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Course</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Question</button>
                         &nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-secondary" href="{{ route('admin.topic.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
+                        <a class="btn btn-secondary" href="{{ route('admin.quiz.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
                     </div>
                 </form>
             </div>

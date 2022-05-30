@@ -67,6 +67,11 @@
                 <span class="app-menu__label">Topic</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item quiz {{ request()->is('admin/quiz*') ? 'active' : '' }}" href="{{ route('admin.quiz.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Quiz</span>
+            </a>
+        </li>
         {{-- <li>
             <a class="app-menu__item customer" href=""><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Customer</span>

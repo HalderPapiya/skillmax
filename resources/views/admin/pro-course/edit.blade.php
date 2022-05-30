@@ -34,7 +34,7 @@
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label " for="description">Description <span class="m-l-5 text-danger"> *</span></label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description"  id="ckeditor" >{{ old('name',$data->description) }}</textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description"  id="ckeditor" >{{ old('description',$data->description) }}</textarea>
                             @error('description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message ?? '' }} </strong>

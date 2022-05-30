@@ -54,10 +54,12 @@ class ModuleController extends BaseController
 
         if ($request->hasFile('icon')) {
             $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->icon->extension());
-            $request->icon->move(public_path( env('APP_URL') . '/' .'uploads/module/'), $fileName);
+            $request->icon->move(public_path( 'uploads/module/'), $fileName);
             $icon = 'uploads/module/' . $fileName;
+            $path = env('APP_URL') . '/'  . 'uploads/module/' . $fileName;
         }
         $data->icon =  $icon;
+        $data->path =  $path;
         $data->save();
 
         return $this->responseRedirect('admin.module.index', 'Module has been created successfully', 'success', false, false);
@@ -131,10 +133,12 @@ class ModuleController extends BaseController
 
         if ($request->hasFile('icon')) {
             $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->icon->extension());
-            $request->icon->move(public_path( env('APP_URL') . '/' .'uploads/module/'), $fileName);
+            $request->icon->move(public_path('uploads/module/'), $fileName);
             $icon = 'uploads/module/' . $fileName;
+            $path = env('APP_URL') . '/'  . 'uploads/module/' . $fileName;
             Module::where('id', $id)->update([
                 'icon' => $icon,
+                'path' => $path,
             ]);
         }
         

@@ -114,8 +114,13 @@ Route::get('/module/delete/{id}', [App\Http\Controllers\Api\ModuleController::cl
 
 // ---------------------Topic---------------------------
 
-Route::get('/module/{id}/topic', [App\Http\Controllers\Api\TopicController::class, 'index']);
+Route::get('/topic', [App\Http\Controllers\Api\TopicController::class, 'index']);
+// Route::get('/module/{id}/topic', [App\Http\Controllers\Api\TopicController::class, 'index']);
 Route::post('/topic/store', [App\Http\Controllers\Api\TopicController::class, 'store']);
 Route::get('/topic/show/{id}', [App\Http\Controllers\Api\TopicController::class, 'show']);
 Route::post('/topic/update/{id}', [App\Http\Controllers\Api\TopicController::class, 'update']);
 Route::get('/topic/delete/{id}', [App\Http\Controllers\Api\TopicController::class, 'destroy']);
+// ---------------------Topic---------------------------
+
+Route::get('/quiz', [App\Http\Controllers\Api\QuizController::class, 'index']);
+Route::get('/quiz/show/{id}', [App\Http\Controllers\Api\QuizController::class, 'show']);

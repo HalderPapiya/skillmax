@@ -18,6 +18,7 @@ class CreateTopicsTable extends Migration
             $table->bigInteger('module_id');
             $table->string('title');
             $table->string('image');
+            $table->string('path')->nullable();
             $table->longText('description');
             $table->softDeletes();
             $table->tinyInteger('status')->default('1')->comment('1 = Active, 0 = Inactive');

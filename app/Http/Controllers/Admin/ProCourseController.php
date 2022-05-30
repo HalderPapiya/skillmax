@@ -55,9 +55,12 @@ class ProCourseController extends BaseController
         if ($request->hasFile('image')) {
             $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->image->extension());
             $request->image->move(public_path( env('APP_URL') . '/' .'uploads/pro-course/'), $fileName);
-            $image = env('APP_URL') . '/'  . 'uploads/pro-course/' . $fileName;
+            $image = 'uploads/pro-course/' . $fileName;
+            $path = env('APP_URL') . '/'  . 'uploads/pro-course/' . $fileName;
         }
         $data->image =  $image;
+        $data->path =  $path;
+        
         $data->save();
 
         return $this->responseRedirect('admin.pro-course.index', 'Pro-course has been created successfully', 'success', false, false);
@@ -132,9 +135,11 @@ class ProCourseController extends BaseController
         if ($request->hasFile('image')) {
             $fileName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('uploads/pro-course/'), $fileName);
-            $image = 'APP_URL' . 'uploads/pro-course/' . $fileName;
+            $image = 'uploads/pro-course/' . $fileName;
+            $path = env('APP_URL') . '/'  . 'uploads/pro-course/' . $fileName;
             ProCourse::where('id', $id)->update([
                 'image' => $image,
+                'path' => $path,
             ]);
         }
 
