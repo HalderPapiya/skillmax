@@ -124,3 +124,8 @@ Route::get('/topic/delete/{id}', [App\Http\Controllers\Api\TopicController::clas
 
 Route::get('/quiz/{id}', [App\Http\Controllers\Api\QuizController::class, 'index']);
 Route::get('/quiz/show/{id}', [App\Http\Controllers\Api\QuizController::class, 'show']);
+
+
+// ---------------------User Quiz---------------------
+Route::get('/user/quiz', [App\Http\Controllers\Api\UserQuizController::class, 'index']);
+Route::post('/user/quiz/store', [App\Http\Controllers\Api\UserQuizController::class, 'store']);
