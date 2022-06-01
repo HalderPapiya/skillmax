@@ -40,7 +40,7 @@
                             @error('title') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label " for="description">Description <span class="m-l-5 text-danger"> *</span></label>
                             <textarea class="form-control @error('description') is-invalid @enderror" name="description"  id="ckeditor" >{{ old('description',$data->description) }}</textarea>
@@ -58,8 +58,55 @@
                             @error('image') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
+                      --}}
                      
-                     
+
+
+
+
+                    <div class="dynamic-field" id="dynamic-field-1">
+                        {{-- @foreach(explode('*', $data->description) as $desc)  --}}
+                        @foreach ($dataDesc as $key => $desc)
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label " for="description">Description <span class="m-l-5 text-danger"> *</span></label>
+                                {{-- <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  ></textarea> --}}
+                                <input class="form-control @error('description') is-invalid @enderror" type="text" name="description[]" id="description" value="{{ $desc }}"/>
+                                @error('description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message ?? '' }} </strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="tile-body">
+                            {{-- {{dd($dataImg)}} --}}
+                            <img src="{{asset($dataImg[$key])}}" alt="" width="100">
+                            <div class="form-group">
+                                <label class="control-label" for="image">Image <span class="m-l-5 text-danger"> *</span></label>
+                                <input class="form-control @error('image') is-invalid @enderror" type="file" name="image[]" id="image" value="{{ old('image') }}"/>
+                                @error('image') {{ $message ?? '' }} @enderror
+                            </div>
+                        </div>
+                        @endforeach
+                        
+                        
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <div>Add / Remove Images and Descriptions</div>
+                        <div>
+                            <a href="javascript:void(0)" id="add-button" class="btn btn-primary mr-3"> 
+                                <i class="fa fa-plus"></i> 
+                            </a>
+                            <a href="javascript:void(0)"  id="remove-button" class="btn btn-secondary">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+
                     <div class="tile-footer">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update Topic</button>
                         &nbsp;&nbsp;&nbsp;

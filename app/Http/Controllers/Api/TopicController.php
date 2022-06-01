@@ -19,7 +19,7 @@ class TopicController extends BaseController
     {
         $data = Topic::get();
         if ($data) {
-           
+
             return response()->json([
                 "message" => "Topic List",
                 "status" => 200,
@@ -103,5 +103,25 @@ class TopicController extends BaseController
         // $team = Team::where('id', $teamId)->update([
         //     'status' => $request->status,
         // ]);
+    }
+    public function update($id)
+    {
+        $data = Topic::where('id', $id)->update([
+            'status' => 1,
+        ]);
+
+        if ($data) {
+            return response()->json([
+                "status" => 200,
+                "message" => "Topic Update",
+                "data" =>   $data
+
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                'message' => 'Something happened'
+            ]);
+        }
     }
 }
