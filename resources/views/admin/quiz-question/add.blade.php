@@ -22,7 +22,7 @@ Quiz @endsection
                 <hr>
                 <form action="{{ route('admin.quiz.store') }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="module_id">Module <span class="m-l-5 text-danger"> *</span></label>
                             <select class="form-control @error('module_id') is-invalid @enderror"
@@ -33,6 +33,23 @@ Quiz @endsection
                                 @endforeach
                             </select>
                             @error('module_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message ?? '' }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div> --}}
+                    <div class="tile-body">
+                        <div class="form-group">
+                            <label class="control-label" for="quiz_id">Quiz <span class="m-l-5 text-danger"> *</span></label>
+                            <select class="form-control @error('quiz_id') is-invalid @enderror"
+                                name="quiz_id" id="quiz_id" value="{{ old('quiz_id') }}">
+                                <option selected disabled>Select one</option>
+                                @foreach ($quizzes as $quiz)
+                                    <option value="{{ $quiz->id }}">{{ $quiz->id }}</option>
+                                @endforeach
+                            </select>
+                            @error('quiz_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message ?? '' }} </strong>
                                 </span>
@@ -79,6 +96,19 @@ Quiz @endsection
                             <label class="control-label" for="hint_image">Hint Image <span class="m-l-5 text-danger"> </span></label>
                             <input class="form-control @error('hint_image') is-invalid @enderror" type="file" name="hint_image" id="hint_image" value="{{ old('hint_image') }}"/>
                             @error('hint_image') {{ $message ?? '' }} @enderror
+                        </div>
+                    </div>
+
+                    <div class="tile-body">
+                        <div class="form-group">
+                            <label class="control-label" for="answer">Answer <span class="m-l-5 text-danger"> </span></label>
+                            <input class="form-control @error('answer') is-invalid @enderror" type="text" name="answer" id="answer" value="{{ old('answer') }}"/>
+                            @error('answer') {{ $message ?? '' }} @enderror
+                        </div>OR
+                        <div class="form-group">
+                            <label class="control-label" for="answer_image">Answer Image <span class="m-l-5 text-danger"> </span></label>
+                            <input class="form-control @error('answer_image') is-invalid @enderror" type="file" name="answer_image" id="answer_image" value="{{ old('answer_image') }}"/>
+                            @error('answer_image') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
                     <div class="tile-body">

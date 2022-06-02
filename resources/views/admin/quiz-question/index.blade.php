@@ -21,7 +21,7 @@
                             <tr>
                                 <th>Sl. No.</th>
                                 <th> Image </th>
-                                <th> Module </th>
+                                {{-- <th> Module </th> --}}
                                 <th> Question </th>
                                 {{-- <th> Answer </th> --}}
                                 <th style="width:100px; min-width:100px;" class="text-center">Action</th>
@@ -32,7 +32,8 @@
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td><img src="{{asset($data->image)}}" width="60" /></td>
-                                    <td>{{  $data->module ? $data->module->name : 'NA' }}</td>
+                                    {{-- <td>{{  $data->module ? $data->module->name : 'NA' }}</td> --}}
+                                    {{-- <td>{{  $data->quiz ? $data->quiz->name : 'NA' }}</td> --}}
                                     <td>{{ $data->question }}</td>
                                     {{-- <td>{{ $data->answer }}</td> --}}
                                  
