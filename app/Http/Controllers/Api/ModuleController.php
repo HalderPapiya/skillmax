@@ -7,6 +7,8 @@ use App\Models\Team;
 use App\Http\Controllers\BaseController;
 use App\Models\Module;
 use App\Models\ProCourse;
+use App\Models\Quiz;
+use App\Models\QuizQuestion;
 use Carbon\Carbon;
 
 class ModuleController extends BaseController
@@ -18,8 +20,15 @@ class ModuleController extends BaseController
      */
     public function index($id)
     {
-        $moduleData = Module::with('topics')->with('quizQuestions')->where('course_id', $id)->get();
-        // return $moduleData;
+        $moduleData = Module::with('topics')->with('quiz')->where('course_id', $id)->get();
+        // $quizData = QuizQuestion::where('module_id', $id)->get();
+        // foreach ($quizData as $key => $quizValue){
+        //     $quizValue[]=[
+        //     'quizQuestion' => count($quizValue->quizQuestion),
+        //     ];
+        // }
+        // return $quizData;
+        
         // $moduleData = Module::with('proCourse')->get();
         if ($moduleData) {
             // $resp = [];
@@ -34,6 +43,7 @@ class ModuleController extends BaseController
                 //     'created_at' => Carbon::parse($moduleValue->created_at)->format('Y-m-d'),
                 //     'updated_at' => Carbon::parse($moduleValue->updated_at)->format('Y-m-d'), 
                 // ];
+                // $question =Quiz::with('quizQuestion')->where('module_id', $moduleValue->id)->get();
                 $resp[] = [
                     'id' => $moduleValue->id,
                     'type' => ($moduleKey == 0) ? 'free' : 'prime',
@@ -44,7 +54,10 @@ class ModuleController extends BaseController
                     'created_at' => Carbon::parse($moduleValue->created_at)->format('Y-m-d'),
                     'updated_at' => Carbon::parse($moduleValue->updated_at)->format('Y-m-d'),
                     'topic' => $moduleValue->topics,
-                    'Quiz' => count($moduleValue->quizQuestions)
+                    'Quiz' => $moduleValue->quiz,
+                    // 'Quiz_questions' => $moduleValue->quiz,
+                    // 'Quiz_questions' => count($question->quizQuestion)
+                    // 'Quiz_questions' =>  
                 ];
             }
             return response()->json([

@@ -129,3 +129,5 @@ Route::get('/quiz/show/{id}', [App\Http\Controllers\Api\QuizController::class, '
 // ---------------------User Quiz---------------------
 Route::get('/user/quiz', [App\Http\Controllers\Api\UserQuizController::class, 'index']);
 Route::post('/user/quiz/store', [App\Http\Controllers\Api\UserQuizController::class, 'store']);
+Route::post('/user/quiz/storeAnswer', [App\Http\Controllers\Api\UserQuizController::class, 'storeAnswer']);
+Route::get('/user/quiz/hint/{id}', [App\Http\Controllers\Api\UserQuizController::class, 'showHint']);

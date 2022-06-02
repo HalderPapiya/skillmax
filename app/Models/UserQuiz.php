@@ -9,7 +9,7 @@ class UserQuiz extends Model
     protected $table = 'user_quizzes';
 
     protected $fillable = [
-        'user_id', 'quiz_question_id', 'status'
+        'user_id', 'quiz_id', 'status'
     ];
 
     public function user()

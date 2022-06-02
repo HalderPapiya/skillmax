@@ -14,7 +14,7 @@
                 <form action="{{ route('admin.quiz-answer.update',$data->id) }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{ $data->id }}">
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="module_id">Module <span class="m-l-5 text-danger"> *</span></label>
                             <select class="form-control @error('module_id') is-invalid @enderror"
@@ -30,7 +30,7 @@
                                 </span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="question_id">Question <span class="m-l-5 text-danger"> *</span></label>

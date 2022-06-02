@@ -43,7 +43,7 @@ class QuizAnswerController extends BaseController
         // dd($request->all());
         $this->validate($request, [
             'question_id' => 'required',
-            'module_id' => 'required',
+            // 'module_id' => 'required',
             'answer_image' => 'mimes:img,jpeg,jpg,svg',
             // 'position' => 'digit',
         ]);
@@ -51,7 +51,7 @@ class QuizAnswerController extends BaseController
         $data = new QuizAnswer;
         // $team->premium_id = $request->premium_id;
         $data->question_id = $request->question_id;
-        $data->module_id = $request->module_id;
+        // $data->module_id = $request->module_id;
         $data->answer = $request->answer;
         $data->position = $request->position;
 
@@ -135,7 +135,7 @@ class QuizAnswerController extends BaseController
     {
         $this->validate($request, [
             'question_id' => 'required',
-            'module_id' => 'required',
+            // 'module_id' => 'required',
             'answer_image' => 'mimes:img,jpeg,jpg,svg',
             // 'position' => 'digit:10',
         ]);
@@ -159,7 +159,7 @@ class QuizAnswerController extends BaseController
             'question_id' => $request->question_id,
             'answer' => $request->answer,
             'position' => $request->position,
-            'module_id' => $request->module_id,
+            // 'module_id' => $request->module_id,
 
 
 

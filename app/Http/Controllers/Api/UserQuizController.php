@@ -7,8 +7,11 @@ use App\Models\UserInterest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\BaseController;
+use App\Models\QuizAnswer;
+use App\Models\QuizQuestion;
 use Illuminate\Support\Facades\Validator;
 use App\Models\UserQuiz;
+use App\Models\UserQuizAnswer;
 
 class UserQuizController extends BaseController
 {
@@ -21,11 +24,20 @@ class UserQuizController extends BaseController
     {
         $data = UserQuiz::with('quizQuestion')->get();
 
-        return response()->json([
-            "status" => 200,
-            "data" => $data,
-            "message" => "User Quiz List",
-        ]);
+
+        if ($data) {
+            return response()->json([
+                "status" => 200,
+                "message" => "User Quiz List",
+                "data" =>   $data
+
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                'message' => 'Something happened'
+            ]);
+        }
     }
 
 
@@ -50,29 +62,72 @@ class UserQuizController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-            'quiz_question_id' => 'required|array',
+            'quiz_id' => 'required',
         ]);
 
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
+        // $request->quiz_question_id= [];
+        // foreach ($request->quiz_question_id as $interestIdKey => $userQuizValue) {
 
-
-        $request->quiz_question_id= [];
-
-
-                foreach ($request->quiz_question_id as $interestIdKey => $userQuizValue) {
-                  
-                    $userQuiz = UserQuiz::create(['user_id' => $request->user_id, 'quiz_question_id' =>  $userQuizValue]);
-                    
-                }
-            
-        return response()->json([
-            "status" => 200,
-            "message" => "User Quiz Inserted Successfully",
-            "data" => $userQuiz,
+        $data = UserQuiz::create([
+            'user_id' => $request->user_id,
+            'quiz_id' =>  $request->quiz_id,
+            'status' =>  $request->status
         ]);
+
+
+        if ($data) {
+            return response()->json([
+                "status" => 200,
+                "message" => "User Quiz Inserted Successfully",
+                "data" => $data,
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                'message' => 'Something happened'
+            ]);
+        }
+    }
+
+    public function storeAnswer(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'quiz_id' => 'required',
+            'question_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        // $request->quiz_question_id= [];
+        // foreach ($request->quiz_question_id as $interestIdKey => $userQuizValue) {
+
+        $data = UserQuizAnswer::create([
+            'user_id' => $request->user_id,
+            'quiz_id' =>  $request->quiz_id,
+            'question_id' =>  $request->question_id,
+            'answer' =>  $request->answer
+        ]);
+
+
+        if ($data) {
+            return response()->json([
+                "status" => 200,
+                "message" => "User Quiz Answered Successfully",
+                "data" => $data,
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                'message' => 'Something happened'
+            ]);
+        }
     }
 
 
@@ -84,12 +139,76 @@ class UserQuizController extends BaseController
      */
     public function show($id)
     {
-        $data = UserInterest::with('interestDetails')->where('userId', $id)->get();
-        return response()->json([
-            "status" => 200,
-            "message" => "User wise interest list",
-            "data" => $data,
-        ]);
+        // $data = UserInterest::with('interestDetails')->where('userId', $id)->get();
+        // return response()->json([
+        //     "status" => 200,
+        //     "message" => "User wise interest list",
+        //     "data" => $data,
+        // ]);
+    }
+    public function showHint(Request $request , $id)
+    {
+        $dataQuestion = QuizQuestion::where('id', $id)->first();
+        $answer = $dataQuestion->answer;
+        $hint = $dataQuestion->hint;
+        $answerImage = $dataQuestion->answer_image_path;
+        $dataAnswer = QuizAnswer::where('question_id',$dataQuestion->id)->get();
+        foreach ($dataAnswer as $key => $value) {
+            $optionAns[] = $value->answer;
+            $optionAnsImage[] = $value->answer_image_path;
+           
+            
+        }
+        if(in_array($answer, $optionAns)) {
+
+            $data = UserQuizAnswer::create([
+                'user_id' => $request->user_id,
+                'quiz_id' =>  $request->quiz_id,
+                'question_id' =>  $request->question_id,
+                'answer' =>  1
+            ]);
+    
+            return $data;
+        }
+        elseif(in_array($answerImage, $optionAnsImage)){
+            return $answerImage;
+        }else{
+            // return $hint;
+            $data = UserQuizAnswer::create([
+                'user_id' => $request->user_id,
+                'quiz_id' =>  $request->quiz_id,
+                'question_id' =>  $request->question_id,
+                'answer' =>  0
+            ]);
+        }
+
+        // return $optionAnsImage;
+        // else {
+        //     // $status = "Not Paid";
+        // }
+        // return $optionAns;
+        // if($optionAns==$answer){
+        //     return   "test";
+            
+        // }
+        // if($dataAnswer){
+            
+            // return response()->json([
+            //     "status" => 200,
+            //     "message" => "User wise interest list",
+            //     "data" => $dataHint,
+            // ]);
+        // }
+        
+        // if($dataAnswer == 0){
+        //     $dataHint = QuizQuestion::where('id',$id)->first(['hint','hint_image_path']);
+        //     return response()->json([
+        //         "status" => 200,
+        //         "message" => "User wise interest list",
+        //         "data" => $dataHint,
+        //     ]);
+        // }
+        
     }
 
     /**
@@ -112,24 +231,24 @@ class UserQuizController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'interestId' => 'required',
-            'userId' => 'required',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'interestId' => 'required',
+        //     'userId' => 'required',
+        // ]);
 
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-        $userInterest = UserInterest::where('id', $request->id)->update([
-            'interestId' => $request->interestId,
-            'userId' => $request->userId,
-        ]);
+        // if ($validator->fails()) {
+        //     return $this->sendError('Validation Error.', $validator->errors());
+        // }
+        // $userInterest = UserInterest::where('id', $request->id)->update([
+        //     'interestId' => $request->interestId,
+        //     'userId' => $request->userId,
+        // ]);
 
-        return response()->json([
-            "status" => 200,
-            "data" => $userInterest,
-            "message" => "User Interest Edit Successful",
-        ]);
+        // return response()->json([
+        //     "status" => 200,
+        //     "data" => $userInterest,
+        //     "message" => "User Interest Edit Successful",
+        // ]);
     }
 
     /**
@@ -140,11 +259,11 @@ class UserQuizController extends BaseController
      */
     public function destroy($id)
     {
-        UserInterest::where('id', $id)->delete();
+        // UserInterest::where('id', $id)->delete();
 
-        return response()->json([
-            "status" => 200,
-            "message" => "User Interest Delete Successful",
-        ]);
+        // return response()->json([
+        //     "status" => 200,
+        //     "message" => "User Interest Delete Successful",
+        // ]);
     }
 }

@@ -18,7 +18,7 @@ class QuizController extends BaseController
 
     public function index($id)
     {
-        $quizData = QuizQuestion::with('quizAnswer')->where('module_id', $id)->get();
+        $quizData = QuizQuestion::with('quizAnswer')->where('quiz_id', $id)->get();
         // return $quizData;
         if ($quizData) {
            foreach ($quizData as $quizKey => $quizValue) {
@@ -31,6 +31,7 @@ class QuizController extends BaseController
                 'image' => asset($quizValue->image),
                 'path' => $quizValue->path,
                 'hint' => $quizValue->hint,
+                'answer' => $quizValue->answer,
                 'hint_image' => asset($quizValue->hint_image),
                 'hint_image_path' => $quizValue->hint_image_path,
                 'position' => $quizValue->position,
