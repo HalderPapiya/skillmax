@@ -68,6 +68,11 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item module-quiz {{ request()->is('admin/module-quiz*') ? 'active' : '' }}" href="{{ route('admin.module-quiz.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Quiz</span>
+            </a>
+        </li>
+        <li>
             <a class="app-menu__item quiz {{ request()->is('admin/quiz*') ? 'active' : '' }}" href="{{ route('admin.quiz.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Quiz Question</span>
             </a>

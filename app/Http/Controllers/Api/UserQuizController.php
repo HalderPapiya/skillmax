@@ -128,7 +128,7 @@ class UserQuizController extends BaseController
         return response()->json([
             "status" => 200,
             "data" => $userInterest,
-            "message" => "User Interest Edit Succesfull",
+            "message" => "User Interest Edit Successful",
         ]);
     }
 
@@ -144,7 +144,7 @@ class UserQuizController extends BaseController
 
         return response()->json([
             "status" => 200,
-            "message" => "User Interest Delete Succesfull",
+            "message" => "User Interest Delete Successful",
         ]);
     }
 }

@@ -6,7 +6,7 @@
             <h1><i class="fa fa-file"></i>Quiz</h1>
             <p>Quiz List</p>
         </div>
-        <a href="{{ route('admin.module-quiz.create') }}" class="btn btn-primary pull-right">Add New</a>
+        <a href="{{ route('admin.quiz.create') }}" class="btn btn-primary pull-right">Add New</a>
     </div>
     @include('admin.partials.flash')
     <div class="row">
@@ -20,7 +20,10 @@
                         <thead>
                             <tr>
                                 <th>Sl. No.</th>
+                                <th> Image </th>
                                 <th> Module </th>
+                                <th> Question </th>
+                                {{-- <th> Answer </th> --}}
                                 <th style="width:100px; min-width:100px;" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -28,13 +31,16 @@
                             @foreach($data as $key => $data)
                                 <tr>
                                     <td>{{$key + 1}}</td>
+                                    <td><img src="{{asset($data->image)}}" width="60" /></td>
                                     <td>{{  $data->module ? $data->module->name : 'NA' }}</td>
+                                    <td>{{ $data->question }}</td>
+                                    {{-- <td>{{ $data->answer }}</td> --}}
                                  
                                    
                                     <td class="text-center">
                                     
                                         <div class="btn-group" role="group" aria-label="Second group">
-                                            <a href="{{ url('admin/module-quiz/edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ url('admin/quiz/edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
                                             {{-- <a href="{{ route('admin.interest.details', $interest['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-eye"></i></a> --}}
                                              <a href="javascript: void(0)" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a>
                                         </div>
@@ -68,11 +74,38 @@
         },
         function(isConfirm){
           if (isConfirm) {
-            window.location.href = "module-quiz/delete/"+proCourseId;
+            window.location.href = "quiz/delete/"+proCourseId;
             } else {
               swal("Cancelled", "Record is safe", "error");
             }
         });
     });
     </script>
+    {{-- <script type="text/javascript">
+        $('input[id="toggle-block"]').change(function() {
+            var quiz_id = $(this).data('quiz_id');
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var check_status = 0;
+          if($(this).is(":checked")){
+              check_status = 1;
+          }else{
+            check_status = 0;
+          }
+          $.ajax({
+                type:'POST',
+                dataType:'JSON',
+                url:"{{route('admin.quiz.updateStatus')}}",
+                data:{ _token: CSRF_TOKEN, id:quiz_id, status:check_status},
+                success:function(response)
+                {
+                  swal("Success!", response.message, "success");
+                },
+                error: function(response)
+                {
+                    
+                  swal("Error!", response.message, "error");
+                }
+              });
+        });
+    </script> --}}
 @endpush

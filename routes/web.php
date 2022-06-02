@@ -147,17 +147,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/topic/edit/{id}', [App\Http\Controllers\Admin\TopicController::class, 'edit'])->name('topic.edit');
         Route::post('/topic/update/{id}', [App\Http\Controllers\Admin\TopicController::class, 'update'])->name('topic.update');
         Route::get('/topic/delete/{id}', [App\Http\Controllers\Admin\TopicController::class, 'destroy'])->name('topic.delete');
+        
 
 
-         // ---------------------Quiz---------------------------
+        // ---------------------Quiz Question---------------------------
 
-         Route::get('/quiz', [App\Http\Controllers\Admin\QuizController::class, 'index'])->name('quiz.index');
-         Route::get('/quiz/create', [App\Http\Controllers\Admin\QuizController::class, 'create'])->name('quiz.create');
-         Route::post('/quiz/store', [App\Http\Controllers\Admin\QuizController::class, 'store'])->name('quiz.store');
-         Route::get('/quiz/edit/{id}', [App\Http\Controllers\Admin\QuizController::class, 'edit'])->name('quiz.edit');
-         Route::post('/quiz/update/{id}', [App\Http\Controllers\Admin\QuizController::class, 'update'])->name('quiz.update');
-         Route::get('/quiz/delete/{id}', [App\Http\Controllers\Admin\QuizController::class, 'destroy'])->name('quiz.delete');
-         Route::post('/questuin-image/delete/{id}', [App\Http\Controllers\Admin\QuizController::class, 'deleteOldQuestionImage'])->name('questuin-image.delete');
+        Route::get('/module-quiz', [App\Http\Controllers\Admin\QuizController::class, 'index'])->name('module-quiz.index');
+        Route::get('/module-quiz/create', [App\Http\Controllers\Admin\QuizController::class, 'create'])->name('module-quiz.create');
+        Route::post('/module-quiz/store', [App\Http\Controllers\Admin\QuizController::class, 'store'])->name('module-quiz.store');
+        Route::get('/module-quiz/edit/{id}', [App\Http\Controllers\Admin\QuizController::class, 'edit'])->name('module-quiz.edit');
+        Route::post('/module-quiz/update/{id}', [App\Http\Controllers\Admin\QuizController::class, 'update'])->name('module-quiz.update');
+        Route::get('/module-quiz/delete/{id}', [App\Http\Controllers\Admin\QuizController::class, 'destroy'])->name('module-quiz.delete');
+       
+         // ---------------------Quiz Question---------------------------
+
+         Route::get('/quiz', [App\Http\Controllers\Admin\QuizQuestionController::class, 'index'])->name('quiz.index');
+         Route::get('/quiz/create', [App\Http\Controllers\Admin\QuizQuestionController::class, 'create'])->name('quiz.create');
+         Route::post('/quiz/store', [App\Http\Controllers\Admin\QuizQuestionController::class, 'store'])->name('quiz.store');
+         Route::get('/quiz/edit/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'edit'])->name('quiz.edit');
+         Route::post('/quiz/update/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'update'])->name('quiz.update');
+         Route::get('/quiz/delete/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'destroy'])->name('quiz.delete');
+         Route::post('/questuin-image/delete/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'deleteOldQuestionImage'])->name('questuin-image.delete');
         //  admin/quiz-questuin-image/delete
           // ---------------------Quiz Answer---------------------------
 

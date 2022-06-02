@@ -11,7 +11,7 @@
         <div class="col-md-8 mx-auto">
             <div class="tile">
                 <h3 class="tile-title">Edit Quiz</h3>
-                <form action="{{ route('admin.quiz.update',$data->id) }}" method="POST" role="form" enctype="multipart/form-data">
+                <form action="{{ route('admin.module-quiz.update',$data->id) }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{ $data->id }}">
                     <div class="tile-body">
@@ -31,63 +31,10 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="tile-body">
-                        <div class="form-group">
-                            <label class="control-label" for="question">Question <span class="m-l-5 text-danger"> </span></label>
-                            <input class="form-control @error('question') is-invalid @enderror" type="text" name="question" id="question" value="{{ old('question',$data->question) }}"/>
-                            @error('question') {{ $message ?? '' }} @enderror
-                        </div> OR
-                        <div class="form-group">
-                            <label class="control-label" for="image">Question Image <span class="m-l-5 text-danger"> </span></label>
-                            <img src="{{asset($data->image)}}" width="60" />
-
-                            <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image" value="{{ old('image') }}"/>
-                            @error('image') {{ $message ?? '' }} @enderror
-                        </div>
-                    </div>
-                    {{-- <div class="tile-body">
-                        <div class="form-group">
-                            <label class="control-label" for="hint">Answer <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('hint') is-invalid @enderror" type="text" name="hint" id="hint" value="{{ old('hint',$data->hint) }}"/>
-                            @error('hint') {{ $message ?? '' }} @enderror
-                        </div>
-                    </div> --}}
-                    {{-- <div class="tile-body">
-                        <div class="form-group">
-                            <img src="{{asset($data->image)}}" width="60" /></td>
-                                <a href="javascript: void(0)" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </div> --}}
-                     {{-- <div class="tile-body">                                                                                                              
-                        
-                    </div> --}}
-                    <div class="tile-body">
-                        <div class="form-group">
-                            <label class="control-label" for="position">Position <span class="m-l-5 text-danger"> </span></label>
-                            <input class="form-control @error('position') is-invalid @enderror" type="number" name="position" id="position" value="{{ old('position',$data->position) }}"/>
-                            @error('position') {{ $message ?? '' }} @enderror
-                        </div>
-                    </div>
-                      <div class="tile-body">
-                        <div class="form-group">
-                            <label class="control-label" for="hint">Hint <span class="m-l-5 text-danger"> </span></label>
-                            <input class="form-control @error('hint') is-invalid @enderror" type="text" name="hint" id="hint" value="{{ old('hint',$data->hint) }}"/>
-                            @error('hint') {{ $message ?? '' }} @enderror
-                        </div>
-                    </div>
-                    
-                    <div class="tile-body">
-                        <div class="form-group">
-                            <label class="control-label" for="hint_image">Hint Image <span class="m-l-5 text-danger"> </span></label>
-                            <img src="{{asset($data->hint_image)}}" width="60" />
-                            <input class="form-control @error('hint_image') is-invalid @enderror" type="file" name="hint_image" id="hint_image" value="{{ old('hint_image') }}"/>
-                            @error('hint_image') {{ $message ?? '' }} @enderror
-                        </div>
-                    </div>
                     <div class="tile-footer">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update Quiz</button>
                         &nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-secondary" href="{{ route('admin.quiz.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
+                        <a class="btn btn-secondary" href="{{ route('admin.module-quiz.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
                     </div>
                 </form>
             </div>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quiz extends Model
 {
-    protected $table = 'quiz_questions';
+    protected $table = 'quizzes';
 
     protected $fillable = [
         'module_id', 'status'
@@ -21,6 +21,6 @@ class Quiz extends Model
     public function quizQuestion()
     {
 
-        return $this->belongsTo('App\Models\QuizQuestion', 'quiz_id', 'id');
+        return $this->hasMany('App\Models\QuizQuestion', 'quiz_id', 'id');
     }
 }
