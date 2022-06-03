@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\BaseController;
 use App\Models\QuizAnswer;
 use App\Models\QuizQuestion;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Validator;
 use App\Models\UserQuiz;
 use App\Models\UserQuizAnswer;
 
-class UserQuizController extends BaseController
+class SubscriptionController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -62,7 +63,8 @@ class UserQuizController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-            'quiz_id' => 'required',
+            // 'start_date' => 'required',
+            // 'end_date' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -72,17 +74,17 @@ class UserQuizController extends BaseController
         // $request->quiz_question_id= [];
         // foreach ($request->quiz_question_id as $interestIdKey => $userQuizValue) {
 
-        $data = UserQuiz::create([
+        $data = Subscription::create([
             'user_id' => $request->user_id,
-            'quiz_id' =>  $request->quiz_id,
-            'status' =>  $request->status
+            'start_date' =>  $request->start_date,
+            'end_date' =>  $request->end_date
         ]);
 
 
         if ($data) {
             return response()->json([
                 "status" => 200,
-                "message" => "User Quiz Inserted Successfully",
+                "message" => "Subscription Successfully",
                 "data" => $data,
             ]);
         } else {
@@ -146,27 +148,23 @@ class UserQuizController extends BaseController
         //     "data" => $data,
         // ]);
     }
-    public function showHint(Request $request , $id)
+    public function showHint(Request $request, $id)
     {
         $dataQuestion = QuizQuestion::where('id', $id)->first();
         $answer = $dataQuestion->answer;
         $hint = $dataQuestion->hint;
         $answerImagePath = $dataQuestion->answer_image_path;
         $hintAnswerImagePath = $dataQuestion->hint_answer_image_path;
-        $dataAnswer = QuizAnswer::where('question_id',$dataQuestion->id)->get();
+        $dataAnswer = QuizAnswer::where('question_id', $dataQuestion->id)->get();
         foreach ($dataAnswer as $key => $value) {
             $optionAns[] = $value->answer;
             $optionAnsImagePath[] = $value->answer_image_path;
-           
-            
         }
-        if(in_array($answer, $optionAns)) {
+        if (in_array($answer, $optionAns)) {
             return $hint;
-        }
-        elseif(in_array($answerImagePath, $optionAnsImagePath)){
+        } elseif (in_array($answerImagePath, $optionAnsImagePath)) {
             return $hintAnswerImagePath;
-        }
-        else{
+        } else {
             return $hint;
         }
 
@@ -177,17 +175,17 @@ class UserQuizController extends BaseController
         // return $optionAns;
         // if($optionAns==$answer){
         //     return   "test";
-            
+
         // }
         // if($dataAnswer){
-            
-            // return response()->json([
-            //     "status" => 200,
-            //     "message" => "User wise interest list",
-            //     "data" => $dataHint,
-            // ]);
+
+        // return response()->json([
+        //     "status" => 200,
+        //     "message" => "User wise interest list",
+        //     "data" => $dataHint,
+        // ]);
         // }
-        
+
         // if($dataAnswer == 0){
         //     $dataHint = QuizQuestion::where('id',$id)->first(['hint','hint_image_path']);
         //     return response()->json([
@@ -196,7 +194,7 @@ class UserQuizController extends BaseController
         //         "data" => $dataHint,
         //     ]);
         // }
-        
+
     }
 
     /**

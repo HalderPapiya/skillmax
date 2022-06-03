@@ -10,6 +10,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class UserController extends BaseController
 {
@@ -54,6 +55,7 @@ class UserController extends BaseController
             'phone' => 'required|digits:10|integer|unique:users,phone',
             'college' => 'required',
             'subject' => 'required',
+            'refer_code' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -69,7 +71,8 @@ class UserController extends BaseController
         $college = $request->college;
         $subject = $request->subject;
         $passingYear = $request->passing_year;
-
+        // $referCode = $request->refer_code;
+        $referCode = "WZI" .  Str::random(9);
         // $address = $request->address;
         // $landmark = $request->landmark;
         // $city = $request->city;
@@ -79,12 +82,15 @@ class UserController extends BaseController
             'lName' => $lName,
             'email' => $email,
             'password' => Hash::make($password),
+            'refer_code' => $referCode,
+            
             // 'address' => $address,
             // 'landmark' => $landmark,
             'phone' => $phone,
             'college' => $college,
             'subject' => $subject,
             'passing_year' => $passingYear,
+            // 'refer_code' =>  Str::random(9),
             // 'pin' => $pin,
 
         ]);
@@ -182,6 +188,7 @@ class UserController extends BaseController
                     'college' => $request->college,
                     'subject' => $request->subject,
                     'passing_year' => $request->passing_year,
+                    '$refer_code' => "WZI" .  Str::random(9),
                 ]);
 
                 if ($data) {
@@ -285,7 +292,7 @@ class UserController extends BaseController
                 $success['name'] =  $user->name;
                 return response()->json([
                     "status" => 200,
-                    "message" => "Login Succesfully",
+                    "message" => "Login Successfully",
                 ]);
             }
         } else {

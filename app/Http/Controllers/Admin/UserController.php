@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 use App\Models\User;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Str;
 class UserController extends BaseController
 {
     /**
@@ -61,6 +61,7 @@ class UserController extends BaseController
         $user->password = Hash::make($request->password);
         $user->college = $request->college;
         $user->subject = $request->subject;
+        $user->refer_code = "WZI" .  Str::random(9);
         $user->save();
 
         // dd('done');

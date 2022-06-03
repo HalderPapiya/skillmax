@@ -207,6 +207,7 @@ class QuizQuestionController extends BaseController
             QuizQuestion::where('id', $id)->update([
                 'hint_image' => $hintImage,
                 'hint_image_path' => $hintImagePath,
+                'hint' => $hintImagePath,
             ]);
         } else {
             QuizQuestion::where('id', $id)->update([
