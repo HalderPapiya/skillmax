@@ -31,7 +31,7 @@
                             @foreach($data as $key => $data)
                                 <tr>
                                     <td>{{$key + 1}}</td>
-                                    <td>{{  $data->quiz ? $data->quiz->question : 'NA' }}</td>
+                                    <td>{{  $data->quizQuestion ? $data->quizQuestion->question : 'NA' }}</td>
                                     <td>{{ $data->answer }}</td>
                                     <td><img src="{{asset($data->answer_image)}}" width="60" /></td>
                                  

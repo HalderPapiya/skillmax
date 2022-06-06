@@ -42,7 +42,7 @@ Topic @endsection
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
-                            <label class="control-label" for="title">Name <span class="m-l-5 text-danger"> *</span></label>
+                            <label class="control-label" for="title">Title <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" id="title" value="{{ old('title') }}"/>
                             @error('title') {{ $message ?? '' }} @enderror
                         </div>
@@ -78,6 +78,13 @@ Topic @endsection
                             <a href="javascript:void(0)"  id="remove-button" class="btn btn-secondary">
                                 <i class="fa fa-minus"></i>
                             </a>
+                        </div>
+                    </div>
+                    <div class="tile-body">
+                        <div class="form-group">
+                            <label class="control-label" for="extra_note">Extra Note <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('extra_note') is-invalid @enderror" type="text" name="extra_note" id="extra_note" value="{{ old('extra_note') }}"/>
+                            @error('extra_note') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
                     <div class="tile-footer">

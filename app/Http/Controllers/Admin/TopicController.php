@@ -54,6 +54,7 @@ class TopicController extends BaseController
         // $team->premium_id = $request->premium_id;
         $data->module_id = $request->module_id;
         $data->title = $request->title;
+        $data->extra_note = $request->extra_note;
         $data->description = implode('*', $request->description);
         // dd($data);
         foreach ($request->image as $key => $value) {
@@ -188,6 +189,7 @@ class TopicController extends BaseController
         $data = Topic::where('id', $id)->update([
             'module_id' => $request->module_id,
             'title' => $request->title,
+            'extra_note' => $request->extra_note,
             'description' => implode('*', $request->description),
             // 'image' => $uploadedImages,
             // 'path' => $uploadedPaths

@@ -9,7 +9,7 @@ class Subscription extends Model
     protected $table = 'subscriptions';
 
     protected $fillable = [
-        'user_id', 'start_date', 'end_date', 'status'
+        'user_id', 'start_date', 'end_date', 'reason', 'status'
     ];
     public function user() 
     {

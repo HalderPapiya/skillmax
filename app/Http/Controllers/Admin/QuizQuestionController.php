@@ -85,16 +85,19 @@ class QuizQuestionController extends BaseController
 
             $data->image =  $questionImage;
             $data->path =  $path;
+            $data->question = $path;
         }
         if ($request->hasFile('hint_image')) {
 
             $data->hint_image =  $hintImage;
             $data->hint_image_path =  $hintPath;
+            $data->hint = $hintPath;
         }
         if ($request->hasFile('answer_image')) {
 
             $data->answer_image =  $answerImage;
             $data->answer_image_path =  $answerPath;
+            $data->answer = $answerPath;
         }
         $data->save();
 
@@ -174,6 +177,14 @@ class QuizQuestionController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $data=QuizQuestion::where('id', $id)->update([
+            'question' => $request->question,
+            'hint' => $request->hint,
+            'answer' => $request->answer,
+            'quiz_id' => $request->quiz_id,
+            // 'module_id' => $request->module_id,
+            'position' => $request->position,
+        ]);
         // dd($request->all());
         $this->validate($request, [
             'answer_image' => 'mimes:img,jpeg,jpg,svg',
@@ -191,11 +202,13 @@ class QuizQuestionController extends BaseController
             QuizQuestion::where('id', $id)->update([
                 'image' => $image,
                 'path' => $path,
+                'question' => $path,
             ]);
         } else {
             QuizQuestion::where('id', $id)->update([
                 'image' => '',
                 'path' => '',
+                
             ]);
         }
 
@@ -223,6 +236,7 @@ class QuizQuestionController extends BaseController
             QuizQuestion::where('id', $id)->update([
                 'answer_image' => $answerImage,
                 'answer_image_path' => $answerImagePath,
+                'answer' => $answerImagePath,
             ]);
         } else {
             QuizQuestion::where('id', $id)->update([
@@ -232,14 +246,7 @@ class QuizQuestionController extends BaseController
         }
 
 
-        $data=QuizQuestion::where('id', $id)->update([
-            'question' => $request->question,
-            'hint' => $request->hint,
-            'answer' => $request->answer,
-            'quiz_id' => $request->quiz_id,
-            // 'module_id' => $request->module_id,
-            'position' => $request->position,
-        ]);
+        
         // dd($data);
         return $this->responseRedirect('admin.quiz.index', 'Quiz has been updated successfully', 'success', false, false);
     }

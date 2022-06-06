@@ -65,6 +65,7 @@ class QuizAnswerController extends BaseController
 
             $data->answer_image =  $answerImage;
             $data->answer_image_path =  $path;
+            $data->answer = $path;
         }
         $data->save();
 
@@ -139,6 +140,12 @@ class QuizAnswerController extends BaseController
             'answer_image' => 'mimes:img,jpeg,jpg,svg',
             // 'position' => 'digit:10',
         ]);
+        QuizAnswer::where('id', $id)->update([
+            'question_id' => $request->question_id,
+            'answer' => $request->answer,
+            'position' => $request->position,
+            // 'module_id' => $request->module_id,
+        ]);
         if ($request->hasFile('answer_image')) {
             $fileName = time() . '.' . $request->answer_image->extension();
             $request->answer_image->move(public_path('uploads/quiz/'), $fileName);
@@ -147,6 +154,7 @@ class QuizAnswerController extends BaseController
             QuizAnswer::where('id', $id)->update([
                 'answer_image' => $answer_image,
                 'answer_image_path' => $path,
+                'answer' => $path,
             ]);
         } else {
             QuizAnswer::where('id', $id)->update([
@@ -155,15 +163,7 @@ class QuizAnswerController extends BaseController
             ]);
         }
 
-        QuizAnswer::where('id', $id)->update([
-            'question_id' => $request->question_id,
-            'answer' => $request->answer,
-            'position' => $request->position,
-            // 'module_id' => $request->module_id,
 
-
-
-        ]);
         return $this->responseRedirect('admin.quiz-answer.index', 'Quiz answer has been updated successfully', 'success', false, false);
     }
 

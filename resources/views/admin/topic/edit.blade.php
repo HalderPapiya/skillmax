@@ -103,7 +103,13 @@
                             </a>
                         </div>
                     </div>
-
+                    <div class="tile-body">
+                        <div class="form-group">
+                            <label class="control-label" for="extra_note">Extra Note <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('extra_note') is-invalid @enderror" type="text" name="extra_note" id="extra_note" value="{{ old('extra_note',$data->extra_note) }}"/>
+                            @error('extra_note') {{ $message ?? '' }} @enderror
+                        </div>
+                    </div>
 
 
 

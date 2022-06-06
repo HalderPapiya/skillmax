@@ -21,13 +21,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     // return $request->user();
     // Route::post('storeBlog', 'Api\BlogController@store');
-    Route::post('/user/register', [App\Http\Controllers\Api\UserController::class, 'registerApi']);
+    // Route::post('/user/register', [App\Http\Controllers\Api\UserController::class, 'registerApi']);
 });
 
 Route::post('/user/register', [App\Http\Controllers\Api\UserController::class, 'register']);
+
 Route::post('/user/login', [App\Http\Controllers\Api\UserController::class, 'login']);
 Route::post('/user/social/login', [App\Http\Controllers\Api\UserController::class, 'socialLogin']);
 Route::get('/user/details/{id}', [App\Http\Controllers\Api\UserController::class, 'show']);
+Route::get('/user/refer-code/{id}', [App\Http\Controllers\Api\UserController::class, 'showReferCode']);
+
 Route::post('/user/update', [App\Http\Controllers\Api\UserController::class, 'update']);
 Route::post('/user/change-password', [App\Http\Controllers\Api\UserController::class, 'changePassword']);
 // forgot-password

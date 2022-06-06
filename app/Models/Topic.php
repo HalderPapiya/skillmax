@@ -10,7 +10,7 @@ class Topic extends Model
     protected $table = 'topics';
 
     protected $fillable = [
-        'title', 'module_id', 'image', 'description', 'status'
+        'title', 'module_id', 'image', 'description', 'extra_note' ,'status'
     ];
     public function module() 
     {

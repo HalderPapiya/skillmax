@@ -163,12 +163,12 @@ class UserQuizController extends BaseController
         if(in_array($answer, $optionAns)) {
             return $hint;
         }
-        elseif(in_array($answerImagePath, $optionAnsImagePath)){
-            return $hintAnswerImagePath;
-        }
-        else{
-            return $hint;
-        }
+        // elseif(in_array($answerImagePath, $optionAnsImagePath)){
+        //     return $hintAnswerImagePath;
+        // }
+        // else{
+        //     return $hint;
+        // }
 
         // return $optionAnsImage;
         // else {

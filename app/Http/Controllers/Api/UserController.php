@@ -7,10 +7,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\BaseController;
+use App\Models\Subscription;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\Input;
 
 class UserController extends BaseController
 {
@@ -34,10 +37,10 @@ class UserController extends BaseController
         //
     }
 
-    public function registerApi(Request $request)
-    {
-        return response()->json(["status" => 200]);
-    }
+    // public function registerApi(Request $request)
+    // {
+    //     return response()->json(["status" => 200]);
+    // }
 
     /**
      * Register a newly created resource in storage.
@@ -55,50 +58,80 @@ class UserController extends BaseController
             'phone' => 'required|digits:10|integer|unique:users,phone',
             'college' => 'required',
             'subject' => 'required',
-            'refer_code' => 'required',
+            // 'refer_code' => 'required',
         ]);
 
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
-
-
-        $fName = $request->fName;
-        $lName = $request->lName;
-        $email    = $request->email;
-        $phone    = $request->phone;
-        $password = $request->password;
-        $college = $request->college;
-        $subject = $request->subject;
-        $passingYear = $request->passing_year;
-        // $referCode = $request->refer_code;
-        $referCode = "WZI" .  Str::random(9);
-        // $address = $request->address;
-        // $landmark = $request->landmark;
-        // $city = $request->city;
-        // $pin = $request->pin;
-        $user     = User::create([
-            'fName' => $fName,
-            'lName' => $lName,
-            'email' => $email,
-            'password' => Hash::make($password),
-            'refer_code' => $referCode,
-            
+     
+        $user = User::create([
+            'fName' => $request->fName,
+            'lName' => $request->lName,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'refer_code' => "WZI" .  random_int(100, 999),
             // 'address' => $address,
             // 'landmark' => $landmark,
-            'phone' => $phone,
-            'college' => $college,
-            'subject' => $subject,
-            'passing_year' => $passingYear,
-            // 'refer_code' =>  Str::random(9),
+            'phone' => $request->phone,
+            'college' => $request->college,
+            'subject' => $request->subject,
+            'passing_year' => $request->passing_year,
+            'used_refer_code' => $request->used_refer_code,
             // 'pin' => $pin,
+            
+        ]);
+        if($user->used_refer_code != null){
+            $userExist = Subscription::where('user_id',$request->user_id)->latest()->first();
+            // return $userExist;
+            // $userExist = Subscription::where('user_id', '=', Input::get('user_id'))->first();
+            if (!count([$userExist])) {
+                $subscription= Subscription::create([
+                    'user_id' => $request->user_id,
+                    'start_date' => $userExist->end_date,
+                    // 'end_date' => Carbon::parse($userExist->end_date)->addDays(60),
+                    'end_date' => date('Y-m-d', strtotime($userExist->end_date."+60 days"))
+                ]);
+             }else{
+                $subscription= Subscription::create([
+                    'user_id' => $request->user_id,
+                    'start_date' => Carbon::now()->format('Y-m-d'),
+                    'end_date' => date('Y-m-d', strtotime("+60 days"))
+                ]);
+             }
+             return response()->json([
+                "status" => 200,
+                "subscription" =>  [$user,$subscription],
+                "message" => "Registration Success",
+            ]);
+        }
+        // $user= User::where('used_refer_code')
+        
+            // return response()->json([
+            //     "status" => 200,
+            //     "data" => $user,
+            //     "message" => "Registration Success",
+            // ]); 
 
-        ]);
-        return response()->json([
-            "status" => 200,
-            "data" => $user,
-            "message" => "Registration Succes",
-        ]);
+            // if($user && $subscription){
+            //     return response()->json([
+            //         "status" => 200,
+            //         "subscription" => [$user,$subscription],
+            //         "message" => "Registration Success",
+            //     ]); 
+            // }elseIf
+            if($user){
+                return response()->json([
+                    "status" => 200,
+                    "subscription" =>  [$user],
+                    "message" => "Registration Success",
+                ]);
+            }else{
+                return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => 'Data update failure']);
+            }
+        
+       
+        
     }
 
     public function login(Request $request)
@@ -134,7 +167,7 @@ class UserController extends BaseController
         $user = User::find($id);
 
         if (is_null($user)) {
-            return $this->sendError('Product not found.');
+            return $this->sendError('User not found.');
         }
 
         return response()->json([
@@ -144,6 +177,26 @@ class UserController extends BaseController
         ]);
     }
 
+     /**
+     * Show the form for refer code.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showReferCode($id){
+        $data = User::where('id', $id)->first('refer_code');
+        
+        
+        if (is_null($data)) {
+            return $this->sendError('User refer-code not found.');
+        }
+
+        return response()->json([
+            "data" => $data,
+            "status" => 200,
+            "message" => "User Refer-Code",
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
