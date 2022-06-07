@@ -81,4 +81,17 @@ $(document).ready(function() {
         disableButtonRemove();
         enableButtonAdd();
     });
+
+    $(".list-unstyled").on("click", ".init", function() {
+        $(this).closest(".list-unstyled").children('li:not(.init)').toggle();
+    });
+
+    var allOptions = $(".list-unstyled").children('li:not(.init)');
+    $(".list-unstyled").on("click", "li:not(.init)", function() {
+        allOptions.removeClass('selected');
+        $(this).addClass('selected');
+        $(".list-unstyled").children('.init').html($(this).html());
+        allOptions.toggle();
+    });
+
 });

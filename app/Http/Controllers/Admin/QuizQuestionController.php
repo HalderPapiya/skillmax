@@ -7,6 +7,7 @@ use App\Models\Team;
 use App\Http\Controllers\BaseController;
 use App\Models\Module;
 use App\Models\Quiz;
+use App\Models\QuizAnswer;
 use App\Models\QuizQuestion;
 use Facade\FlareClient\Stacktrace\File;
 
@@ -31,6 +32,7 @@ class QuizQuestionController extends BaseController
     public function create()
     {
         $quizzes = Quiz::get();
+        // $quizOptions = QuizAnswer::get();
         // $modules = Module::get();
         return view('admin.quiz-question.add', compact('quizzes'));
     }
@@ -42,7 +44,7 @@ class QuizQuestionController extends BaseController
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $this->validate($request, [
             'hint_image' => 'mimes:img,jpeg,jpg,svg',
             'quiz_id' => 'required',
@@ -52,6 +54,8 @@ class QuizQuestionController extends BaseController
             'hint_image' => 'mimes:img,jpeg,jpg,svg',
             'answer_image' => 'mimes:img,jpeg,jpg,svg',
         ]);
+
+
 
         $data = new QuizQuestion;
         // $team->premium_id = $request->premium_id;
@@ -74,7 +78,7 @@ class QuizQuestionController extends BaseController
             $hintPath = env('APP_URL') . '/'  . 'uploads/quiz/' . $fileName;
             $hintImage = 'uploads/quiz/' . $fileName;
         }
-        
+
         if ($request->hasFile('answer_image')) {
             $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->answer_image->extension());
             $request->answer_image->move(public_path('uploads/quiz_answer/'), $fileName);
@@ -85,7 +89,7 @@ class QuizQuestionController extends BaseController
 
             $data->image =  $questionImage;
             $data->path =  $path;
-            $data->question = $path;
+            // $data->question = $path;
         }
         if ($request->hasFile('hint_image')) {
 
@@ -97,9 +101,52 @@ class QuizQuestionController extends BaseController
 
             $data->answer_image =  $answerImage;
             $data->answer_image_path =  $answerPath;
-            $data->answer = $answerPath;
+            // $data->answer = $answerPath;
         }
         $data->save();
+        // dd
+        $dataAns = new QuizAnswer;
+        // $subscription= QuizAnswer::create([
+        //     'question_id' => $data->question_id,
+        // ]);
+        // $team->premium_id = $request->premium_id;
+        $dataAns->question_id = $data->id;
+        // $data->module_id = $request->module_id;
+        $dataAns->answer = implode(",", $request->option_answer);
+        $dataAns->position = $request->position;
+
+        // if ($request->hasFile('answer_image')) {
+        //     $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->answer_image->extension());
+        //     $request->answer_image->move(public_path('uploads/quiz_answer/'), $fileName);
+        //     $path = env('APP_URL') . '/'  . 'uploads/quiz_answer/' . $fileName;
+        //     $answerImage = 'uploads/quiz_answer/' . $fileName;
+        // }
+        // if ($request->hasFile('answer_image')) {
+
+        //     $dataAns->answer_image =  $answerImage;
+        //     $dataAns->answer_image_path =  $path;
+        //     // $data->answer = $path;
+        // }
+
+
+
+        foreach ($request->option_answer_image as $key => $value) {
+            // if ($request->hasFile('image')) {
+            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($value->extension());
+            $value->move(public_path('uploads/quiz/'), $fileName);
+            $ansImage = 'uploads/quiz/' . $fileName;
+            $path = env('APP_URL') . '/'  . 'uploads/quiz/' . $fileName;
+            $delimeter = '';
+            if ((count($request->option_answer_image) - 1) > $key) {
+                $delimeter = ',';
+            }
+
+            $dataAns->answer_image .=  $ansImage . $delimeter;
+            $dataAns->answer_image_path .=  $path . $delimeter;
+            // }
+            // echo $path;
+        }
+        $dataAns->save();
 
         return $this->responseRedirect('admin.quiz.index', 'Quiz has been created successfully', 'success', false, false);
     }
@@ -155,7 +202,11 @@ class QuizQuestionController extends BaseController
         // $modules = Module::get();
 
         $data = QuizQuestion::find($id);
-        return view('admin.quiz-question.edit', compact('data', 'quizzes'));
+        $dataOption = QuizAnswer::where('question_id',$data->id)->first();
+        $dataOptionAns = explode(',', $dataOption->answer);
+        $dataOptionImg = explode(',', $dataOption->answer_image);
+        // dd($dataOptionAns);
+        return view('admin.quiz-question.edit', compact('data', 'quizzes','dataOption', 'dataOptionAns', 'dataOptionImg'));
     }
     // protected function deleteOldQuestionImage($id)
     // {
@@ -177,7 +228,7 @@ class QuizQuestionController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $data=QuizQuestion::where('id', $id)->update([
+        $data = QuizQuestion::where('id', $id)->update([
             'question' => $request->question,
             'hint' => $request->hint,
             'answer' => $request->answer,
@@ -202,13 +253,13 @@ class QuizQuestionController extends BaseController
             QuizQuestion::where('id', $id)->update([
                 'image' => $image,
                 'path' => $path,
-                'question' => $path,
+                // 'question' => $path,
             ]);
         } else {
             QuizQuestion::where('id', $id)->update([
                 'image' => '',
                 'path' => '',
-                
+
             ]);
         }
 
@@ -236,7 +287,7 @@ class QuizQuestionController extends BaseController
             QuizQuestion::where('id', $id)->update([
                 'answer_image' => $answerImage,
                 'answer_image_path' => $answerImagePath,
-                'answer' => $answerImagePath,
+                // 'answer' => $answerImagePath,
             ]);
         } else {
             QuizQuestion::where('id', $id)->update([
@@ -246,7 +297,7 @@ class QuizQuestionController extends BaseController
         }
 
 
-        
+
         // dd($data);
         return $this->responseRedirect('admin.quiz.index', 'Quiz has been updated successfully', 'success', false, false);
     }

@@ -16153,3 +16153,34 @@ be a descendant of the grid when it is being dragged.
     .ekko-lightbox-nav-overlay a:last-child {
         float: right;
     }
+    
+    .list-unstyled {
+        min-height: 30px;
+        width: 100%;
+        border: 1px #000 solid;
+    }
+    
+    .list-unstyled li {
+        padding: 5px 10px;
+        z-index: 2;
+    }
+    
+    .list-unstyled li:not(.init) {
+        float: left;
+        width: 100%;
+        display: none;
+        background: #ddd;
+    }
+    
+    .list-unstyled li:not(.init):hover,
+    .list-unstyled li.selected:not(.init) {
+        background: #09f;
+    }
+    
+    .list-unstyled li.init {
+        cursor: pointer;
+    }
+    
+    a#submit {
+        z-index: 1;
+    }

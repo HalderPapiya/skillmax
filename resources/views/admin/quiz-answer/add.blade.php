@@ -43,13 +43,28 @@ Quiz Answer
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="question_id">Quistion <span class="m-l-5 text-danger"> *</span></label>
-                            <select class="form-control @error('question_id') is-invalid @enderror"
+                            {{-- <select class="form-control @error('question_id') is-invalid @enderror"
                                 name="question_id" id="question_id" value="{{ old('question_id') }}">
                                 <option selected disabled>Select one</option>
                                 @foreach ($quizzes as $quiz)
-                                    <option value="{{ $quiz->id }}">{{ $quiz->question }}</option>
+                                    <option value="{{ $quiz->id }}" >
+                                        <option value="1" ><img src="{{ $quiz->path }}" style="width: 100px" class="img-thumbnail" alt="">{{asset($quiz->image)}}</option>
+                                        <img src="">
+                                    </option>
                                 @endforeach
-                            </select>
+                            </select> --}}
+
+                            <ul class="list-unstyled" >
+                                <li class="init"></li>
+                                {{-- <li data-value="value 1">Option 1</li>
+                                <li data-value="value 2">Option 2</li> --}}
+                                @foreach ($quizzes as $quiz)
+                                <input type="hidden" name="question_id">
+                                <li data-value="{{$quiz->id}}" >{{ $quiz->question }}
+                                    <img src="{{ asset($quiz->image) }}" alt="">
+                                </li>
+                                @endforeach
+                            </ul>
                             @error('question_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message ?? '' }} </strong>

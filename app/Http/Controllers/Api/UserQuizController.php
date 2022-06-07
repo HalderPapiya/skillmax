@@ -149,19 +149,21 @@ class UserQuizController extends BaseController
     public function showHint(Request $request , $id)
     {
         $dataQuestion = QuizQuestion::where('id', $id)->first();
-        $answer = $dataQuestion->answer;
+        $position = $dataQuestion->position;
         $hint = $dataQuestion->hint;
         $answerImagePath = $dataQuestion->answer_image_path;
         $hintAnswerImagePath = $dataQuestion->hint_answer_image_path;
         $dataAnswer = QuizAnswer::where('question_id',$dataQuestion->id)->get();
         foreach ($dataAnswer as $key => $value) {
-            $optionAns[] = $value->answer;
+            $optionPosition[] = $value->position;
             $optionAnsImagePath[] = $value->answer_image_path;
            
             
         }
-        if(in_array($answer, $optionAns)) {
+        if(in_array($position, $optionPosition)) {
             return $hint;
+        }else{
+            return "Hint does not exist";
         }
         // elseif(in_array($answerImagePath, $optionAnsImagePath)){
         //     return $hintAnswerImagePath;

@@ -62,7 +62,59 @@
                             @error('image') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
-                   
+                    <div class="dynamic-field" id="dynamic-field-1">
+                        @foreach ($dataOptionAns as $key => $option)
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label " for="answer">Option <span class="m-l-5 text-danger"> *</span></label>
+                                {{-- <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  ></textarea> --}}
+                                <input class="form-control @error('answer') is-invalid @enderror" type="text" name="option_answer[]" id="answer" value="{{ $option }}"/>
+                                @error('answer')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message ?? '' }} </strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
+                        </div>
+                        <div class="tile-body">
+                            @if ($dataOptionImg[0] != "")
+                                <img src="{{asset($dataOptionImg[$key])}}" alt="" width="100">
+                            @endif
+                            <div class="form-group">
+                                <label class="control-label" for="option_answer_image">Option Image <span class="m-l-5 text-danger"> *</span></label>
+                                <input class="form-control @error('option_answer_image') is-invalid @enderror" type="file" name="option_answer_image[]" id="option_answer_image" value="{{ old('option_answer_image') }}"/>
+                                @error('option_answer_image') {{ $message ?? '' }} @enderror
+                            </div>
+                        </div>
+                        @endforeach
+
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label " for="answer">Select Right {{-- nswer --}} <span class="m-l-5 text-danger"> *</span></label>
+                                {{-- <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  ></textarea> --}}
+                                {{-- <input class="form-control @error('answer') is-invalid @enderror" type="text" name="answer" id="answer" value="{{ old('answer') }}"/>
+                                <input type="radio" id="answer" name="answer" value="HTML">
+                                <label for="answer">1</label><br>
+                                @error('answer')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message ?? '' }} </strong>
+                                    </span>
+                                @enderror --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <div>Add / Remove Option Images and Option</div>
+                        <div>
+                            <a href="javascript:void(0)" id="add-button" class="btn btn-primary mr-3"> 
+                                <i class="fa fa-plus"></i> 
+                            </a>
+                            <a href="javascript:void(0)"  id="remove-button" class="btn btn-secondary">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </div>
+                    </div>
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="position">Position <span class="m-l-5 text-danger"> </span></label>
@@ -87,7 +139,7 @@
                         </div>
                     </div>
 
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="answer">Answer <span class="m-l-5 text-danger"> </span></label>
                             <input class="form-control @error('answer') is-invalid @enderror" type="text" name="answer" id="answer" value="{{ old('answer',$data->answer) }}"/>
@@ -99,7 +151,7 @@
                             <input class="form-control @error('answer_image') is-invalid @enderror" type="file" name="answer_image" id="answer_image" value="{{ old('answer_image') }}"/>
                             @error('answer_image') {{ $message ?? '' }} @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="tile-footer">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update Quiz</button>
                         &nbsp;&nbsp;&nbsp;

@@ -59,6 +59,7 @@ Quiz @endsection
                     <div class="tile-body">
                         <div class="form-group ">
                             <label class="control-label" for="question">Question <span class="m-l-5 text-danger"> </span></label>
+                            {{-- <textarea class="form-control @error('question') is-invalid @enderror" name="question"  id="ckeditor" value="{{ old('question') }}"></textarea> --}}
                             <input class="form-control @error('question') is-invalid @enderror" type="text" name="question" id="question" value="{{ old('question') }}"/>
                             @error('question') {{ $message ?? '' }} @enderror
                         </div>OR
@@ -75,10 +76,53 @@ Quiz @endsection
                             @error('hint') {{ $message ?? '' }} @enderror
                         </div>
                     </div> --}}
-                   
-                     <div class="tile-body">
-                       
+                    <div class="dynamic-field" id="dynamic-field-1">
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label " for="answer">Option <span class="m-l-5 text-danger"> *</span></label>
+                                {{-- <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  ></textarea> --}}
+                                <input class="form-control @error('answer') is-invalid @enderror" type="text" name="option_answer[]" id="answer" value="{{ old('answer') }}"/>
+                                @error('answer')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message ?? '' }} </strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label" for="option_answer_image">Option Image <span class="m-l-5 text-danger"> *</span></label>
+                                <input class="form-control @error('option_answer_image') is-invalid @enderror" type="file" name="option_answer_image[]" id="option_answer_image" value="{{ old('option_answer_image') }}"/>
+                                @error('option_answer_image') {{ $message ?? '' }} @enderror
+                            </div>
+                        </div>
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label " for="answer">Select Right {{-- nswer --}} <span class="m-l-5 text-danger"> *</span></label>
+                                {{-- <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  ></textarea> --}}
+                                {{-- <input class="form-control @error('answer') is-invalid @enderror" type="text" name="answer" id="answer" value="{{ old('answer') }}"/>
+                                <input type="radio" id="answer" name="answer" value="HTML">
+                                <label for="answer">1</label><br>
+                                @error('answer')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message ?? '' }} </strong>
+                                    </span>
+                                @enderror --}}
+                            </div>
+                        </div>
                     </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <div>Add / Remove Option Images and Option</div>
+                        <div>
+                            <a href="javascript:void(0)" id="add-button" class="btn btn-primary mr-3"> 
+                                <i class="fa fa-plus"></i> 
+                            </a>
+                            <a href="javascript:void(0)"  id="remove-button" class="btn btn-secondary">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="position">Position <span class="m-l-5 text-danger"> </span></label>
@@ -86,7 +130,7 @@ Quiz @endsection
                             @error('position') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
-                     <div class="tile-body">
+                    <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="hint">Hint <span class="m-l-5 text-danger"> </span></label>
                             <input class="form-control @error('hint') is-invalid @enderror" type="text" name="hint" id="hint" value="{{ old('hint') }}"/>
@@ -98,8 +142,29 @@ Quiz @endsection
                             @error('hint_image') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
+                    {{-- <div class="dynamic-field" id="dynamic-field-1"> --}}
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label" for="answer">Select Right Answer <span class="m-l-5 text-danger"> </span></label>
+                                {{-- @foreach ($option_answer[] as $optAns) --}}
+                                <input class="form-control @error('answer') is-invalid @enderror" type="text" name="answer[0]" id="answer" value="{{ old('answer') }}"/>
+                                {{-- @endforeach --}}
+                                @error('answer') {{ $message ?? '' }} @enderror
+                            </div>
+                        </div>
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label" for="answer">Select Right Answer <span class="m-l-5 text-danger"> </span></label>
+                                {{-- @foreach ($option_answer[] as $optAns) --}}
+                                <input class="form-control @error('answer') is-invalid @enderror" type="text" name="answer[1]" id="answer" value="{{ old('answer') }}"/>
+                                {{-- @endforeach --}}
+                                @error('answer') {{ $message ?? '' }} @enderror
+                            </div>
+                        </div>
+                       
+                    {{-- </div> --}}
 
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="answer">Answer <span class="m-l-5 text-danger"> </span></label>
                             <input class="form-control @error('answer') is-invalid @enderror" type="text" name="answer" id="answer" value="{{ old('answer') }}"/>
@@ -110,7 +175,7 @@ Quiz @endsection
                             <input class="form-control @error('answer_image') is-invalid @enderror" type="file" name="answer_image" id="answer_image" value="{{ old('answer_image') }}"/>
                             @error('answer_image') {{ $message ?? '' }} @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="tile-body">
                         
                     </div>

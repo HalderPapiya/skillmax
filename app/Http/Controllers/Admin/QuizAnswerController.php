@@ -65,7 +65,7 @@ class QuizAnswerController extends BaseController
 
             $data->answer_image =  $answerImage;
             $data->answer_image_path =  $path;
-            $data->answer = $path;
+            // $data->answer = $path;
         }
         $data->save();
 
@@ -148,13 +148,13 @@ class QuizAnswerController extends BaseController
         ]);
         if ($request->hasFile('answer_image')) {
             $fileName = time() . '.' . $request->answer_image->extension();
-            $request->answer_image->move(public_path('uploads/quiz/'), $fileName);
-            $answer_image = 'uploads/quiz/' . $fileName;
-            $path = env('APP_URL') . '/'  . 'uploads/quiz/' . $fileName;
+            $request->answer_image->move(public_path('uploads/quiz_answer/'), $fileName);
+            $answer_image = 'uploads/quiz_answer/' . $fileName;
+            $path = env('APP_URL') . '/'  . 'uploads/quiz_answer/' . $fileName;
             QuizAnswer::where('id', $id)->update([
                 'answer_image' => $answer_image,
                 'answer_image_path' => $path,
-                'answer' => $path,
+                // 'answer' => $path,
             ]);
         } else {
             QuizAnswer::where('id', $id)->update([
