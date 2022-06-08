@@ -35,6 +35,7 @@
                                     
                                         <div class="btn-group" role="group" aria-label="Second group">
                                             <a href="{{ url('admin/module-quiz/edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ url('admin/module-quiz/question-ans', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">Add Question Answer</a>
                                             {{-- <a href="{{ route('admin.interest.details', $interest['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-eye"></i></a> --}}
                                              <a href="javascript: void(0)" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a>
                                         </div>

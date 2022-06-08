@@ -19,19 +19,20 @@ class QuizQuestionController extends BaseController
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index($id)
     {
-        $data = QuizQuestion::get();
-        return view('admin.quiz-question.index', compact('data'));
+        $quizzes = Quiz::where('id', $id)->first();
+        $data = QuizQuestion::where('quiz_id',$quizzes->id)->get();
+        return view('admin.quiz-question.index', compact('data','quizzes'));
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $quizzes = Quiz::get();
+        $quizzes = Quiz::where('id', $id)->first();
         // $quizOptions = QuizAnswer::get();
         // $modules = Module::get();
         return view('admin.quiz-question.add', compact('quizzes'));
@@ -42,9 +43,12 @@ class QuizQuestionController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request )
     {
-        dd($request->all());
+        // $data = QuizQuestion::where('quiz_id', $id);
+        // $quizzes = Quiz::where('id', $id)->first();
+        // $quizId = $quizzes->id;
+        // dd($request->all());
         $this->validate($request, [
             'hint_image' => 'mimes:img,jpeg,jpg,svg',
             'quiz_id' => 'required',
@@ -104,51 +108,65 @@ class QuizQuestionController extends BaseController
             // $data->answer = $answerPath;
         }
         $data->save();
-        // dd
-        $dataAns = new QuizAnswer;
-        // $subscription= QuizAnswer::create([
-        //     'question_id' => $data->question_id,
-        // ]);
-        // $team->premium_id = $request->premium_id;
-        $dataAns->question_id = $data->id;
-        // $data->module_id = $request->module_id;
-        $dataAns->answer = implode(",", $request->option_answer);
-        $dataAns->position = $request->position;
+        $images = $request->addMore;
+    //    dd($images);
+        
+        // for ($i=0; $i < count($images); $i++) { 
+            
+    //    if($request->file('option_answer_image'));
+       
+           
+        
+     // Handle multiple file upload
+    //  $images = $request->file('option_answer_image');
+    //  $images = $request->option_answer;
+     foreach($images as $key => $image) {
+         
+         if ($request->hasFile('option_answer_image')) {
+             // store image to directory.
+             $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->option_answer_image[$key]->extension());
+             $request->option_answer_image[$key]->move(public_path('uploads/quiz_answer/'), $fileName);
+             $path = env('APP_URL') . '/'  . 'uploads/quiz_answer/' . $fileName;
+             $answerImage = 'uploads/quiz_answer/' . $fileName;
+  
+            $dataAns = new QuizAnswer();
+            $dataAns->question_id = $data->id;
+            // $dataAns->is_right = json_encode($request->is_right[$key]);
+            $dataAns->answer =json_encode($request->option_answer[$key]);
+            $dataAns->answer_image = json_encode($answerImage);
+                // $dataAns->answer_image_path = $path;
+            //  dd($dataAns);
+                
+            $dataAns->save();
+         }else{
+            $dataAns = new QuizAnswer();
+            $dataAns->question_id = $data->id;
+            $dataAns->answer =json_encode($request->option_answer[$key]);
+            // $dataAns->is_right = json_encode($request->is_right[$key]);
+            // $dataAns->answer_image_path = $path;
+            $dataAns->save();
+         }
 
-        // if ($request->hasFile('answer_image')) {
-        //     $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->answer_image->extension());
-        //     $request->answer_image->move(public_path('uploads/quiz_answer/'), $fileName);
-        //     $path = env('APP_URL') . '/'  . 'uploads/quiz_answer/' . $fileName;
-        //     $answerImage = 'uploads/quiz_answer/' . $fileName;
-        // }
-        // if ($request->hasFile('answer_image')) {
-
-        //     $dataAns->answer_image =  $answerImage;
-        //     $dataAns->answer_image_path =  $path;
-        //     // $data->answer = $path;
-        // }
-
-
-
-        foreach ($request->option_answer_image as $key => $value) {
-            // if ($request->hasFile('image')) {
-            $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($value->extension());
-            $value->move(public_path('uploads/quiz/'), $fileName);
-            $ansImage = 'uploads/quiz/' . $fileName;
-            $path = env('APP_URL') . '/'  . 'uploads/quiz/' . $fileName;
-            $delimeter = '';
-            if ((count($request->option_answer_image) - 1) > $key) {
-                $delimeter = ',';
-            }
-
-            $dataAns->answer_image .=  $ansImage . $delimeter;
-            $dataAns->answer_image_path .=  $path . $delimeter;
-            // }
-            // echo $path;
         }
-        $dataAns->save();
+        // foreach ($request->option_answer_image as $key => $value) {
+        //     // if ($request->hasFile('image')) {
+        //     $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($value->extension());
+        //     $value->move(public_path('uploads/quiz/'), $fileName);
+        //     $ansImage = 'uploads/quiz/' . $fileName;
+        //     $path = env('APP_URL') . '/'  . 'uploads/quiz/' . $fileName;
+        //     $delimeter = '';
+        //     if ((count($request->option_answer_image) - 1) > $key) {
+        //         $delimeter = ',';
+        //     }
 
-        return $this->responseRedirect('admin.quiz.index', 'Quiz has been created successfully', 'success', false, false);
+        //     $dataAns->answer_image .=  $ansImage . $delimeter;
+        //     $dataAns->answer_image_path .=  $path . $delimeter;
+        //     // }
+        //     // echo $path;
+        
+        // $dataAns->save();
+    
+        return $this->responseRedirectBack( 'Quiz has been created successfully', 'success', false, false);
     }
 
     /**
@@ -198,15 +216,16 @@ class QuizQuestionController extends BaseController
      */
     public function edit($id)
     {
-        $quizzes = Quiz::get();
+        // $quizzes = Quiz::get();
         // $modules = Module::get();
-
+        // $quizzes = Quiz::where('id', $id)->first();
         $data = QuizQuestion::find($id);
-        $dataOption = QuizAnswer::where('question_id',$data->id)->first();
-        $dataOptionAns = explode(',', $dataOption->answer);
-        $dataOptionImg = explode(',', $dataOption->answer_image);
+        $dataOption = QuizAnswer::where('question_id',$data->id)->get();
+        // dd($dataOption);
+        // $dataOptionAns = explode(',', $dataOption->answer);
+        // $dataOptionImg = explode(',', $dataOption->answer_image);
         // dd($dataOptionAns);
-        return view('admin.quiz-question.edit', compact('data', 'quizzes','dataOption', 'dataOptionAns', 'dataOptionImg'));
+        return view('admin.quiz-question.edit', compact('data','dataOption'));
     }
     // protected function deleteOldQuestionImage($id)
     // {
@@ -228,11 +247,12 @@ class QuizQuestionController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $quizId= QuizQuestion::where('id', $id)->first();
         $data = QuizQuestion::where('id', $id)->update([
             'question' => $request->question,
             'hint' => $request->hint,
             'answer' => $request->answer,
-            'quiz_id' => $request->quiz_id,
+            'quiz_id' => $quizId->quiz_id,
             // 'module_id' => $request->module_id,
             'position' => $request->position,
         ]);
@@ -295,6 +315,55 @@ class QuizQuestionController extends BaseController
                 'answer_image_path' => '',
             ]);
         }
+        $images = $request->addMore;
+        foreach($images as $key => $image) {
+         
+            if ($request->hasFile('option_answer_image')) {
+                // store image to directory.
+                $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->option_answer_image[$key]->extension());
+                $request->option_answer_image[$key]->move(public_path('uploads/quiz_answer/'), $fileName);
+                $path = env('APP_URL') . '/'  . 'uploads/quiz_answer/' . $fileName;
+                $answerImage = 'uploads/quiz_answer/' . $fileName;
+     
+                QuizAnswer::where('question_id', $data->id)->update([
+            //    $dataAns = new QuizAnswer();
+            //    $dataAns->question_id => $data->id,
+               // $dataAns->is_right = json_encode($request->is_right[$key]);
+               'answer' =>json_encode($request->option_answer[$key]),
+               'answer_image' => json_encode($answerImage),
+                   // $dataAns->answer_image_path = $path;
+               //  dd($dataAns);
+                ]);
+            }else{
+                QuizAnswer::where('question_id', $quizId->id)->update([
+            //    $dataAns->question_id = $data->id;
+                'answer' =>json_encode($request->option_answer[$key]),
+               // $dataAns->is_right = json_encode($request->is_right[$key]);
+               // $dataAns->answer_image_path = $path;
+                ]);
+            }
+   
+        //    }
+           // foreach ($request->option_answer_image as $key => $value) {
+           //     // if ($request->hasFile('image')) {
+           //     $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($value->extension());
+           //     $value->move(public_path('uploads/quiz/'), $fileName);
+           //     $ansImage = 'uploads/quiz/' . $fileName;
+           //     $path = env('APP_URL') . '/'  . 'uploads/quiz/' . $fileName;
+           //     $delimeter = '';
+           //     if ((count($request->option_answer_image) - 1) > $key) {
+           //         $delimeter = ',';
+           //     }
+   
+           //     $dataAns->answer_image .=  $ansImage . $delimeter;
+           //     $dataAns->answer_image_path .=  $path . $delimeter;
+           //     // }
+           //     // echo $path;
+           
+           // $dataAns->save();
+       
+           return $this->responseRedirectBack( 'Quiz has been created successfully', 'success', false, false);
+       }
 
 
 

@@ -72,16 +72,16 @@
                 <span class="app-menu__label">Quiz</span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a class="app-menu__item quiz {{ request()->is('admin/quiz*') ? 'active' : '' }}" href="{{ route('admin.quiz.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Quiz Question</span>
             </a>
-        </li>
-        <li>
+        </li> --}}
+        {{-- <li>
             <a class="app-menu__item quiz-answer {{ request()->is('admin/quiz-answer*') ? 'active' : '' }}" href="{{ route('admin.quiz-answer.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Quiz Answer</span>
             </a>
-        </li>
+        </li> --}}
         {{-- <li>
             <a class="app-menu__item customer" href=""><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Customer</span>

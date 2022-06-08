@@ -14,6 +14,7 @@
                 <form action="{{ route('admin.quiz.update',$data->id) }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{ $data->id }}">
+                    <input type="hidden" name="quiz_id" value="{{ $data->quiz_id }}">
                     {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="module_id">Module <span class="m-l-5 text-danger"> *</span></label>
@@ -31,7 +32,7 @@
                             @enderror
                         </div>
                     </div> --}}
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="quiz_id">Quiz <span class="m-l-5 text-danger"> *</span></label>
                             <select class="form-control @error('quiz_id') is-invalid @enderror"
@@ -47,7 +48,7 @@
                                 </span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="question">Question <span class="m-l-5 text-danger"> </span></label>
@@ -63,12 +64,15 @@
                         </div>
                     </div>
                     <div class="dynamic-field" id="dynamic-field-1">
-                        @foreach ($dataOptionAns as $key => $option)
+                        <input type="hidden" name="addMore[]">
+                        @foreach ($dataOption as $key => $option)
+                        {{-- {{dd($option)}} --}}
+
                         <div class="tile-body">
                             <div class="form-group">
                                 <label class="control-label " for="answer">Option <span class="m-l-5 text-danger"> *</span></label>
                                 {{-- <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  ></textarea> --}}
-                                <input class="form-control @error('answer') is-invalid @enderror" type="text" name="option_answer[]" id="answer" value="{{ $option }}"/>
+                                <input class="form-control @error('answer') is-invalid @enderror" type="text" name="option_answer[]" id="answer" value="{{ $option->answer?$option->answer:'NA' }}"/>
                                 @error('answer')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message ?? '' }} </strong>
@@ -78,9 +82,10 @@
                             
                         </div>
                         <div class="tile-body">
-                            @if ($dataOptionImg[0] != "")
-                                <img src="{{asset($dataOptionImg[$key])}}" alt="" width="100">
-                            @endif
+                            {{-- @if ($dataOptionImg[0] != "") --}}
+                                {{-- <img src="{{asset($dataOptionImg[$key])}}" alt="" width="100"> --}}
+                                <img src="{{asset($option->image)}}" alt="" width="100">
+                            {{-- @endif --}}
                             <div class="form-group">
                                 <label class="control-label" for="option_answer_image">Option Image <span class="m-l-5 text-danger"> *</span></label>
                                 <input class="form-control @error('option_answer_image') is-invalid @enderror" type="file" name="option_answer_image[]" id="option_answer_image" value="{{ old('option_answer_image') }}"/>

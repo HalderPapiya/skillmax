@@ -6,7 +6,8 @@
             <h1><i class="fa fa-file"></i>Quiz</h1>
             <p>Quiz List</p>
         </div>
-        <a href="{{ route('admin.quiz.create') }}" class="btn btn-primary pull-right">Add New</a>
+        {{-- <a href="{{ route('admin.quiz.create') }}" class="btn btn-primary pull-right">Add New</a> --}}
+        <a href="{{ url('admin/quiz/question-ans/create', $quizzes['id']) }}" class="btn btn-sm btn-primary edit-btn">Add Question Answer</a>
     </div>
     @include('admin.partials.flash')
     <div class="row">
