@@ -72,7 +72,7 @@
                             <div class="form-group">
                                 <label class="control-label " for="answer">Option <span class="m-l-5 text-danger"> *</span></label>
                                 {{-- <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  ></textarea> --}}
-                                <input class="form-control @error('answer') is-invalid @enderror" type="text" name="option_answer[]" id="answer" value="{{ json_decode($option->answer?$option->answer:'NA') }}"/>
+                                <input class="form-control @error('answer') is-invalid @enderror" type="text" name="option_answer[]" id="answer" value="{{ $option->answer?$option->answer:'NA' }}"/>
                                 @error('answer')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message ?? '' }} </strong>
@@ -84,7 +84,7 @@
                         <div class="tile-body">
                             {{-- @if ($dataOptionImg[0] != "") --}}
                                 {{-- <img src="{{asset($dataOptionImg[$key])}}" alt="" width="100"> --}}
-                                <img src="{{asset($option->image)}}" alt="" width="100">
+                                <img src="{{asset($option->answer_image)}}" alt="" width="100">
                             {{-- @endif --}}
                             <div class="form-group">
                                 <label class="control-label" for="option_answer_image">Option Image <span class="m-l-5 text-danger"> *</span></label>

@@ -122,7 +122,7 @@ class QuizQuestionController extends BaseController
     //  $images = $request->option_answer;
      foreach($images as $key => $image) {
          
-         if ($request->hasFile('option_answer_image')) {
+         if ($request->hasFile('option_answer_image')||$request->has('option_answer')) {
              // store image to directory.
              $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->option_answer_image[$key]->extension());
              $request->option_answer_image[$key]->move(public_path('uploads/quiz_answer/'), $fileName);
@@ -132,8 +132,8 @@ class QuizQuestionController extends BaseController
             $dataAns = new QuizAnswer();
             $dataAns->question_id = $data->id;
             // $dataAns->is_right = json_encode($request->is_right[$key]);
-            $dataAns->answer =json_encode($request->option_answer[$key]);
-            $dataAns->answer_image = json_encode($answerImage);
+            $dataAns->answer = $request->option_answer[$key];
+            $dataAns->answer_image = $answerImage;
                 // $dataAns->answer_image_path = $path;
             //  dd($dataAns);
                 
@@ -141,7 +141,8 @@ class QuizQuestionController extends BaseController
          }else{
             $dataAns = new QuizAnswer();
             $dataAns->question_id = $data->id;
-            $dataAns->answer =json_encode($request->option_answer[$key]);
+            $dataAns->answer = $request->option_answer[$key];
+            $dataAns->answer_image = "";
             // $dataAns->is_right = json_encode($request->is_right[$key]);
             // $dataAns->answer_image_path = $path;
             $dataAns->save();
@@ -247,6 +248,7 @@ class QuizQuestionController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $quizId= QuizQuestion::where('id', $id)->first();
         $data = QuizQuestion::where('id', $id)->update([
             'question' => $request->question,
@@ -325,22 +327,37 @@ class QuizQuestionController extends BaseController
                 $path = env('APP_URL') . '/'  . 'uploads/quiz_answer/' . $fileName;
                 $answerImage = 'uploads/quiz_answer/' . $fileName;
      
-                QuizAnswer::where('question_id', $data->id)->update([
+                QuizAnswer::where('question_id', $quizId->id)->where('id', $id)->update([
             //    $dataAns = new QuizAnswer();
             //    $dataAns->question_id => $data->id,
                // $dataAns->is_right = json_encode($request->is_right[$key]);
-               'answer' =>json_encode($request->option_answer[$key]),
-               'answer_image' => json_encode($answerImage),
+               'answer' =>$request->option_answer[$key],
+               'answer_image' => $answerImage,
                    // $dataAns->answer_image_path = $path;
                //  dd($dataAns);
                 ]);
             }else{
-                QuizAnswer::where('question_id', $quizId->id)->update([
-            //    $dataAns->question_id = $data->id;
-                'answer' =>json_encode($request->option_answer[$key]),
+                $answers = QuizAnswer::where('question_id', $quizId->id)->get();
+                // dd($answers);
+                foreach($answers as $ans){
+                         QuizAnswer::where('id', $ans->id)->update([
+                    
+                'answer' =>$request->option_answer[$key],
+                'answer_image' => " ",
                // $dataAns->is_right = json_encode($request->is_right[$key]);
                // $dataAns->answer_image_path = $path;
                 ]);
+                    // $ans->answer = $request->option_answer[$key];
+                    // $ans->answer_image = "";
+                    // $ans->save();
+                }
+            //     QuizAnswer::where('id', $id)->where('question_id', $quizId->id)->update([
+                    
+            //     'answer' =>$request->option_answer[$key],
+            //     'answer_image' => " ",
+            //    // $dataAns->is_right = json_encode($request->is_right[$key]);
+            //    // $dataAns->answer_image_path = $path;
+            //     ]);
             }
    
         
