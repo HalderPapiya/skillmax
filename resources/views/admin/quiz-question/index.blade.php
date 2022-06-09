@@ -76,7 +76,7 @@
         },
         function(isConfirm){
           if (isConfirm) {
-            window.location.href = "quiz/delete/"+proCourseId;
+            window.location.href = "/admin/module-quiz/question-ans/delete/"+proCourseId;
             } else {
               swal("Cancelled", "Record is safe", "error");
             }

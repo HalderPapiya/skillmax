@@ -20,6 +20,7 @@
                         <thead>
                             <tr>
                                 <th>Sl. No.</th>
+                                <th> Course </th>
                                 <th> Module </th>
                                 <th style="width:100px; min-width:100px;" class="text-center">Action</th>
                             </tr>
@@ -28,14 +29,16 @@
                             @foreach($data as $key => $data)
                                 <tr>
                                     <td>{{$key + 1}}</td>
+                                    <td>{{  $data->course ? $data->course->name : 'NA' }}</td>
                                     <td>{{  $data->module ? $data->module->name : 'NA' }}</td>
                                  
                                    
                                     <td class="text-center">
                                     
                                         <div class="btn-group" role="group" aria-label="Second group">
+                                            <a href="{{ url('admin/module-quiz/question-ans', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">Question Answer</a>
                                             <a href="{{ url('admin/module-quiz/edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
-                                            <a href="{{ url('admin/module-quiz/question-ans', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">Add Question Answer</a>
+                                            
                                             {{-- <a href="{{ route('admin.interest.details', $interest['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-eye"></i></a> --}}
                                              <a href="javascript: void(0)" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a>
                                         </div>

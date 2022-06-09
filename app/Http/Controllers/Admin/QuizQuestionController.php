@@ -343,24 +343,7 @@ class QuizQuestionController extends BaseController
                 ]);
             }
    
-        //    }
-           // foreach ($request->option_answer_image as $key => $value) {
-           //     // if ($request->hasFile('image')) {
-           //     $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($value->extension());
-           //     $value->move(public_path('uploads/quiz/'), $fileName);
-           //     $ansImage = 'uploads/quiz/' . $fileName;
-           //     $path = env('APP_URL') . '/'  . 'uploads/quiz/' . $fileName;
-           //     $delimeter = '';
-           //     if ((count($request->option_answer_image) - 1) > $key) {
-           //         $delimeter = ',';
-           //     }
-   
-           //     $dataAns->answer_image .=  $ansImage . $delimeter;
-           //     $dataAns->answer_image_path .=  $path . $delimeter;
-           //     // }
-           //     // echo $path;
-           
-           // $dataAns->save();
+        
        
            return $this->responseRedirectBack( 'Quiz has been created successfully', 'success', false, false);
        }
@@ -368,7 +351,7 @@ class QuizQuestionController extends BaseController
 
 
         // dd($data);
-        return $this->responseRedirect('admin.quiz.index', 'Quiz has been updated successfully', 'success', false, false);
+        // return $this->responseRedirect('admin.quiz.index', 'Quiz has been updated successfully', 'success', false, false);
     }
 
     /**
@@ -379,7 +362,19 @@ class QuizQuestionController extends BaseController
      */
     public function destroy($id)
     {
+
+    //    dd('here');
+// dd($option_answer);
+      
+        $data = QuizQuestion::where('id', $id)->get();
+        // dd($data);
+        foreach($data as $data){
+        QuizAnswer::where('question_id',$data->id)->delete();
+            
+        }
         QuizQuestion::where('id', $id)->delete();
-        return $this->responseRedirect('admin.quiz.index', 'Quiz has been deleted successfully', 'success', false, false);
+        
+        return $this->responseRedirectBack( 'Quiz has been deleted successfully', 'success', false, false);
+        // return $this->responseRedirect('admin.quiz.index', 'Quiz has been deleted successfully', 'success', false, false);
     }
 }

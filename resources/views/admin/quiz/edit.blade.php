@@ -14,15 +14,34 @@
                 <form action="{{ route('admin.module-quiz.update',$data->id) }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{ $data->id }}">
+                    <label class="control-label" for="course_id">Course <span class="m-l-5 text-danger"> :</span></label>{{$data->course ? $data->course->name : 'NA'}}
+                    <div class="tile-body">
+                        <div class="form-group">
+                            <label class="control-label" for="course_id">Course <span class="m-l-5 text-danger"> *</span></label>
+                            <select class="form-control @error('course_id') is-invalid @enderror"
+                                name="course_id" id="course_id" value="{{ old('course_id') }}">
+                                <option selected disabled>Select one</option>
+                                @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('course_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message ?? '' }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <label class="control-label" for="module_id">Module <span class="m-l-5 text-danger"> :</span></label>{{$data->module ? $data->module->name : 'NA'}}
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="module_id">Module <span class="m-l-5 text-danger"> *</span></label>
                             <select class="form-control @error('module_id') is-invalid @enderror"
                                 name="module_id" id="module_id" value="{{ old('module_id') }}">
                                 <option selected disabled>Select one</option>
-                                @foreach ($modules as $module)
+                                {{-- @foreach ($modules as $module)
                                     <option value="{{ $module->id }}">{{ $module->name }}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                             @error('module_id')
                                 <span class="invalid-feedback" role="alert">
@@ -64,6 +83,31 @@
             }
         });
     });
+
+
+
+    $(document).ready(function() {
+        $('#course_id').on('change', function() {
+            var course_id = $('#course_id').val();
+            $.ajax({
+                url: "{{route('admin.module-quiz.course')}}",
+                type: 'POST',
+                data: {
+                    _token: '{{csrf_token()}}',
+                    val: course_id
+                },
+                success: function(result) {
+                    var options = '<option value="" selected="" hidden="">Select Module</option>';
+                    $.each(result.sub, function(key, val) {
+                        options += '<option value="' + val.id + '">' + val.name + '</option>';
+                    });
+                    $('#module_id').empty().append(options);
+                    // $res->success = false;
+                }
+            });
+        });
+    });
+
     </script>
    
 @endpush

@@ -150,9 +150,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 
-        // ---------------------Quiz Question---------------------------
+        // ---------------------Quiz---------------------------
 
         Route::get('/module-quiz', [App\Http\Controllers\Admin\QuizController::class, 'index'])->name('module-quiz.index');
+        
+        Route::post('/module-quiz/course', [App\Http\Controllers\Admin\QuizController::class, 'manage'])->name('module-quiz.course');
+        
+        
         Route::get('/module-quiz/create', [App\Http\Controllers\Admin\QuizController::class, 'create'])->name('module-quiz.create');
         Route::post('/module-quiz/store/', [App\Http\Controllers\Admin\QuizController::class, 'store'])->name('module-quiz.store');
         Route::get('/module-quiz/edit/{id}', [App\Http\Controllers\Admin\QuizController::class, 'edit'])->name('module-quiz.edit');
@@ -168,7 +172,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/quiz/store', [App\Http\Controllers\Admin\QuizQuestionController::class, 'store'])->name('quiz.store');
         Route::get('/quiz/edit/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'edit'])->name('quiz.edit');
         Route::post('/quiz/update/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'update'])->name('quiz.update');
-        Route::get('/quiz/delete/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'destroy'])->name('quiz.delete');
+        Route::get('/module-quiz/question-ans/delete/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'destroy'])->name('quiz.delete');
         Route::post('/questuin-image/delete/{id}', [App\Http\Controllers\Admin\QuizQuestionController::class, 'deleteOldQuestionImage'])->name('questuin-image.delete');
         //  admin/quiz-questuin-image/delete
         // ---------------------Quiz Answer---------------------------

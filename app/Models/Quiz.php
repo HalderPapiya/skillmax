@@ -9,8 +9,14 @@ class Quiz extends Model
     protected $table = 'quizzes';
 
     protected $fillable = [
-        'module_id', 'status'
+       'course_id', 'module_id', 'status'
     ];
+
+    public function course()
+    {
+
+        return $this->belongsTo('App\Models\Course', 'course_id', 'id');
+    }
 
     public function module()
     {

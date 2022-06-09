@@ -13,7 +13,7 @@ Quiz @endsection
         <div class="col-md-8 mx-auto">
             <div class="tile">
                 <h3 class="tile-title">
-               Add Quiz
+               Add Question & Answers
                     {{-- <span class="top-form-btn">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Category</button>
                         <a class="btn btn-secondary" href=""><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
@@ -191,7 +191,8 @@ Quiz @endsection
                     <div class="tile-footer">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Question & Answers</button>
                         &nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-secondary" href="{{ url('admin/quiz/question-ans/create', $quizzes['id']) }}">Back</a>
+                        <a class="btn btn-secondary" href="{{ url('admin/module-quiz/question-ans', $quizzes['id']) }}">Back</a>
+                        {{-- {{ url('admin/quiz/question-ans/create', $quizzes['id']) }} --}}
                     </div>
                 </form>
             </div>
