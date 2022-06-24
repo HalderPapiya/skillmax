@@ -56,8 +56,10 @@ class UserController extends BaseController
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'phone' => 'required|digits:10|integer|unique:users,phone',
-            'college' => 'required',
-            'subject' => 'required',
+            // 'college' => 'required',
+            // 'subject' => 'required',
+            'gender' =>  'required',
+            'higher_education_id' =>  'required',
             // 'refer_code' => 'required',
         ]);
 
@@ -77,6 +79,8 @@ class UserController extends BaseController
             'college' => $request->college,
             'subject' => $request->subject,
             'passing_year' => $request->passing_year,
+            'gender' => $request->gender,
+            'higher_education_id' => $request->higher_education_id,
             'used_refer_code' => $request->used_refer_code,
             // 'pin' => $pin,
             

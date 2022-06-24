@@ -39,7 +39,7 @@ Route::post('/forgot-password', [App\Http\Controllers\Api\UserController::class,
 
 Route::get('/banner', [App\Http\Controllers\Api\BannerController::class, 'index']);
 
-
+Route::get('/higher-education', [App\Http\Controllers\Api\HigherEducationController::class, 'index']);
 // ----------------UserInterest--------------------
 
 Route::get('/user/interest', [App\Http\Controllers\Api\UserInterestController::class, 'index']);

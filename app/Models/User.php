@@ -29,6 +29,8 @@ class User extends Authenticatable
         'passing_year',
         'refer_code',
         'used_refer_code',
+        'higher_education_id',
+        'gender',
         'status',
     ];
 
