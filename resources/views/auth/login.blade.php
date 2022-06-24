@@ -15,7 +15,8 @@
 <section class="login-content">
     <div class="logo">
         {{-- <h1>Duare purohit</h1> --}}
-        <img class="w-100" src="" style="height:65px;">
+        <img class="w-100" src="{{asset('img/Pro University.png')}}" style="height:65px;">
+        
     </div>
     <div class="login-box">
         <form class="login-form" action="{{ url('admin/login') }}" method="POST" role="form">

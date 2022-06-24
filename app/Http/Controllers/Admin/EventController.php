@@ -42,6 +42,13 @@ class EventController extends BaseController
             'title' => 'required|max:200',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'start_date' => 'required',
+            'start_date' => 'required',
+            'start_date' => 'required',
+            'start_date' => 'required',
+            'start_date' => 'required',
         ]);
 
         $event = new Event();

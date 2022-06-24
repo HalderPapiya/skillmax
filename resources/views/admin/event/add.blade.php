@@ -51,14 +51,14 @@
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="start_date">Start Date <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('start_date') is-invalid @enderror" type="text" name="start_date" id="start_date" value="{{ old('start_date') }}"/>
+                            <input class="datepicker form-control @error('start_date') is-invalid @enderror" type="date" name="start_date" id="datepicker" value="{{ old('start_date') }}"/>
                             @error('start_date') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="end_date">End Date <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('end_date') is-invalid @enderror" type="text" name="end_date" id="end_date" value="{{ old('end_date') }}"/>
+                            <input class="form-control @error('end_date') is-invalid @enderror" type="date" name="end_date" id="end_date" value="{{ old('end_date') }}"/>
                             @error('end_date') {{ $message ?? '' }} @enderror
                         </div>
                     </div>
@@ -114,3 +114,21 @@
         </div>
     </div>
 @endsection
+  
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>   
+<script type="text/javascript">  
+ $(document).ready(function(){
+        // $("#btnSave").on("click",function(){
+        //     $('#form1').submit();
+        // })
+          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+        $('.date').datepicker({    
+       format: dd-mm-yyyy'  
+     });  
+    })
+      
+</script> 
+@endpush

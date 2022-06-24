@@ -1,7 +1,8 @@
 <header class="app-header">
     {{-- <a class="app-header__logo" href="#"> --}}
-     <a class="app-header__logo" href="#">{{ config('app.name') }}</a>
-    {{-- <img class="w-100" src="{{asset('img/image.png')}}"> --}}
+     <a class="app-header__logo" href="#">
+        {{-- {{ config('app.name') }}</a> --}}
+    <img class="w-50" src="{{asset('img/Pro University.png')}}">
     </a>
     {{-- <a class="app-header__logo" href="#">Duare Purohit</a> --}}
     <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
