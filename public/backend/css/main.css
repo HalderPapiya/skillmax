@@ -14031,7 +14031,7 @@ be a descendant of the grid when it is being dragged.
         padding: 0 15px;
         font-family: fontAwesome;
         color: #fff;
-        line-height: 2.4;
+        line-height:63px;
         -webkit-transition: background-color 0.3s ease;
         -o-transition: background-color 0.3s ease;
         transition: background-color 0.3s ease;
@@ -16183,4 +16183,183 @@ be a descendant of the grid when it is being dragged.
     
     a#submit {
         z-index: 1;
+    }
+    
+    /*-----------------27/06/2022-------------------*/
+    
+    .material-half-bg .cover{
+        background-color: transparent;
+    }
+    .material-half-bg{
+        background: #6eb045 url(../../img/OBJECTS11.png);
+        background-size: 47%;
+        background-position: center left;
+        background-repeat: no-repeat;
+    }
+    .login-content .login-box .login-head {
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 0;
+        text-align: left;
+        font-size: 21px;
+        font-weight: 800;
+    }
+    .login-content .login-box label {
+        color: #2a2a2a;
+        font-weight: 600;
+        margin-bottom: 6px;
+        font-size:13px;
+    }
+    .form-control:focus{
+        color:#000;
+    }
+    .btn-primary{
+        color: #FFF;
+        background-color: #388e3c;
+        border-color: #388e3c;
+    }
+    .btn-primary:hover {
+        background-color: #8bc34a;
+        border-color: #8bc34a;
+    }
+    .login-box{
+            border-radius: 15px;
+    }
+    
+    .app-header__logo{
+        background-color: #8bc34a !important;
+        padding:0 0 8px 0;
+    }
+    .app-header{
+         background-color: #8bc34a;
+    }
+    .app-sidebar__toggle:focus, .app-sidebar__toggle:hover {
+        background-color: #388e3c;
+    }
+    .app-nav__item {
+        line-height: 36px;
+        background-color: #8bc34a;
+    }
+    .account-dropdown li a:hover {
+        background-color: #388e3c;
+        color:#fff;
+    }
+    .settings-menu{
+        background: #8bc34a !important;
+        box-shadow: none !important;
+    }
+    .settings-menu li a{
+        color:#fff;
+    }
+    .app-sidebar{
+        padding-top: 66px;
+        background-color: #fff;
+    }
+    .app-content {
+        background-color: #fff;
+        margin-top: 66px;
+    }
+    .app-menu__item{
+        color:#000;
+        border-bottom: 1px solid #eeeeee;
+        font-size:14px;
+    }
+    .app-menu li {
+        border-bottom: none;
+        background-color: #fff;
+    }
+    .app-menu__item.active, .app-menu__item:hover, .app-menu__item:focus {
+        background: #388e3c;
+        border-left-color: #388e3c;
+        color: #fff;
+    }
+    .app-sidebar::-webkit-scrollbar{
+      background-color: #efefef !important;
+      width: 3px;
+    }
+    .app-sidebar::-webkit-scrollbar-thumb{
+      background-color: #8bc34a !important;
+    }
+    .app-menu{
+        padding-bottom: 36px;
+    }
+    .dash-card-col{
+        margin-bottom:15px;
+    }
+    .dash-card-col .card{
+        border-radius: 6px;
+        box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
+        border:0;
+        height:100%;
+    }
+    .dash-card-col .card:hover{
+       box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+    }
+    .dash-card-col .card h5, .dash-card-col .card p{
+        color:#2f363d;
+    }
+    .tile{
+        box-shadow: none;
+        background: transparent;
+    }
+    .custom-data-table-style thead {
+        background-color: #ddeedf;
+    }
+    .table thead th {
+        border-bottom: 1px solid #dee2e6;
+        color: #2a2a2a;
+    }
+    
+    .page-item.active .page-link {
+        z-index: 1;
+        color: #FFF;
+        background-color: #8bc34a;
+        border-color: #8bc34a;
+    }
+    .page-link {
+        color: #388e3c;
+    }
+    .page-link:hover {
+        z-index: 2;
+        color: #fff;
+        text-decoration: none;
+        background-color: #8bc34a;
+        border-color: #8bc34a;
+    }
+    .tile .tile-title {
+        margin-bottom: 25px;
+    }
+    .tile-body .form-control{
+        margin-bottom:15px;
+        height:45px;
+    }
+    #sampleTable_filter .form-control{
+        height:auto;
+    }
+    .app-title i{
+        display:none;
+    }
+    .tile-body label{
+        font-weight:600;
+        color:#000;
+        margin-bottom:5px;
+    }
+    
+    hr {
+        margin-top: 0;
+        margin-bottom: 2rem;
+    }
+    .btn-group>.btn:not(:first-child), .btn-group>.btn-group:not(:first-child)>.btn {
+        border: 1px solid #388e3c;
+    }
+    .dash-card-col a{
+        text-decoration: none;
+    }
+    .table thead th {
+        vertical-align: middle;
+    }
+    .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show>.btn-primary.dropdown-toggle {
+        background-color: #8bc34a;
+        border-color: #8bc34a;
     }

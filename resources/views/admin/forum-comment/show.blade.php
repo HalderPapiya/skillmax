@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="tile-footer">
-                        <a class="btn btn-secondary" href="{{ route('admin.forum-comment.index') }}"><i class="fa fa-fw fa-lg "></i>Back</a>
+                        <a class="btn btn-secondary" href="{{ route('admin.forum-comment.index') }}"><i class="fa fa-arrow-left"></i>Back</a>
                     </div>
                 </form>
             </div>

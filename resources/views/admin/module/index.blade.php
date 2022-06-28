@@ -3,8 +3,8 @@
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-file"></i>Team</h1>
-            <p>Team List</p>
+            <h1><i class="fa fa-file"></i>Module</h1>
+            <p>Module List</p>
         </div>
         <a href="{{ route('admin.module.create') }}" class="btn btn-primary pull-right">Add New</a>
     </div>

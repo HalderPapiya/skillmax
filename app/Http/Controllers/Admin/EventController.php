@@ -44,11 +44,12 @@ class EventController extends BaseController
             'description' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'start_date' => 'required',
-            'start_date' => 'required',
-            'start_date' => 'required',
-            'start_date' => 'required',
-            'start_date' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'website' => 'required',
+            'address' => 'required',
+            'price' => 'required',
+            'registration_link' => 'required',
         ]);
 
         $event = new Event();
@@ -126,7 +127,17 @@ class EventController extends BaseController
             'title' => 'required|max:200',
             'image' => 'mimes:jpeg,png,jpg,gif,svg',
             'description' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'website' => 'required',
+            'address' => 'required',
+            'price' => 'required',
+            'registration_link' => 'required',
         ]);
+
+        
         if ($request->hasFile('image')) {
             $fileName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('uploads/event/'), $fileName);

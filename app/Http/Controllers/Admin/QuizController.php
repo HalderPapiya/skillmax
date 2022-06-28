@@ -43,6 +43,7 @@ class QuizController extends BaseController
     {
         $this->validate($request, [
             'module_id' => 'required|unique:quizzes,module_id',
+            'course_id' => 'required',
         ]);
 
         $data = new Quiz;
@@ -89,6 +90,7 @@ class QuizController extends BaseController
     {
         $this->validate($request, [
             'module_id' => 'required|unique:quizzes,module_id',
+            'course_id' => 'required',
         ]);
 
         Quiz::where('id', $id)->update([

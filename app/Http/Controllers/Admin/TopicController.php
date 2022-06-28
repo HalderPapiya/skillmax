@@ -48,6 +48,7 @@ class TopicController extends BaseController
             'title' => 'required',
             'module_id' => 'required',
             'description' => 'required',
+            // 'extra_note' => 'required',
             // 'image' => 'required|mimes:img,jpeg,jpg,svg',
         ]);
         $data = new Topic;

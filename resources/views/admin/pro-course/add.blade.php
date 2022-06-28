@@ -57,7 +57,7 @@ Team
                         </div>
                     </div>
                     <div class="tile-footer">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Team</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Pro-Course</button>
                         &nbsp;&nbsp;&nbsp;
                         <a class="btn btn-secondary" href="{{ route('admin.pro-course.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
                     </div>

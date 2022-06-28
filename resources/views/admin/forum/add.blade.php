@@ -46,10 +46,10 @@
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="content"> Content <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control" name="content" id="content" >
+                            <textarea class="form-control" name="content" id="content" ></textarea>
                         </div>
                     </div>
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="no_of_likes"> No of Likes <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control" name="no_of_likes" id="no_of_likes" >
@@ -60,19 +60,19 @@
                             <label class="control-label" for="no_of_comment"> No of Comments <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control" name="no_of_comment" id="no_of_comment" >
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="registration_link"> Registration Link <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control" name="registration_link" id="registration_link" >
                         </div>
                     </div>
-                    <div class="tile-body">
+                    {{-- <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="content"> Content <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control" name="content" id="content">
+                            <textarea class="form-control" name="content" id="content"></textarea>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="image">Image <span class="m-l-5 text-danger"> *</span></label>

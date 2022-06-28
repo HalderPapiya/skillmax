@@ -7,14 +7,14 @@
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-tags"></i> User</h1>
+            <h1><i class="fa fa-tags"></i> Module</h1>
         </div>
     </div>
     @include('admin.partials.flash')
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="tile">
-                <h3 class="tile-title">Edit User</h3>
+                <h3 class="tile-title">Edit Module</h3>
                 <form action="{{ route('admin.module.update',$data->id) }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{ $data->id }}">
@@ -55,7 +55,7 @@
                     </div>
                      
                     <div class="tile-footer">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update Team</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update Module</button>
                         &nbsp;&nbsp;&nbsp;
                         <a class="btn btn-secondary" href="{{ route('admin.module.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
                     </div>

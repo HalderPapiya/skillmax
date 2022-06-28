@@ -2,7 +2,7 @@
     {{-- <a class="app-header__logo" href="#"> --}}
      <a class="app-header__logo" href="#">
         {{-- {{ config('app.name') }}</a> --}}
-    <img class="w-50" src="{{asset('img/Pro University.png')}}">
+    <img height="31" src="{{asset('img/pro_logo2.png')}}">
     </a>
     {{-- <a class="app-header__logo" href="#">Duare Purohit</a> --}}
     <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>

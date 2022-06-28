@@ -27,11 +27,11 @@
                 <span class="app-menu__label">User</span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a class="app-menu__item team {{ request()->is('admin/team*') ? 'active' : '' }}" href="{{ route('admin.team.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Team</span>
             </a>
-        </li>
+        </li> --}}
          <li>
             <a class="app-menu__item banner {{ request()->is('admin/banner*') ? 'active' : '' }}" href="{{ route('admin.banner.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Banner</span>

@@ -44,6 +44,7 @@ class ForumController extends BaseController
             'title' => 'required',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
             'content' => 'required',
+            'registration_link' => 'required',
         ]);
         // if ($validator->fails()) {
         //     return $this->sendError('Validation Error.', $validator->errors());
@@ -68,7 +69,9 @@ class ForumController extends BaseController
             // 'no_of_comment' => $request->no_of_comment,
 
         ]);
-        return $this->responseRedirect('admin.forum.index', 'Forum has been created successfully', 'success', false, false);
+        if($forum){
+            return $this->responseRedirect('admin.forum.index', 'Forum has been created successfully', 'success', false, false);
+        }
     }
 
     /**
