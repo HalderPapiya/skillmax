@@ -31,7 +31,7 @@ Route::post('/user/social/login', [App\Http\Controllers\Api\UserController::clas
 Route::get('/user/details/{id}', [App\Http\Controllers\Api\UserController::class, 'show']);
 Route::get('/user/refer-code/{id}', [App\Http\Controllers\Api\UserController::class, 'showReferCode']);
 
-Route::post('/user/update', [App\Http\Controllers\Api\UserController::class, 'update']);
+Route::post('/user/update/', [App\Http\Controllers\Api\UserController::class, 'update']);
 Route::post('/user/change-password', [App\Http\Controllers\Api\UserController::class, 'changePassword']);
 // forgot-password
 Route::post('/forgot-password', [App\Http\Controllers\Api\UserController::class, 'forgot'])->name('password.reset');

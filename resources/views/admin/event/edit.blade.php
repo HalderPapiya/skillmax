@@ -47,57 +47,89 @@
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="start_date">Start Date <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('start_date') is-invalid @enderror" type="text" name="start_date" id="start_date" value="{{ $event->start_date }}"/>
-                            @error('start_date') {{ $message ?? '' }} @enderror
+                            <input class="form-control @error('start_date') is-invalid @enderror" type="date" name="start_date" id="start_date" value="{{ $event->start_date }}"/>
+                            @error('start_date') 
+                            <span class="invalid-feedback" role="alert">
+                            {{ $message ?? '' }}
+                            </span>
+                             @enderror
                         </div>
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="end_date">End Date <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('end_date') is-invalid @enderror" type="text" name="end_date" id="end_date" value="{{ $event->end_date }}"/>
-                            @error('end_date') {{ $message ?? '' }} @enderror
+                            <input class="form-control @error('end_date') is-invalid @enderror" type="date" name="end_date" id="end_date" value="{{ $event->end_date }}"/>
+                            @error('end_date')
+                            <span class="invalid-feedback" role="alert">
+                                {{ $message ?? '' }}
+                                </span>
+                             @enderror
                         </div>
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="phone">Phone <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" id="phone" value="{{ $event->phone }}"/>
-                            @error('phone') {{ $message ?? '' }} @enderror
+                            @error('phone') 
+                            <span class="invalid-feedback" role="alert">
+                                {{ $message ?? '' }}
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="email">Email <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('email') is-invalid @enderror" type="text" name="email" id="email" value="{{ $event->email }}"/>
-                            @error('email') {{ $message ?? '' }} @enderror
+                            @error('email') 
+                            <span class="invalid-feedback" role="alert">
+                                {{ $message ?? '' }}
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="website">Website <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('website') is-invalid @enderror" type="text" name="website" id="website" value="{{ $event->website }}"/>
-                            @error('website') {{ $message ?? '' }} @enderror
+                            @error('website') 
+                            <span class="invalid-feedback" role="alert">
+                                {{ $message ?? '' }}
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="address">Address <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" id="address" value="{{ $event->address }}"/>
-                            @error('address') {{ $message ?? '' }} @enderror
+                            @error('address') 
+                            <span class="invalid-feedback" role="alert">
+                                {{ $message ?? '' }}
+                                </span>
+                            @enderror
                         </div>
                     </div>
                      <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="price">Price <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('price') is-invalid @enderror" type="text" name="price" id="price" value="{{ $event->price }}"/>
-                            @error('price') {{ $message ?? '' }} @enderror
+                            @error('price') 
+                            <span class="invalid-feedback" role="alert">
+                                {{ $message ?? '' }}
+                                </span>
+                             @enderror
                         </div>
                     </div>
                     <div class="tile-body">
                         <div class="form-group">
                             <label class="control-label" for="registration_link">Registration Link <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('registration_link') is-invalid @enderror" type="text" name="registration_link" id="registration_link" value="{{ $event->registration_link }}"/>
-                            @error('registration_link') {{ $message ?? '' }} @enderror
+                            @error('registration_link') 
+                            <span class="invalid-feedback" role="alert">
+                                {{ $message ?? '' }}
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="tile-footer">

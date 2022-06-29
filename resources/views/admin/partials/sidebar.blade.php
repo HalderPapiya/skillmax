@@ -37,6 +37,16 @@
                 <span class="app-menu__label">Banner</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item higher-education {{ request()->is('admin/higher-education*') ? 'active' : '' }}" href="{{ route('admin.higher-education.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Higher Education</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item industry {{ request()->is('admin/industry*') ? 'active' : '' }}" href="{{ route('admin.industry.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Industry</span>
+            </a>
+        </li>
          <li>
             <a class="app-menu__item event {{ request()->is('admin/event*') ? 'active' : '' }}" href="{{ route('admin.event.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Event</span>

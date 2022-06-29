@@ -70,8 +70,8 @@
                         <div class="tile-body">
                             <div class="form-group">
                                 <label class="control-label " for="description">Description <span class="m-l-5 text-danger"> *</span></label>
-                                {{-- <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  ></textarea> --}}
-                                <input class="form-control @error('description') is-invalid @enderror" type="text" name="description[]" id="description" value="{{ $desc }}"/>
+                                <textarea class="form-control @error('description') is-invalid @enderror" name="description[]"  >{{ $desc }}</textarea>
+                                {{-- <input class="form-control @error('description') is-invalid @enderror" type="text" name="description[]" id="description" value="{{ $desc }}"/> --}}
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message ?? '' }} </strong>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="tile-body">
                             {{-- {{dd($dataImg)}} --}}
-                            <img src="{{asset($dataImg[$key])}}" alt="" width="100">
+                            {{-- <img src="{{asset($dataImg[$key])}}" alt="" width="100"> --}}
                             <div class="form-group">
                                 <label class="control-label" for="image">Image <span class="m-l-5 text-danger"> *</span></label>
                                 <input class="form-control @error('image') is-invalid @enderror" type="file" name="image[]" id="image" value="{{ old('image') }}"/>

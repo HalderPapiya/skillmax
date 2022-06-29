@@ -15,7 +15,7 @@
 <section class="login-content">
     <div class="logo">
         {{-- <h1>Duare purohit</h1> --}}
-        <img class="w-100" src="{{asset('img/Pro University.png')}}" style="height:65px;">
+        <img class="w-100" src="{{asset('img/pro_logo2.png')}}" style="height:52px;">
         
     </div>
     <div class="login-box">
@@ -31,7 +31,7 @@
                 </div>
             @endif
             @csrf
-            <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
+            <h3 class="login-head"><!--<i class="fa fa-lg fa-fw fa-user"></i>-->Sign In</h3>
             <div class="form-group">
                 <label class="control-label" for="email">Email Address</label>
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group btn-container">
+            <div class="form-group btn-container mt-4">
                 <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
             </div>
             {{-- <a class="btn btn-link" href="{{ route('password.request') }}">Forgot Your Password?</a> --}}

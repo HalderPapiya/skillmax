@@ -84,6 +84,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 
+         // ---------------------Higher Education---------------------------
+
+         Route::get('/higher-education', [App\Http\Controllers\Admin\EducationController::class, 'index'])->name('higher-education.index');
+         Route::get('/higher-education/create', [App\Http\Controllers\Admin\EducationController::class, 'create'])->name('higher-education.create');
+         Route::post('/higher-education/store', [App\Http\Controllers\Admin\EducationController::class, 'store'])->name('higher-education.store');
+         Route::get('/higher-education/edit/{id}', [App\Http\Controllers\Admin\EducationController::class, 'edit'])->name('higher-education.edit');
+         Route::post('/higher-education/update/{id}', [App\Http\Controllers\Admin\EducationController::class, 'update'])->name('higher-education.update');
+         Route::get('/higher-education/delete/{id}', [App\Http\Controllers\Admin\EducationController::class, 'destroy'])->name('higher-education.delete');
+         Route::post('/higher-education/updateStatus', [App\Http\Controllers\Admin\EducationController::class, 'updateStatus'])->name('higher-education.updateStatus');
+
+        // ---------------------Industry---------------------------
+
+        Route::get('/industry', [App\Http\Controllers\Admin\IndustryController::class, 'index'])->name('industry.index');
+        Route::get('/industry/create', [App\Http\Controllers\Admin\IndustryController::class, 'create'])->name('industry.create');
+        Route::post('/industry/store', [App\Http\Controllers\Admin\IndustryController::class, 'store'])->name('industry.store');
+        Route::get('/industry/edit/{id}', [App\Http\Controllers\Admin\IndustryController::class, 'edit'])->name('industry.edit');
+        Route::post('/industry/update/{id}', [App\Http\Controllers\Admin\IndustryController::class, 'update'])->name('industry.update');
+        Route::get('/industry/delete/{id}', [App\Http\Controllers\Admin\IndustryController::class, 'destroy'])->name('industry.delete');
+        Route::post('/industry/updateStatus', [App\Http\Controllers\Admin\IndustryController::class, 'updateStatus'])->name('industry.updateStatus');
+
+
 
         //-----------------Announcement----------------
 
