@@ -25,6 +25,16 @@ class CreateUsersTable extends Migration
             $table->string('college');
             $table->string('subject');
             $table->string('passing_year')->nullable();
+            $table->string('dob')->nullable();
+            $table->string('type')->nullable();
+            $table->tinyInteger('prime_status')->default('1')->comment('1 = Enrolled, 0 = Not Enrolled');
+            $table->string('expire_date')->nullable();
+            $table->string('certificate')->nullable();
+            $table->tinyInteger('subscribe_to_newsletter')->default('0')->comment('1 = Yes, 0 = No');
+            $table->tinyInteger('study_abroad')->default('0')->comment('1 = Yes, 0 = No');
+            $table->tinyInteger('agree_term_condition')->default('0')->comment('1 = Yes, 0 = No');
+            $table->string('resume')->nullable();
+            $table->string('image')->nullable();
             $table->tinyInteger('status')->default('1')->comment('1 = Active, 0 = Inactive');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

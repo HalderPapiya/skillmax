@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\BaseController;
-use App\Models\HigherEducation;
+use App\Models\Industry;
 
-class HigherEducationController extends BaseController
+class IndustryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,11 @@ class HigherEducationController extends BaseController
      */
     public function index()
     {
-        $data = HigherEducation::where('status', 1)->get();
+        $data = Industry::get();
         return response()->json([
             "status" => 200,
             "data" => $data,
-            "message" => "Higher Education List",
+            "message" => "Industry List",
         ]);
     }
 

@@ -66,7 +66,7 @@ class UserController extends BaseController
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
-     
+
         $user = User::create([
             'fName' => $request->fName,
             'lName' => $request->lName,
@@ -83,67 +83,83 @@ class UserController extends BaseController
             'higher_education_id' => $request->higher_education_id,
             'used_refer_code' => $request->used_refer_code,
             // 'pin' => $pin,
-            
+
         ]);
-        if($user->used_refer_code != null){
-            $userExist = Subscription::where('user_id',$request->user_id)->latest()->first();
+        $refCode = User::where('refer_code', $request->used_refer_code)->first();
+        $refUser = $refCode->id;
+        // $refCode = User::where('refer_code', $request->used_refer_code)->first();
+        if ($user->used_refer_code != null) {
+            $userExist = Subscription::where('user_id', $request->user_id)->latest()->first();
             // return $userExist;
             // $userExist = Subscription::where('user_id', '=', Input::get('user_id'))->first();
             if (!count([$userExist])) {
-                $subscription= Subscription::create([
-                    'user_id' => $request->user_id,
+                $subscription = Subscription::create([
+                    'user_id' => $refUser,
                     'start_date' => $userExist->end_date,
                     // 'end_date' => Carbon::parse($userExist->end_date)->addDays(60),
-                    'end_date' => date('Y-m-d', strtotime($userExist->end_date."+60 days"))
+                    'end_date' => date('Y-m-d', strtotime($userExist->end_date . "+60 days"))
                 ]);
-             }else{
-                $subscription= Subscription::create([
-                    'user_id' => $request->user_id,
+            } else {
+                $subscription = Subscription::create([
+                    'user_id' => $refUser,
                     'start_date' => Carbon::now()->format('Y-m-d'),
                     'end_date' => date('Y-m-d', strtotime("+60 days"))
                 ]);
-             }
-             return response()->json([
+            }
+            return response()->json([
                 "status" => 200,
-                "subscription" =>  [$user,$subscription],
+                "subscription" =>  [$user, $subscription],
                 "message" => "Registration Success",
             ]);
         }
         // $user= User::where('used_refer_code')
-        
-            // return response()->json([
-            //     "status" => 200,
-            //     "data" => $user,
-            //     "message" => "Registration Success",
-            // ]); 
 
-            // if($user && $subscription){
-            //     return response()->json([
-            //         "status" => 200,
-            //         "subscription" => [$user,$subscription],
-            //         "message" => "Registration Success",
-            //     ]); 
-            // }elseIf
-            if($user){
-                return response()->json([
-                    "status" => 200,
-                    "subscription" =>  [$user],
-                    "message" => "Registration Success",
-                ]);
-            }else{
-                return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => 'Data update failure']);
-            }
-        
-       
-        
+        // return response()->json([
+        //     "status" => 200,
+        //     "data" => $user,
+        //     "message" => "Registration Success",
+        // ]); 
+
+        // if($user && $subscription){
+        //     return response()->json([
+        //         "status" => 200,
+        //         "subscription" => [$user,$subscription],
+        //         "message" => "Registration Success",
+        //     ]); 
+        // }elseIf
+        if ($user) {
+            return response()->json([
+                "status" => 200,
+                "subscription" =>  [$user],
+                "message" => "Registration Success",
+            ]);
+        } else {
+            return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => 'Data update failure']);
+        }
     }
 
     public function login(Request $request)
     {
-        $request->validate([
-            'phone' => 'required|digits:10|integer',
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|digits:10|integer|exists:users',
             'password' => 'required|string',
         ]);
+        // $request->validate([
+        //     'phone' => 'required|digits:10|integer|exists:users',
+        //     'password' => 'required|string|exists:users',
+        // ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => $validator->errors()->first()]);
+        }
+        $user = User::where('phone', $request->phone)->first();
+        if ((Hash::check(request('password'), $user->password)) == false) {
+            return response()->json([
+                "status" => 400,
+                // "data" => array(),
+                "message" => "Password miss match."
+            ]);
+        }
 
         if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password])) {
             $user = Auth::user();
@@ -154,10 +170,10 @@ class UserController extends BaseController
                 "message" => "Login Succesfully",
             ]);
         }
-        return response()->json([
-            "status" => 400,
-            "message" => "Unauthorised",
-        ]);
+        // return response()->json([
+        //     "status" => 400,
+        //     "message" => "Unauthorised",
+        // ]);
     }
 
     /**
@@ -181,16 +197,17 @@ class UserController extends BaseController
         ]);
     }
 
-     /**
+    /**
      * Show the form for refer code.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showReferCode($id){
+    public function showReferCode($id)
+    {
         $data = User::where('id', $id)->first('refer_code');
-        
-        
+
+
         if (is_null($data)) {
             return $this->sendError('User refer-code not found.');
         }
@@ -227,7 +244,7 @@ class UserController extends BaseController
             // 'fName' => 'required',
             // 'lName' => 'required',
             // 'lName' => 'required',
-            'phone' => 'nullable|digits:10|integer|unique:users,phone'
+            'phone' => 'nullable|digits:10|integer'
         ]);
 
         // validation check
@@ -236,6 +253,25 @@ class UserController extends BaseController
         } else {
             // error handling
             try {
+
+                if ($request->hasFile('resume')) {
+                    $fileName = time() . '.' . $request->resume->extension();
+                    $request->resume->move(public_path('uploads/user/'), $fileName);
+                    $resume = 'uploads/user/' . $fileName;
+                    // User::where('id', $request->id)->update([
+                    //     'resume' => $resume,
+                    // ]);
+                }
+
+                if ($request->hasFile('image')) {
+                    $fileName = time() . '.' . $request->image->extension();
+                    $request->image->move(public_path('uploads/user/'), $fileName);
+                    $image = 'uploads/user/' . $fileName;
+                    // User::where('id', $request->id)->update([
+                    //     'resume' => $resume,
+                    // ]);
+                }
+
                 $data = User::where('id', $request->id)->update([
                     'id' => $request->id,
                     'fName' => $request->fName,
@@ -245,7 +281,23 @@ class UserController extends BaseController
                     'college' => $request->college,
                     'subject' => $request->subject,
                     'passing_year' => $request->passing_year,
-                    '$refer_code' => "WZI" .  Str::random(9),
+                    // '$refer_code' => "WZI" .  Str::random(9),
+                    'country_code_id' => $request->country_code_id,
+                    'dob' => $request->dob,
+                    'type' => $request->type,
+                    'industry_id' => $request->industry_id,
+                    'city' => $request->city,
+                    'country' => $request->country,
+                    'prime_status' => $request->prime_status,
+                    'expire_date' => $request->expire_date,
+                    'certificate' => $request->certificate,
+                    'subscribe_to_newsletter' => $request->subscribe_to_newsletter,
+                    'study_abroad' => $request->study_abroad,
+                    'agree_term_condition' => $request->agree_term_condition,
+                    'resume' => $resume,
+                    'image' => $image,
+                    // 'passing_year' => $request->passing_year,
+
                 ]);
 
                 if ($data) {
@@ -330,9 +382,35 @@ class UserController extends BaseController
     {
         // $credentials = request()->validate(['phone' => 'required|digits:10|integer']);
 
-        Password::sendResetLink($request->only('email'));
+        // Password::sendResetLink($request->only('email'));
 
-        return response()->json(["msg" => 'Reset password link sent on your email id.', 'request' => $request->only('email')]);
+        // return response()->json(["msg" => 'Reset password link sent on your email id.', 'request' => $request->only('email')]);
+
+        $input = $request->all();
+        $rules = array(
+            'email' => "required|email",
+        );
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails()) {
+            $arr = array("status" => 400, "message" => $validator->errors()->first(), "data" => array());
+        } else {
+            try {
+                $response = Password::sendResetLink($request->only('email'), function (Message $message) {
+                    $message->subject($this->getEmailSubject());
+                });
+                switch ($response) {
+                    case Password::RESET_LINK_SENT:
+                        return \Response::json(array("status" => 200, "message" => trans($response), "data" => array()));
+                    case Password::INVALID_USER:
+                        return \Response::json(array("status" => 400, "message" => trans($response), "data" => array()));
+                }
+            } catch (\Swift_TransportException $ex) {
+                $arr = array("status" => 400, "message" => $ex->getMessage(), "data" => []);
+            } catch (Exception $ex) {
+                $arr = array("status" => 400, "message" => $ex->getMessage(), "data" => []);
+            }
+        }
+        return \Response::json($arr);
     }
 
     public function socialLogin(Request $request)

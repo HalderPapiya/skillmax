@@ -39,7 +39,7 @@ Route::post('/forgot-password', [App\Http\Controllers\Api\UserController::class,
 
 Route::get('/banner', [App\Http\Controllers\Api\BannerController::class, 'index']);
 
-Route::get('/higher-education', [App\Http\Controllers\Api\HigherEducationController::class, 'index']);
+
 // ----------------UserInterest--------------------
 
 Route::get('/user/interest', [App\Http\Controllers\Api\UserInterestController::class, 'index']);
@@ -145,4 +145,11 @@ Route::post('/user/subscription', [App\Http\Controllers\Api\SubscriptionControll
 // Route::get('/user/quiz/hint/{id}', [App\Http\Controllers\Api\UserQuizController::class, 'showHint']);
 
 
-//
+//------------------higher education-------------------------
+
+Route::get('/higher-education', [App\Http\Controllers\Api\HigherEducationController::class, 'index']);
+
+//------------------Country code-------------------------
+
+Route::get('/country-code', [App\Http\Controllers\Api\CountryCodeController::class, 'index']);
+Route::get('/industry', [App\Http\Controllers\Api\IndustryController::class, 'index']);
