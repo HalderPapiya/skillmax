@@ -100,10 +100,23 @@ Route::get('/interest', [App\Http\Controllers\Api\InterestController::class, 'in
 // ---------------------Pro-Course---------------------------
 
 Route::get('/pro-course', [App\Http\Controllers\Api\ProCourseController::class, 'index']);
+Route::get('/pro-course/module/{id?}', [App\Http\Controllers\Api\ProCourseController::class, 'courseWithModule']);
+Route::get('/category/{id}/pro-course', [App\Http\Controllers\Api\ProCourseController::class, 'catWiseCourse']);
+Route::get('/category/pro-course', [App\Http\Controllers\Api\ProCourseController::class, 'categoryWithCourse']);
 Route::post('/pro-course/store', [App\Http\Controllers\Api\ProCourseController::class, 'store']);
 Route::get('/pro-course/show/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'show']);
 Route::post('/pro-course/update/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'update']);
 Route::get('/pro-course/delete/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'destroy']);
+
+
+// ---------------------Prime---------------------------
+
+// Route::get('/pro-course', [App\Http\Controllers\Api\ProCourseController::class, 'index']);
+// Route::get('/category/{id}/pro-course', [App\Http\Controllers\Api\ProCourseController::class, 'catWiseCourse']);
+Route::post('/prime/store', [App\Http\Controllers\Api\PrimeController::class, 'store']);
+// Route::get('/pro-course/show/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'show']);
+// Route::post('/pro-course/update/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'update']);
+// Route::get('/pro-course/delete/{id}', [App\Http\Controllers\Api\ProCourseController::class, 'destroy']);
 
 
 // ---------------------Module---------------------------
@@ -153,3 +166,5 @@ Route::get('/higher-education', [App\Http\Controllers\Api\HigherEducationControl
 
 Route::get('/country-code', [App\Http\Controllers\Api\CountryCodeController::class, 'index']);
 Route::get('/industry', [App\Http\Controllers\Api\IndustryController::class, 'index']);
+Route::get('/type', [App\Http\Controllers\Api\TypeController::class, 'index']);
+Route::get('/category', [App\Http\Controllers\Api\CategoryController::class, 'index']);

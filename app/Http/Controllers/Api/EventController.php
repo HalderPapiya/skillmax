@@ -23,6 +23,8 @@ class EventController extends BaseController
             $data[] = [
                 'id' => $eventValue->id,
                 'title' => $eventValue->title,
+                'created_by' => $eventValue->created_by,
+                'time' => $eventValue->time,
                 'start_date' => $eventValue->start_date,
                 'pretty_start_date' => date('jS F, Y', strtotime($eventValue->start_date)),
                 'end_date' => $eventValue->end_date,

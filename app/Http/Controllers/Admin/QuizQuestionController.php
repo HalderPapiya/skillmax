@@ -124,15 +124,15 @@ class QuizQuestionController extends BaseController
          
          if ($request->hasFile('option_answer_image')||$request->has('option_answer')) {
              // store image to directory.
-             $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($request->option_answer_image[$key]->extension());
-             $request->option_answer_image[$key]->move(public_path('uploads/quiz_answer/'), $fileName);
+             $fileName = uniqid() . '' . date('ymdhis') . '' . uniqid() . '.' . strtolower($image->option_answer_image[$key]->extension());
+             $image->option_answer_image[$key]->move(public_path('uploads/quiz_answer/'), $fileName);
              $path = env('APP_URL') . '/'  . 'uploads/quiz_answer/' . $fileName;
              $answerImage = 'uploads/quiz_answer/' . $fileName;
   
             $dataAns = new QuizAnswer();
             $dataAns->question_id = $data->id;
             // $dataAns->is_right = json_encode($request->is_right[$key]);
-            $dataAns->answer = $request->option_answer[$key];
+            $dataAns->answer = $image->option_answer[$key];
             $dataAns->answer_image = $answerImage;
                 // $dataAns->answer_image_path = $path;
             //  dd($dataAns);

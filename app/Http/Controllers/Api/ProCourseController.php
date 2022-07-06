@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Http\Controllers\BaseController;
+use App\Models\Category;
 use App\Models\ProCourse;
 use Carbon\Carbon;
 
@@ -32,6 +33,124 @@ class ProCourseController extends BaseController
             }
             return response()->json([
                 "message" => "Course List",
+                "status" => 200,
+                "data" => $data,
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                'message' => 'Something happened'
+            ]);
+        }
+    }
+
+    public function courseWithModule($id = '')
+    {
+        // return $id;
+        if ($id != '') {
+            $proDataSelected = ProCourse::with('module')->where('id', $id)->first();
+        } else {
+            $proDataSelected = ProCourse::with('module')->get();
+        }
+        if ($proDataSelected) {
+            // foreach ($proDataSelected as $key => $dataValue) {
+            //     $data[] = [
+            //         'id' => $dataValue->id,
+            //         'mentor' => $dataValue->mentor,
+            //         'name' => $dataValue->name,
+            //         'description' => $dataValue->description,
+            //         'image' => env('APP_URL') . '/' . asset($dataValue->image),
+            //         'created_at' => Carbon::parse($dataValue->created_at)->format('Y-m-d'),
+            //         'updated_at' => Carbon::parse($dataValue->updated_at)->format('Y-m-d'),
+            //         'module' => $dataValue->module,
+            //     ];
+            // }
+            return response()->json([
+                "message" => "Course List With Module",
+                "status" => 200,
+                "data" => $proDataSelected,
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                'message' => 'Something happened'
+            ]);
+        }
+        // if($proData){
+        //     foreach ($proData as $key => $dataValue) {
+        //         // return "this";
+        //         $data[] = [
+        //             'id' => $dataValue->id,
+        //             'mentor' => $dataValue->mentor,
+        //             'name' => $dataValue->name,
+        //             'description' => $dataValue->description,
+        //             'image' => env('APP_URL') . '/' . asset($dataValue->image),
+        //             'created_at' => Carbon::parse($dataValue->created_at)->format('Y-m-d'),
+        //             'updated_at' => Carbon::parse($dataValue->updated_at)->format('Y-m-d'),
+        //             'module' => $dataValue->module,
+        //         ];
+        //     }
+        //     return response()->json([
+        //         "message" => "Course List With Module",
+        //         "status" => 200,
+        //         "data" => $data,
+        //     ]);
+        // }
+        //  else {
+        //     return response()->json([
+        //         "status" => 400,
+        //         'message' => 'Something happened'
+        //     ]);
+        // }
+    }
+    public function catWiseCourse($id)
+    {
+        $proData = ProCourse::where('category_id', $id)->get();
+
+        if ($proData) {
+            foreach ($proData as $key => $dataValue) {
+                $data[] = [
+                    'id' => $dataValue->id,
+                    'category_id' => $dataValue->category_id,
+                    'mentor' => $dataValue->mentor,
+                    'name' => $dataValue->name,
+                    'description' => $dataValue->description,
+                    'image' => env('APP_URL') . asset($dataValue->image),
+                    // 'image' => $dataValue->image,
+                    'created_at' => Carbon::parse($dataValue->created_at)->format('Y-m-d'),
+                    'updated_at' => Carbon::parse($dataValue->updated_at)->format('Y-m-d'),
+                ];
+            }
+            return response()->json([
+                "message" => "Category wise Course List",
+                "status" => 200,
+                "data" => $data,
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                'message' => 'Something happened'
+            ]);
+        }
+    }
+    public function categoryWithCourse()
+    {
+        $proData = Category::with('course')->get();
+        // return $proData;
+        if ($proData) {
+            foreach ($proData as $key => $dataValue) {
+                $data[] = [
+                    'id' => $dataValue->id,
+                    'name' => $dataValue->name,
+                    'description' => $dataValue->description,
+                    'created_at' => Carbon::parse($dataValue->created_at)->format('Y-m-d'),
+                    'updated_at' => Carbon::parse($dataValue->updated_at)->format('Y-m-d'),
+                    'course' => $dataValue->course,
+                    // 'Quiz' => $moduleValue->quiz,
+                ];
+            }
+            return response()->json([
+                "message" => "Category wise Course List",
                 "status" => 200,
                 "data" => $data,
             ]);

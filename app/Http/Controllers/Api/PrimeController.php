@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\Input;
 
-class UserController extends BaseController
+class PrimeController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -49,90 +49,72 @@ class UserController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'fName' => 'required',
-            'lName' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'phone' => 'required|digits:10|integer|unique:users,phone',
-            // 'college' => 'required',
-            // 'subject' => 'required',
-            'gender' =>  'required',
-            'higher_education_id' =>  'required',
-            // 'refer_code' => 'required',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'fName' => 'required',
+        //     'lName' => 'required',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required',
+        //     'phone' => 'required|digits:10|integer|unique:users,phone',
+        //     // 'college' => 'required',
+        //     // 'subject' => 'required',
+        //     'gender' =>  'required',
+        //     'higher_education_id' =>  'required',
+        //     // 'refer_code' => 'required',
+        // ]);
 
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
+        // if ($validator->fails()) {
+        //     return $this->sendError('Validation Error.', $validator->errors());
+        // }
 
-        $user = User::create([
-            'fName' => $request->fName,
-            'lName' => $request->lName,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'refer_code' => "WZI" .  random_int(100, 999),
-            // 'address' => $address,
-            // 'landmark' => $landmark,
-            'phone' => $request->phone,
-            'college' => $request->college,
-            'subject' => $request->subject,
-            'passing_year' => $request->passing_year,
-            'gender' => $request->gender,
-            'higher_education_id' => $request->higher_education_id,
-            'used_refer_code' => $request->used_refer_code,
-            // 'pin' => $pin,
+        // $user = User::create([
+        //     'fName' => $request->fName,
+        //     'lName' => $request->lName,
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        //     'refer_code' => "WZI" .  random_int(100, 999),
+        //     // 'address' => $address,
+        //     // 'landmark' => $landmark,
+        //     'phone' => $request->phone,
+        //     'college' => $request->college,
+        //     'subject' => $request->subject,
+        //     'passing_year' => $request->passing_year,
+        //     'gender' => $request->gender,
+        //     'higher_education_id' => $request->higher_education_id,
+        //     'used_refer_code' => $request->used_refer_code,
+        //     // 'pin' => $pin,
 
-        ]);
-        $refCode = User::where('refer_code', $request->used_refer_code)->first();
-        $refUser = $refCode->id;
+        // ]);
         // $refCode = User::where('refer_code', $request->used_refer_code)->first();
-        if ($user->used_refer_code != null) {
-            $userExist = Subscription::where('user_id', $request->user_id)->latest()->first();
+        // $refUser = $refCode->id;
+        // if ($user->used_refer_code != null) {
+            $userExist = Prime::where('user_id', $request->user_id)->latest()->first();
+            // $userExist = Prime::first();
             // return $userExist;
             // $userExist = Subscription::where('user_id', '=', Input::get('user_id'))->first();
-            if (!count([$userExist])) {
-                $subscription = Subscription::create([
-                    'user_id' => $refUser,
-                    'start_date' => $userExist->end_date,
-                    // 'end_date' => Carbon::parse($userExist->end_date)->addDays(60),
-                    'end_date' => date('Y-m-d', strtotime($userExist->end_date . "+60 days"))
+            if (!isset($userExist)){
+                $subscription = Prime::create([
+                    'user_id' => $request->user_id,
+                    'start_date' => Carbon::now()->format('Y-m-d'),
+                    'end_date' => date('Y-m-d', strtotime("+30 days"))
                 ]);
             } else {
-                $subscription = Subscription::create([
-                    'user_id' => $refUser,
-                    'start_date' => Carbon::now()->format('Y-m-d'),
-                    'end_date' => date('Y-m-d', strtotime("+60 days"))
+                $subscription = Prime::where('id', $userExist->id)->update([
+                    'user_id' => $request->user_id,
+                    'start_date' => $userExist->end_date,
+                    // 'end_date' => Carbon::parse($userExist->end_date)->addDays(60),
+                    'end_date' => date('Y-m-d', strtotime($userExist->end_date . "+30 days"))
                 ]);
             }
+           
+        // }
+        
+        if ($subscription) {
             return response()->json([
                 "status" => 200,
-                "subscription" =>  [$user, $subscription],
-                "message" => "Registration Success",
-            ]);
-        }
-        // $user= User::where('used_refer_code')
-
-        // return response()->json([
-        //     "status" => 200,
-        //     "data" => $user,
-        //     "message" => "Registration Success",
-        // ]); 
-
-        // if($user && $subscription){
-        //     return response()->json([
-        //         "status" => 200,
-        //         "subscription" => [$user,$subscription],
-        //         "message" => "Registration Success",
-        //     ]); 
-        // }elseIf
-        if ($user) {
-            return response()->json([
-                "status" => 200,
-                "subscription" =>  [$user],
-                "message" => "Registration Success",
+                "subscription" =>  $subscription,
+                "message" => "Subscription Success",
             ]);
         } else {
             return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => 'Data update failure']);
@@ -186,58 +168,16 @@ class UserController extends BaseController
     public function show($id)
     {
         $user = User::find($id);
-        $prime = Prime::where('start_date', '<=', Carbon::now())
-            ->where('end_date', '>=', Carbon::now())
-            ->first();
-        if (isset($prime)) {
-            $prime_status  = 1;
-        } else {
-            $prime_status  = 0;
-        }
+
         if (is_null($user)) {
             return $this->sendError('User not found.');
         }
 
-        if ($user) {
-            // foreach ($proData as $key => $dataValue) {
-            $data = [
-                'id' => $user->id,
-                'fName' => $user->fName,
-                'lName' => $user->lName,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'college' => $user->college,
-                'subject' => $user->subject,
-                'passing_year' => $user->passing_year,
-                'country_code_id' => $user->country_code_id,
-                'dob' => $user->dob,
-                'type' => $user->type,
-                'industry_id' => $user->industry_id,
-                'city' => $user->city,
-                'country' => $user->country,
-                'certificate' => $user->certificate,
-                'subscribe_to_newsletter' => $user->subscribe_to_newsletter,
-                'study_abroad' => $user->study_abroad,
-                'agree_term_condition' => $user->agree_term_condition,
-                'prime_status' => $prime_status,
-                // 'lName' => $user->lName,
-                'created_at' => Carbon::parse($user->created_at)->format('Y-m-d'),
-                'updated_at' => Carbon::parse($user->updated_at)->format('Y-m-d'),
-                // 'Quiz' => $moduleValue->quiz,
-            ];
-
-            // }
-            return response()->json([
-                "message" => "User Details",
-                "status" => 200,
-                "data" => $data,
-            ]);
-        } else {
-            return response()->json([
-                "status" => 400,
-                'message' => 'Something happened'
-            ]);
-        }
+        return response()->json([
+            "data" => $user,
+            "status" => 200,
+            "message" => "User Details",
+        ]);
     }
 
     /**
@@ -289,6 +229,7 @@ class UserController extends BaseController
             // 'lName' => 'required',
             'phone' => 'nullable|digits:10|integer'
         ]);
+
         // validation check
         if ($validator->fails()) {
             return response()->json(['status' => 400, 'message' => 'Something happened', 'data' => $validator->errors()->first()]);
@@ -314,8 +255,6 @@ class UserController extends BaseController
                     // ]);
                 }
 
-
-                //    return $prime;
                 $data = User::where('id', $request->id)->update([
                     'id' => $request->id,
                     'fName' => $request->fName,
@@ -332,15 +271,14 @@ class UserController extends BaseController
                     'industry_id' => $request->industry_id,
                     'city' => $request->city,
                     'country' => $request->country,
-                    // 'prime_status' => $request->prime_status,
-                    // 'prime_status' => $prime_status,
+                    'prime_status' => $request->prime_status,
                     'expire_date' => $request->expire_date,
                     'certificate' => $request->certificate,
                     'subscribe_to_newsletter' => $request->subscribe_to_newsletter,
                     'study_abroad' => $request->study_abroad,
                     'agree_term_condition' => $request->agree_term_condition,
-                    'resume' => $resume ?? 0,
-                    'image' => $image ?? 0,
+                    'resume' => $resume,
+                    'image' => $image,
                     // 'passing_year' => $request->passing_year,
 
                 ]);
